@@ -45,7 +45,7 @@ namespace Twitticide
             var target = new Relationship();
             target.UpdateFollowStatus(true);
             target.UpdateFollowStatus(false);
-            Assert.AreEqual(Relationship.StatusEnum.NotFollowing, target.Status);
+            Assert.AreEqual(Relationship.StatusEnum.Unfollowed, target.Status);
         }
     }
 }
