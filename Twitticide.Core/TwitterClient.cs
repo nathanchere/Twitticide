@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Win32;
+using Tweetinvi;
 
 namespace Twitticide
 {
@@ -10,5 +13,31 @@ namespace Twitticide
     {
         private const string REG_PATH = @"HKEY_CURRENT_USER\SOFTWARE\NathanChere\Twitticide";
 
+        #region .ctor
+        public TwitterClient() : this(null, null, null, null) { }
+
+        public TwitterClient(string apiKey, string apiKeySecret, string accessToken, string accessTokenSecret)
+        {
+            const string KEY_API = @"ApiKey";
+            const string KEY_APIPRIVATE = @"ApiSecret";
+            const string KEY_TOKEN = @"AccessToken";
+            const string KEY_TOKENPRIVATE = @"AccessTokenSecret";
+
+            TwitterCredentials.SetCredentials(
+                GetConfigValue(accessToken, KEY_TOKEN),
+                GetConfigValue(accessTokenSecret, KEY_TOKENPRIVATE),
+                GetConfigValue(apiKey, KEY_API),
+                GetConfigValue(apiKeySecret, KEY_APIPRIVATE));
+        }
+
+        private string GetConfigValue(string defaultValue, string index)
+        {
+            var result = defaultValue
+                         ?? (string)Registry.GetValue(REG_PATH, index, null)
+                         ?? ConfigurationManager.AppSettings[index];
+            if (result == null) throw new ConfigurationErrorsException("No defaultValue for " + index + " found in registry or app.config");
+            return result;
+        }
+        #endregion        
     }
 }
