@@ -8,15 +8,18 @@ namespace Twitticide
 {
     class TwitterContact
     {
+        public TwitterContact()
+        {
+            OutwardRelationship = new Relationship();
+            InwardRelationship = new Relationship();
+        }
+
         public long Id { get; set; }
         
-        public Relationship IsFollowingYou { get; set; }
-        public Relationship IsFollowedByYou { get; set; }
-
         /// <summary>
         /// You following them
         /// </summary>
-        public Relationship OutwardRelationship{ get; set; }
+        public Relationship OutwardRelationship { get; set; }
 
         /// <summary>
         /// Them following you
@@ -31,6 +34,14 @@ namespace Twitticide
     {
         private class FollowEvent
         {
+            public FollowEvent() { }
+
+            public FollowEvent(bool isFollowing)
+            {
+                IsFollowing = isFollowing;
+                Timestamp = DateTime.Now;
+            }
+
             public bool IsFollowing { get; set; }
             public DateTime Timestamp { get; set; }
         }
@@ -48,9 +59,26 @@ namespace Twitticide
         {
             Events = new List<FollowEvent>();
         }
-    }
 
-    
+        public void UpdateFollowStatus(bool isFollowing)
+        {
+            if (!Events.Any())
+            {
+                Events.Add(new FollowEvent(isFollowing));
+                return;
+            }
+
+            if (GetLatestStatus() != isFollowing) Events.Add(new FollowEvent(isFollowing));
+        }
+
+        public StatusEnum Status { get; set; }
+
+        private bool GetLatestStatus()
+        {
+            if (!Events.Any()) return false;
+            return Events.Last().IsFollowing;
+        }
+    }
 
     public class TwitterProfile
     {
