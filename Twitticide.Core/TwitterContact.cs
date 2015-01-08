@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Twitticide
 {
-    class TwitterContact
+    public class TwitterContact
     {
         public TwitterContact()
         {
@@ -25,10 +25,10 @@ namespace Twitticide
         public Relationship InwardRelationship { get; set; }
 
         public DateTime? WhenProfileLastUpdated { get; set; }        
-        public TwitterProfile Profile { get; set; }
+        public UserProfile Profile { get; set; }
     }
 
-    public class TwitterProfile
+    public class UserProfile
     {
         public string UserName { get; set; }
         public string DisplayName { get; set; }
