@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>ae2c65e0-974d-421f-87b4-856ce96a24d1</ProjectGuid>
+    <ProjectGuid>{61170205-C610-4D11-8518-DBAE6AC36E14}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Twitticide</RootNamespace>
