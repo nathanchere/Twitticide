@@ -26,7 +26,7 @@ namespace Twitticide
         {
             var target = new Relationship();
             target.UpdateFollowStatus(true);
-            Assert.AreEqual(Relationship.StatusEnum.NotFollowing, target.Status);
+            Assert.AreEqual(Relationship.StatusEnum.Following, target.Status);
         }
 
         [Test]
