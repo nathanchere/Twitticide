@@ -9,10 +9,48 @@ namespace Twitticide
     class TwitterContact
     {
         public long Id { get; set; }
+        
+        public Relationship IsFollowingYou { get; set; }
+        public Relationship IsFollowedByYou { get; set; }
+
+        /// <summary>
+        /// You following them
+        /// </summary>
+        public Relationship OutwardRelationship{ get; set; }
+
+        /// <summary>
+        /// Them following you
+        /// </summary>
+        public Relationship InwardRelationship { get; set; }
 
         public DateTime? WhenProfileLastUpdated { get; set; }        
         public TwitterProfile Profile { get; set; }
     }
+   
+    public class Relationship
+    {
+        private class FollowEvent
+        {
+            public bool IsFollowing { get; set; }
+            public DateTime Timestamp { get; set; }
+        }
+
+        public enum StatusEnum
+        {
+            NotFollowing,
+            Following,
+            Unfollowed,
+        }
+
+        private List<FollowEvent> Events { get; set; }
+
+        public Relationship()
+        {
+            Events = new List<FollowEvent>();
+        }
+    }
+
+    
 
     public class TwitterProfile
     {
