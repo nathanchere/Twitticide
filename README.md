@@ -30,3 +30,8 @@ All features are configurable. You don't need to use the counter-spam features a
 Simply use it for basic follower management if you like. It supports unlimited accounts with no nag-ware limits on functionality.
 
 Feedback welcome.
+
+Getting started
+---------------
+
+You will need to set up your API key etc. Either via registry or config file. A sample config is provided under \Resources to get you started.
