@@ -12,6 +12,7 @@ namespace Twitticide
     public class TwitterClient
     {
         private const string REG_PATH = @"HKEY_CURRENT_USER\SOFTWARE\NathanChere\Twitticide";
+        private const int FETCH_LIMIT = Int32.MaxValue;
 
         #region .ctor
         public TwitterClient() : this(null, null, null, null) { }
@@ -37,6 +38,20 @@ namespace Twitticide
                          ?? ConfigurationManager.AppSettings[index];
             if (result == null) throw new ConfigurationErrorsException("No defaultValue for " + index + " found in registry or app.config");
             return result;
+        }
+
+        public long[] GetFollowers(string username)
+        {
+            var user = User.GetUserFromScreenName(username);
+            var followers = user.GetFollowerIds(FETCH_LIMIT);
+            return followers.ToArray();
+        }
+
+        public long[] GetFollowing(string username)
+        {
+            var user = User.GetUserFromScreenName(username);
+            var friends = user.GetFriendIds(FETCH_LIMIT);
+            return friends.ToArray();
         }
         #endregion        
     }
