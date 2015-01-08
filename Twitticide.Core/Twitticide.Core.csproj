@@ -7,7 +7,7 @@
     <ProjectGuid>{E8108842-18BC-4FB6-8985-9526ECBB9FF5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Twitticide.Core</RootNamespace>
+    <RootNamespace>Twitticide</RootNamespace>
     <AssemblyName>Twitticide.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
