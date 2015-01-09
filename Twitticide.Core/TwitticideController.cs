@@ -23,10 +23,12 @@ namespace Twitticide
         #endregion
 
         private readonly ITwitterClient _client;
+        private readonly IDataStore _dataStore;
 
-        public TwitticideController(ITwitterClient twitterClient)
+        public TwitticideController(ITwitterClient twitterClient, IDataStore dataStore)
         {
             _client = twitterClient;
+            _dataStore = dataStore;
 
             _users = new List<TwitticideAccount>();
         }
@@ -97,5 +99,5 @@ namespace Twitticide
             get { return _users.ToArray(); }
         }
         
-    }    
+    }
 }
