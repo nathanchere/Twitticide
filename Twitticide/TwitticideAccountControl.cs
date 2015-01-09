@@ -13,7 +13,7 @@ namespace Twitticide
     public partial class TwitticideAccountControl : UserControl
     {
         public TwitticideAccount Account { get; private set; }
-        public TwitticideController Controller{ get; private set; }
+        public TwitticideController Controller { get; private set; }
 
         public TwitticideAccountControl(TwitticideController controller, TwitticideAccount account)
         {
@@ -36,7 +36,8 @@ namespace Twitticide
                 Account.LastUpdated.ToLongDateString(),
                 Account.LastUpdated.ToLongTimeString());
 
-            picAvatar.Load(Account.ProfileImageUrl);
+            if (Account.ProfileImageUrl != null)
+                picAvatar.Load(Account.ProfileImageUrl);
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -48,7 +49,7 @@ namespace Twitticide
         private void btnShowFollowers_Click(object sender, EventArgs e)
         {
             listBox1.Items.Clear();
-            listBox1.Items.AddRange(Account.Contacts.Values.Where(c=>c.IsFollowingYou).ToArray());
+            listBox1.Items.AddRange(Account.Contacts.Values.Where(c => c.IsFollowingYou).ToArray());
         }
 
         private void btnShowWhoYouFollow_Click(object sender, EventArgs e)
@@ -60,7 +61,7 @@ namespace Twitticide
         private void btnShowNotFollowedBy_Click(object sender, EventArgs e)
         {
             listBox1.Items.Clear();
-            listBox1.Items.AddRange(Account.Contacts.Values.Where(c => 
+            listBox1.Items.AddRange(Account.Contacts.Values.Where(c =>
                 !c.IsFollowingYou && c.IsFollowedByYou
             ).ToArray());
         }
@@ -94,7 +95,7 @@ namespace Twitticide
             listBox1.Items.Clear();
             listBox1.Items.AddRange(
                 Account.Contacts.Values
-                .Where(c =>c.InwardRelationship.Status == Relationship.StatusEnum.Following)
+                .Where(c => c.InwardRelationship.Status == Relationship.StatusEnum.Following)
                 .Where(c => c.InwardRelationship.GetLatestEvent().Timestamp > DateTime.Now.AddDays(-7))
                 .OrderByDescending(c => c.InwardRelationship.GetLatestEvent().Timestamp)
                 .ToArray()
