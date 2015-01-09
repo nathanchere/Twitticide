@@ -45,7 +45,7 @@ namespace Twitticide
 
         private void ShowManageUserDialog()
         {
-            (new frmManageUsers()).ShowDialog();
+            (new frmManageUsers(controller)).ShowDialog();
         }
 
         private void btnManageAccounts_Click(object sender, EventArgs e)

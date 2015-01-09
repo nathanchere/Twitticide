@@ -13,12 +13,7 @@ namespace Twitticide
     public partial class frmManageUsers : Form
     {
         private readonly TwitticideController _controller;
-
-        public frmManageUsers()
-        {
-            InitializeComponent();
-        }
-
+        
         public frmManageUsers(TwitticideController controller)
         {
             InitializeComponent();
@@ -41,7 +36,14 @@ namespace Twitticide
 
         private void btnAddUser_Click(object sender, EventArgs e)
         {
-            _controller.AddUser(txtUserName.Text);
+            try
+            {
+                _controller.AddUser(txtUserName.Text);
+            }
+            catch (Exception ex)            
+            {
+                MessageBox.Show("Ohhh error: " + ex.Message);
+            }
         }
     }
 }
