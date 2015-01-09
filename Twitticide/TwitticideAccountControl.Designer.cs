@@ -45,6 +45,7 @@
             this.btnShowNotFollowing = new System.Windows.Forms.Button();
             this.btnShowUnfollowedBy = new System.Windows.Forms.Button();
             this.btnShowYouUnfollowed = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).BeginInit();
             this.panel2.SuspendLayout();
@@ -186,6 +187,7 @@
             this.btnShowFollowers.TabIndex = 0;
             this.btnShowFollowers.Text = "Followers";
             this.btnShowFollowers.UseVisualStyleBackColor = true;
+            this.btnShowFollowers.Click += new System.EventHandler(this.btnShowFollowers_Click);
             // 
             // btnShowWhoYouFollow
             // 
@@ -195,6 +197,7 @@
             this.btnShowWhoYouFollow.TabIndex = 1;
             this.btnShowWhoYouFollow.Text = "Who You Follow";
             this.btnShowWhoYouFollow.UseVisualStyleBackColor = true;
+            this.btnShowWhoYouFollow.Click += new System.EventHandler(this.btnShowWhoYouFollow_Click);
             // 
             // btnShowNotFollowedBy
             // 
@@ -204,6 +207,7 @@
             this.btnShowNotFollowedBy.TabIndex = 2;
             this.btnShowNotFollowedBy.Text = "Who You Follow (but aren\'t followed by)";
             this.btnShowNotFollowedBy.UseVisualStyleBackColor = true;
+            this.btnShowNotFollowedBy.Click += new System.EventHandler(this.btnShowNotFollowedBy_Click);
             // 
             // btnShowNotFollowing
             // 
@@ -213,6 +217,7 @@
             this.btnShowNotFollowing.TabIndex = 3;
             this.btnShowNotFollowing.Text = "Who Follows You (but you are not following)";
             this.btnShowNotFollowing.UseVisualStyleBackColor = true;
+            this.btnShowNotFollowing.Click += new System.EventHandler(this.btnShowNotFollowing_Click);
             // 
             // btnShowUnfollowedBy
             // 
@@ -222,6 +227,7 @@
             this.btnShowUnfollowedBy.TabIndex = 4;
             this.btnShowUnfollowedBy.Text = "Who Unfollowed You";
             this.btnShowUnfollowedBy.UseVisualStyleBackColor = true;
+            this.btnShowUnfollowedBy.Click += new System.EventHandler(this.btnShowUnfollowedBy_Click);
             // 
             // btnShowYouUnfollowed
             // 
@@ -231,11 +237,21 @@
             this.btnShowYouUnfollowed.TabIndex = 5;
             this.btnShowYouUnfollowed.Text = "Who You Unfollowed";
             this.btnShowYouUnfollowed.UseVisualStyleBackColor = true;
+            this.btnShowYouUnfollowed.Click += new System.EventHandler(this.btnShowYouUnfollowed_Click);
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(173, 103);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(513, 342);
+            this.listBox1.TabIndex = 2;
             // 
             // TwitticideAccountControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "TwitticideAccountControl";
@@ -267,5 +283,6 @@
         private System.Windows.Forms.Button btnShowNotFollowedBy;
         private System.Windows.Forms.Button btnShowWhoYouFollow;
         private System.Windows.Forms.Button btnShowFollowers;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
