@@ -9,7 +9,14 @@ using Tweetinvi;
 
 namespace Twitticide
 {
-    public class TwitterClient
+    public interface ITwitterClient
+    {
+        TwitterProfile GetUser(long id);
+        long[] GetFollowers(string username);
+        long[] GetFollowing(string username);
+    }
+
+    public class TwitterClient : ITwitterClient
     {
         private const string REG_PATH = @"HKEY_CURRENT_USER\SOFTWARE\NathanChere\Twitticide";
         private const int FETCH_LIMIT = Int32.MaxValue;

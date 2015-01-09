@@ -29,7 +29,9 @@ namespace Twitticide
     }
 
     public class TwitterProfile
-    {        
+    {
+        public long Id { get; set; }
+
         public string UserName { get; set; }
         public string DisplayName { get; set; }
         public string Bio { get; set; }
@@ -37,6 +39,6 @@ namespace Twitticide
 
         public string Url { get; set; }
         public string ProfileImageUrl { get; set; }
-        public bool IsVerified { get; set; }
+        public bool IsVerified { get; set; }        
     }
 }
