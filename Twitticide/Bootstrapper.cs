@@ -4,7 +4,8 @@
     {
         public static void Initialise()
         {
-            throw new System.NotImplementedException();
+            IOC.Bind<ITwitterClient>().To<TwitterClient>();
+            IOC.Initialize();
         }
     }
 }

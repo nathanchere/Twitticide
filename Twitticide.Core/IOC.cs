@@ -57,7 +57,7 @@ namespace Twitticide
         #region Binding
         public static BindingContext Bind<T>()
         {
-            return new BindingContext(Component.For(typeof(T)));
+            return Bind(typeof(T));
         }
 
         public static BindingContext Bind(Type abstractType)
@@ -72,6 +72,11 @@ namespace Twitticide
             public BindingContext(ComponentRegistration binding)
             {
                 _binding = binding;
+            }
+
+            public BindingTarget To<T>()
+            {
+                return To(typeof(T));
             }
 
             public BindingTarget To(Type concreteType)
