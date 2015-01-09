@@ -31,6 +31,8 @@ namespace Twitticide
             lblDisplayName.Text = Account.DisplayName;
             lblFollowersCount.Text = Account.FollowersCount.ToString();
             lblFollowingCount.Text = Account.FollowingCount.ToString();
+
+            picAvatar.Load(Account.ProfileImageUrl);
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)

@@ -146,7 +146,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(523, 21);
+            this.btnRefresh.Location = new System.Drawing.Point(538, 21);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(53, 49);
             this.btnRefresh.TabIndex = 7;

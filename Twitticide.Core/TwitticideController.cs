@@ -117,6 +117,8 @@ namespace Twitticide
                 if (!account.Contacts.ContainsKey(followingId)) account.Contacts[followingId] = new TwitterContact(followingId);
                 account.Contacts[followingId].OutwardRelationship.UpdateFollowStatus(true);
             }
+
+            _dataStore.SaveAccount(account);
         }
 
         private readonly List<TwitticideAccount> _users; 
