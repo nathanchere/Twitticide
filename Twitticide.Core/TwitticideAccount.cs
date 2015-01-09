@@ -11,6 +11,7 @@ namespace Twitticide
         public long Id { get; set; }
         public string UserName { get; set; }
         public string DisplayName { get; set; }
+        public string ProfileImageUrl { get; set; }
 
         public Dictionary<long,TwitterContact> Contacts { get; set; }
 

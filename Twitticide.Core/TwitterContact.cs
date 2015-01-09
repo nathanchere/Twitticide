@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Text;
 using System.Threading.Tasks;
 using Tweetinvi.Core.Interfaces;
@@ -9,6 +10,12 @@ namespace Twitticide
     {
         public TwitterContact()
         {
+            
+        }
+
+        public TwitterContact(long id)
+        {
+            Id = id;
             OutwardRelationship = new Relationship();
             InwardRelationship = new Relationship();
         }
@@ -42,6 +49,11 @@ namespace Twitticide
 
         public DateTime? WhenProfileLastUpdated { get; set; }        
         public TwitterProfile Profile { get; set; }
+
+        public void Update()
+        {
+            WhenProfileLastUpdated = DateTime.Now;
+        }
     }
 
     public class TwitterProfile

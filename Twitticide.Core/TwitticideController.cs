@@ -86,6 +86,42 @@ namespace Twitticide
             if (AccountRemoved != null) AccountRemoved(this, new AccountsChangedEventArgs(user));
         }
 
+        public void RefreshAccount(TwitticideAccount account)
+        {
+            var user = _client.GetUser(account.Id);
+
+            account.LastUpdated = DateTime.Now;
+            account.DisplayName = user.DisplayName;
+            account.UserName = user.UserName;
+            account.ProfileImageUrl = user.ProfileImageUrl;
+
+
+            var followers = _client.GetFollowers(account.UserName);
+            var following = _client.GetFollowing(account.UserName);
+
+            // Update old ones
+            foreach (var contact in account.Contacts.Values)
+            {
+                if (!followers.Contains(contact.Id)) account.Contacts[contact.Id].InwardRelationship.UpdateFollowStatus(false);
+                if (!following.Contains(contact.Id)) account.Contacts[contact.Id].OutwardRelationship.UpdateFollowStatus(false);
+            }
+
+
+            // Add new ones
+
+            foreach (var followerId in followers)
+            {
+                if (!account.Contacts.ContainsKey(followerId)) account.Contacts[followerId] = new TwitterContact(followerId);
+                account.Contacts[followerId].InwardRelationship.UpdateFollowStatus(true);
+            }
+
+            foreach (var followingId in following)
+            {
+                if (!account.Contacts.ContainsKey(followingId)) account.Contacts[followingId] = new TwitterContact(followingId);
+                account.Contacts[followingId].OutwardRelationship.UpdateFollowStatus(true);
+            }
+        }
+
         private readonly List<TwitticideAccount> _users; 
         public TwitticideAccount[] Users
         {

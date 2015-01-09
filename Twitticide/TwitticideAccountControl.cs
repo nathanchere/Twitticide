@@ -14,11 +14,6 @@ namespace Twitticide
     {
         public TwitticideAccount Account { get; private set; }
 
-        public TwitticideAccountControl()
-        {
-            InitializeComponent();
-        }
-
         public TwitticideAccountControl(TwitticideAccount account)
         {
             InitializeComponent();
