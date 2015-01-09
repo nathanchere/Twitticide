@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Twitticide
 {
@@ -43,11 +44,15 @@ namespace Twitticide
 
         public void AddUser(string userName)
         {
+            if (_users.Any(x => x.UserName == userName)) return;
+
             AddUser(_client.GetUser(userName));
         }
 
         public void AddUser(long userId)
         {
+            if (_users.Any(x => x.Id == userId)) return;
+
             AddUser(_client.GetUser(userId));
         }
 
