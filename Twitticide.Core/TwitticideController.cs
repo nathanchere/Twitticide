@@ -106,15 +106,12 @@ namespace Twitticide
                 if (!following.Contains(contact.Id)) account.Contacts[contact.Id].OutwardRelationship.UpdateFollowStatus(false);
             }
 
-
             // Add new ones
-
             foreach (var followerId in followers)
             {
                 if (!account.Contacts.ContainsKey(followerId)) account.Contacts[followerId] = new TwitterContact(followerId);
                 account.Contacts[followerId].InwardRelationship.UpdateFollowStatus(true);
             }
-
             foreach (var followingId in following)
             {
                 if (!account.Contacts.ContainsKey(followingId)) account.Contacts[followingId] = new TwitterContact(followingId);
