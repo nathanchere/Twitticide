@@ -30,6 +30,7 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblUserName = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,13 +53,24 @@
             this.lblUserName.TabIndex = 0;
             this.lblUserName.Text = "{UserName}";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 104);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(695, 356);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "groupBox1";
+            // 
             // TwitticideAccountControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Name = "TwitticideAccountControl";
-            this.Size = new System.Drawing.Size(695, 442);
+            this.Size = new System.Drawing.Size(695, 460);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -69,5 +81,6 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblUserName;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

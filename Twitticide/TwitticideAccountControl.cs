@@ -21,6 +21,8 @@ namespace Twitticide
 
         public TwitticideAccountControl(TwitticideAccount account)
         {
+            InitializeComponent();
+
             _account = account;
             RefreshUI();
         }

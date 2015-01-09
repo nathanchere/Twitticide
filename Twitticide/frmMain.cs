@@ -26,6 +26,22 @@ namespace Twitticide
                 ShowAddUserDialog();
                 if(!brain.Users.Any()) Application.Exit();
             }
+
+            ReloadUI();
+        }
+
+        private void ReloadUI()
+        {
+            accountTabs.TabPages.Clear();
+
+            foreach (var user in brain.Users)
+            {
+                accountTabs.TabPages.Add(user.UserName, user.UserName);
+
+                var userControl = new TwitticideAccountControl(user);
+                accountTabs.TabPages[user.UserName].Controls.Add(userControl);
+                userControl.Dock = DockStyle.Fill;
+            }
         }
 
         private void ShowAddUserDialog()
