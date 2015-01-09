@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Tweetinvi;
 using Tweetinvi.Core.Interfaces;
 
 namespace Twitticide
@@ -21,6 +22,11 @@ namespace Twitticide
 
         public void Update(IUser contact)
         {
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}: {1} (\"{2}\")", Id, UserName ?? "[null]", DisplayName ?? "[null]");
         }
     }
 }
