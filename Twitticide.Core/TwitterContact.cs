@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
+using Tweetinvi.Core.Interfaces;
 
 namespace Twitticide
 {
@@ -30,6 +31,19 @@ namespace Twitticide
 
     public class TwitterProfile
     {
+        public TwitterProfile(){ }
+
+        public TwitterProfile(IUser user)
+        {
+            Id = user.Id;
+            UserName = user.ScreenName;
+            DisplayName = user.Name;
+            Bio = user.Description;
+            Location = user.Location;
+            IsVerified = user.Verified;
+            ProfileImageUrl = user.ProfileImageUrl;
+        }
+
         public long Id { get; set; }
 
         public string UserName { get; set; }

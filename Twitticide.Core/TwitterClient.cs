@@ -46,11 +46,16 @@ namespace Twitticide
             if (result == null) throw new ConfigurationErrorsException("No defaultValue for " + index + " found in registry or app.config");
             return result;
         }
+        #endregion
 
         public TwitterProfile GetUser(long id)
         {
-            User.GetUserFromId(id);
-            return new TwitterProfile();
+            return new TwitterProfile(User.GetUserFromId(id));
+        }
+
+        public TwitterProfile GetUser(string userName)
+        {
+            return new TwitterProfile(User.GetUserFromScreenName(userName));
         }
 
         public long[] GetFollowers(string username)
@@ -65,7 +70,6 @@ namespace Twitticide
             var user = User.GetUserFromScreenName(username);
             var friends = user.GetFriendIds(FETCH_LIMIT);
             return friends.ToArray();
-        }
-        #endregion        
+        }        
     }
 }

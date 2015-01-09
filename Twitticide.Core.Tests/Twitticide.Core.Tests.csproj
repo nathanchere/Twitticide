@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelationshipTests.cs" />
+    <Compile Include="TwitticideControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Twitticide.Core\Twitticide.Core.csproj">
