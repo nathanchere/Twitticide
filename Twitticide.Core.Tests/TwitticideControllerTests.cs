@@ -34,8 +34,9 @@ namespace Twitticide
                 });
 
             IOC.ForceInitialize();
-            IOC.Bind<ITwitterClient>().ToInstance(mockClient.Object).ScopeAsTransient();
-            IOC.Bind<TwitticideController>().To<TwitticideController>().ScopeAsTransient();
+            IOC.Bind<ITwitterClient>().ToInstance(mockClient.Object);
+            IOC.Bind<IDataStore>().To<MockDataStore>();
+            IOC.Bind<TwitticideController>().To<TwitticideController>();
         }
 
         [Fact]
