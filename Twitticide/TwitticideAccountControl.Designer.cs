@@ -36,15 +36,24 @@
             this.picAvatar = new System.Windows.Forms.PictureBox();
             this.lblDisplayName = new System.Windows.Forms.Label();
             this.lblUserName = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnRefresh = new System.Windows.Forms.Button();
+            this.lblLastUpdated = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnShowFollowers = new System.Windows.Forms.Button();
+            this.btnShowWhoYouFollow = new System.Windows.Forms.Button();
+            this.btnShowNotFollowedBy = new System.Windows.Forms.Button();
+            this.btnShowNotFollowing = new System.Windows.Forms.Button();
+            this.btnShowUnfollowedBy = new System.Windows.Forms.Button();
+            this.btnShowYouUnfollowed = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.lblLastUpdated);
             this.panel1.Controls.Add(this.btnRefresh);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label4);
@@ -56,7 +65,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(695, 80);
+            this.panel1.Size = new System.Drawing.Size(695, 98);
             this.panel1.TabIndex = 0;
             // 
             // label3
@@ -107,10 +116,11 @@
             // 
             this.picAvatar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picAvatar.BackColor = System.Drawing.Color.Yellow;
+            this.picAvatar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picAvatar.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.picAvatar.Location = new System.Drawing.Point(622, 7);
             this.picAvatar.Name = "picAvatar";
-            this.picAvatar.Size = new System.Drawing.Size(65, 63);
+            this.picAvatar.Size = new System.Drawing.Size(64, 64);
             this.picAvatar.TabIndex = 2;
             this.picAvatar.TabStop = false;
             // 
@@ -134,16 +144,6 @@
             this.lblUserName.TabIndex = 0;
             this.lblUserName.Text = "{UserName}";
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 80);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(695, 380);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
-            // 
             // btnRefresh
             // 
             this.btnRefresh.Location = new System.Drawing.Point(538, 21);
@@ -154,17 +154,96 @@
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
+            // lblLastUpdated
+            // 
+            this.lblLastUpdated.AutoSize = true;
+            this.lblLastUpdated.Location = new System.Drawing.Point(239, 78);
+            this.lblLastUpdated.Name = "lblLastUpdated";
+            this.lblLastUpdated.Size = new System.Drawing.Size(72, 13);
+            this.lblLastUpdated.TabIndex = 8;
+            this.lblLastUpdated.Text = "{lastUpdated}";
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Gray;
+            this.panel2.Controls.Add(this.btnShowYouUnfollowed);
+            this.panel2.Controls.Add(this.btnShowUnfollowedBy);
+            this.panel2.Controls.Add(this.btnShowNotFollowing);
+            this.panel2.Controls.Add(this.btnShowNotFollowedBy);
+            this.panel2.Controls.Add(this.btnShowWhoYouFollow);
+            this.panel2.Controls.Add(this.btnShowFollowers);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(0, 98);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(167, 362);
+            this.panel2.TabIndex = 1;
+            // 
+            // btnShowFollowers
+            // 
+            this.btnShowFollowers.Location = new System.Drawing.Point(6, 6);
+            this.btnShowFollowers.Name = "btnShowFollowers";
+            this.btnShowFollowers.Size = new System.Drawing.Size(158, 52);
+            this.btnShowFollowers.TabIndex = 0;
+            this.btnShowFollowers.Text = "Followers";
+            this.btnShowFollowers.UseVisualStyleBackColor = true;
+            // 
+            // btnShowWhoYouFollow
+            // 
+            this.btnShowWhoYouFollow.Location = new System.Drawing.Point(9, 64);
+            this.btnShowWhoYouFollow.Name = "btnShowWhoYouFollow";
+            this.btnShowWhoYouFollow.Size = new System.Drawing.Size(158, 52);
+            this.btnShowWhoYouFollow.TabIndex = 1;
+            this.btnShowWhoYouFollow.Text = "Who You Follow";
+            this.btnShowWhoYouFollow.UseVisualStyleBackColor = true;
+            // 
+            // btnShowNotFollowedBy
+            // 
+            this.btnShowNotFollowedBy.Location = new System.Drawing.Point(6, 122);
+            this.btnShowNotFollowedBy.Name = "btnShowNotFollowedBy";
+            this.btnShowNotFollowedBy.Size = new System.Drawing.Size(158, 52);
+            this.btnShowNotFollowedBy.TabIndex = 2;
+            this.btnShowNotFollowedBy.Text = "Who You Follow (but aren\'t followed by)";
+            this.btnShowNotFollowedBy.UseVisualStyleBackColor = true;
+            // 
+            // btnShowNotFollowing
+            // 
+            this.btnShowNotFollowing.Location = new System.Drawing.Point(10, 180);
+            this.btnShowNotFollowing.Name = "btnShowNotFollowing";
+            this.btnShowNotFollowing.Size = new System.Drawing.Size(158, 52);
+            this.btnShowNotFollowing.TabIndex = 3;
+            this.btnShowNotFollowing.Text = "Who Follows You (but you are not following)";
+            this.btnShowNotFollowing.UseVisualStyleBackColor = true;
+            // 
+            // btnShowUnfollowedBy
+            // 
+            this.btnShowUnfollowedBy.Location = new System.Drawing.Point(6, 238);
+            this.btnShowUnfollowedBy.Name = "btnShowUnfollowedBy";
+            this.btnShowUnfollowedBy.Size = new System.Drawing.Size(158, 52);
+            this.btnShowUnfollowedBy.TabIndex = 4;
+            this.btnShowUnfollowedBy.Text = "Who Unfollowed You";
+            this.btnShowUnfollowedBy.UseVisualStyleBackColor = true;
+            // 
+            // btnShowYouUnfollowed
+            // 
+            this.btnShowYouUnfollowed.Location = new System.Drawing.Point(9, 296);
+            this.btnShowYouUnfollowed.Name = "btnShowYouUnfollowed";
+            this.btnShowYouUnfollowed.Size = new System.Drawing.Size(158, 52);
+            this.btnShowYouUnfollowed.TabIndex = 5;
+            this.btnShowYouUnfollowed.Text = "Who You Unfollowed";
+            this.btnShowYouUnfollowed.UseVisualStyleBackColor = true;
+            // 
             // TwitticideAccountControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "TwitticideAccountControl";
             this.Size = new System.Drawing.Size(695, 460);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -173,7 +252,6 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblUserName;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label lblDisplayName;
         private System.Windows.Forms.PictureBox picAvatar;
         private System.Windows.Forms.Label label3;
@@ -181,5 +259,13 @@
         private System.Windows.Forms.Label lblFollowingCount;
         private System.Windows.Forms.Label lblFollowersCount;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Label lblLastUpdated;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btnShowYouUnfollowed;
+        private System.Windows.Forms.Button btnShowUnfollowedBy;
+        private System.Windows.Forms.Button btnShowNotFollowing;
+        private System.Windows.Forms.Button btnShowNotFollowedBy;
+        private System.Windows.Forms.Button btnShowWhoYouFollow;
+        private System.Windows.Forms.Button btnShowFollowers;
     }
 }

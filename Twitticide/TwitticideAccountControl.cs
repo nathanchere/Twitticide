@@ -27,10 +27,14 @@ namespace Twitticide
 
         private void RefreshUI()
         {
-            lblUserName.Text = Account.UserName;
+            lblUserName.Text = "@" + Account.UserName;
             lblDisplayName.Text = Account.DisplayName;
             lblFollowersCount.Text = Account.FollowersCount.ToString();
             lblFollowingCount.Text = Account.FollowingCount.ToString();
+
+            lblLastUpdated.Text = string.Format("{0} @ {1}",
+                Account.LastUpdated.ToLongDateString(),
+                Account.LastUpdated.ToLongTimeString());
 
             picAvatar.Load(Account.ProfileImageUrl);
         }
