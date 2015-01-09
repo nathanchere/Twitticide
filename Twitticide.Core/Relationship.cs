@@ -65,5 +65,11 @@ namespace Twitticide
             if (!Events.Any()) return false;
             return Events.Last().IsFollowing;
         }
+
+        public FollowEvent GetLatestEvent()
+        {
+            if (!Events.Any()) return null;
+            return Events.Last();
+        }
     }
 }

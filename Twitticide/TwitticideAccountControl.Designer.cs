@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblLastUpdated = new System.Windows.Forms.Label();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lblFollowingCount = new System.Windows.Forms.Label();
@@ -36,15 +38,15 @@
             this.picAvatar = new System.Windows.Forms.PictureBox();
             this.lblDisplayName = new System.Windows.Forms.Label();
             this.lblUserName = new System.Windows.Forms.Label();
-            this.btnRefresh = new System.Windows.Forms.Button();
-            this.lblLastUpdated = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnShowFollowers = new System.Windows.Forms.Button();
-            this.btnShowWhoYouFollow = new System.Windows.Forms.Button();
-            this.btnShowNotFollowedBy = new System.Windows.Forms.Button();
-            this.btnShowNotFollowing = new System.Windows.Forms.Button();
-            this.btnShowUnfollowedBy = new System.Windows.Forms.Button();
+            this.btnShowYouNewlyFollowing = new System.Windows.Forms.Button();
+            this.btnShowNewFollowers = new System.Windows.Forms.Button();
             this.btnShowYouUnfollowed = new System.Windows.Forms.Button();
+            this.btnShowUnfollowedBy = new System.Windows.Forms.Button();
+            this.btnShowNotFollowing = new System.Windows.Forms.Button();
+            this.btnShowNotFollowedBy = new System.Windows.Forms.Button();
+            this.btnShowWhoYouFollow = new System.Windows.Forms.Button();
+            this.btnShowFollowers = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).BeginInit();
@@ -68,6 +70,25 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(695, 98);
             this.panel1.TabIndex = 0;
+            // 
+            // lblLastUpdated
+            // 
+            this.lblLastUpdated.AutoSize = true;
+            this.lblLastUpdated.Location = new System.Drawing.Point(239, 78);
+            this.lblLastUpdated.Name = "lblLastUpdated";
+            this.lblLastUpdated.Size = new System.Drawing.Size(72, 13);
+            this.lblLastUpdated.TabIndex = 8;
+            this.lblLastUpdated.Text = "{lastUpdated}";
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(538, 21);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(53, 49);
+            this.btnRefresh.TabIndex = 7;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // label3
             // 
@@ -145,28 +166,11 @@
             this.lblUserName.TabIndex = 0;
             this.lblUserName.Text = "{UserName}";
             // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Location = new System.Drawing.Point(538, 21);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(53, 49);
-            this.btnRefresh.TabIndex = 7;
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
-            // lblLastUpdated
-            // 
-            this.lblLastUpdated.AutoSize = true;
-            this.lblLastUpdated.Location = new System.Drawing.Point(239, 78);
-            this.lblLastUpdated.Name = "lblLastUpdated";
-            this.lblLastUpdated.Size = new System.Drawing.Size(72, 13);
-            this.lblLastUpdated.TabIndex = 8;
-            this.lblLastUpdated.Text = "{lastUpdated}";
-            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Gray;
+            this.panel2.Controls.Add(this.btnShowYouNewlyFollowing);
+            this.panel2.Controls.Add(this.btnShowNewFollowers);
             this.panel2.Controls.Add(this.btnShowYouUnfollowed);
             this.panel2.Controls.Add(this.btnShowUnfollowedBy);
             this.panel2.Controls.Add(this.btnShowNotFollowing);
@@ -179,65 +183,85 @@
             this.panel2.Size = new System.Drawing.Size(167, 362);
             this.panel2.TabIndex = 1;
             // 
-            // btnShowFollowers
+            // btnShowYouNewlyFollowing
             // 
-            this.btnShowFollowers.Location = new System.Drawing.Point(6, 6);
-            this.btnShowFollowers.Name = "btnShowFollowers";
-            this.btnShowFollowers.Size = new System.Drawing.Size(158, 52);
-            this.btnShowFollowers.TabIndex = 0;
-            this.btnShowFollowers.Text = "Followers";
-            this.btnShowFollowers.UseVisualStyleBackColor = true;
-            this.btnShowFollowers.Click += new System.EventHandler(this.btnShowFollowers_Click);
+            this.btnShowYouNewlyFollowing.Location = new System.Drawing.Point(6, 328);
+            this.btnShowYouNewlyFollowing.Name = "btnShowYouNewlyFollowing";
+            this.btnShowYouNewlyFollowing.Size = new System.Drawing.Size(158, 40);
+            this.btnShowYouNewlyFollowing.TabIndex = 7;
+            this.btnShowYouNewlyFollowing.Text = "You Newly Followed";
+            this.btnShowYouNewlyFollowing.UseVisualStyleBackColor = true;
+            this.btnShowYouNewlyFollowing.Click += new System.EventHandler(this.btnShowYouNewlyFollowing_Click);
             // 
-            // btnShowWhoYouFollow
+            // btnShowNewFollowers
             // 
-            this.btnShowWhoYouFollow.Location = new System.Drawing.Point(9, 64);
-            this.btnShowWhoYouFollow.Name = "btnShowWhoYouFollow";
-            this.btnShowWhoYouFollow.Size = new System.Drawing.Size(158, 52);
-            this.btnShowWhoYouFollow.TabIndex = 1;
-            this.btnShowWhoYouFollow.Text = "Who You Follow";
-            this.btnShowWhoYouFollow.UseVisualStyleBackColor = true;
-            this.btnShowWhoYouFollow.Click += new System.EventHandler(this.btnShowWhoYouFollow_Click);
+            this.btnShowNewFollowers.Location = new System.Drawing.Point(6, 282);
+            this.btnShowNewFollowers.Name = "btnShowNewFollowers";
+            this.btnShowNewFollowers.Size = new System.Drawing.Size(158, 40);
+            this.btnShowNewFollowers.TabIndex = 6;
+            this.btnShowNewFollowers.Text = "Your New Followers";
+            this.btnShowNewFollowers.UseVisualStyleBackColor = true;
+            this.btnShowNewFollowers.Click += new System.EventHandler(this.btnShowNewFollowers_Click);
             // 
-            // btnShowNotFollowedBy
+            // btnShowYouUnfollowed
             // 
-            this.btnShowNotFollowedBy.Location = new System.Drawing.Point(6, 122);
-            this.btnShowNotFollowedBy.Name = "btnShowNotFollowedBy";
-            this.btnShowNotFollowedBy.Size = new System.Drawing.Size(158, 52);
-            this.btnShowNotFollowedBy.TabIndex = 2;
-            this.btnShowNotFollowedBy.Text = "Who You Follow (but aren\'t followed by)";
-            this.btnShowNotFollowedBy.UseVisualStyleBackColor = true;
-            this.btnShowNotFollowedBy.Click += new System.EventHandler(this.btnShowNotFollowedBy_Click);
-            // 
-            // btnShowNotFollowing
-            // 
-            this.btnShowNotFollowing.Location = new System.Drawing.Point(10, 180);
-            this.btnShowNotFollowing.Name = "btnShowNotFollowing";
-            this.btnShowNotFollowing.Size = new System.Drawing.Size(158, 52);
-            this.btnShowNotFollowing.TabIndex = 3;
-            this.btnShowNotFollowing.Text = "Who Follows You (but you are not following)";
-            this.btnShowNotFollowing.UseVisualStyleBackColor = true;
-            this.btnShowNotFollowing.Click += new System.EventHandler(this.btnShowNotFollowing_Click);
+            this.btnShowYouUnfollowed.Location = new System.Drawing.Point(6, 236);
+            this.btnShowYouUnfollowed.Name = "btnShowYouUnfollowed";
+            this.btnShowYouUnfollowed.Size = new System.Drawing.Size(158, 40);
+            this.btnShowYouUnfollowed.TabIndex = 5;
+            this.btnShowYouUnfollowed.Text = "Who You Unfollowed";
+            this.btnShowYouUnfollowed.UseVisualStyleBackColor = true;
+            this.btnShowYouUnfollowed.Click += new System.EventHandler(this.btnShowYouUnfollowed_Click);
             // 
             // btnShowUnfollowedBy
             // 
-            this.btnShowUnfollowedBy.Location = new System.Drawing.Point(6, 238);
+            this.btnShowUnfollowedBy.Location = new System.Drawing.Point(6, 190);
             this.btnShowUnfollowedBy.Name = "btnShowUnfollowedBy";
-            this.btnShowUnfollowedBy.Size = new System.Drawing.Size(158, 52);
+            this.btnShowUnfollowedBy.Size = new System.Drawing.Size(158, 40);
             this.btnShowUnfollowedBy.TabIndex = 4;
             this.btnShowUnfollowedBy.Text = "Who Unfollowed You";
             this.btnShowUnfollowedBy.UseVisualStyleBackColor = true;
             this.btnShowUnfollowedBy.Click += new System.EventHandler(this.btnShowUnfollowedBy_Click);
             // 
-            // btnShowYouUnfollowed
+            // btnShowNotFollowing
             // 
-            this.btnShowYouUnfollowed.Location = new System.Drawing.Point(9, 296);
-            this.btnShowYouUnfollowed.Name = "btnShowYouUnfollowed";
-            this.btnShowYouUnfollowed.Size = new System.Drawing.Size(158, 52);
-            this.btnShowYouUnfollowed.TabIndex = 5;
-            this.btnShowYouUnfollowed.Text = "Who You Unfollowed";
-            this.btnShowYouUnfollowed.UseVisualStyleBackColor = true;
-            this.btnShowYouUnfollowed.Click += new System.EventHandler(this.btnShowYouUnfollowed_Click);
+            this.btnShowNotFollowing.Location = new System.Drawing.Point(6, 144);
+            this.btnShowNotFollowing.Name = "btnShowNotFollowing";
+            this.btnShowNotFollowing.Size = new System.Drawing.Size(158, 40);
+            this.btnShowNotFollowing.TabIndex = 3;
+            this.btnShowNotFollowing.Text = "Who Follows You (but you are not following)";
+            this.btnShowNotFollowing.UseVisualStyleBackColor = true;
+            this.btnShowNotFollowing.Click += new System.EventHandler(this.btnShowNotFollowing_Click);
+            // 
+            // btnShowNotFollowedBy
+            // 
+            this.btnShowNotFollowedBy.Location = new System.Drawing.Point(6, 98);
+            this.btnShowNotFollowedBy.Name = "btnShowNotFollowedBy";
+            this.btnShowNotFollowedBy.Size = new System.Drawing.Size(158, 40);
+            this.btnShowNotFollowedBy.TabIndex = 2;
+            this.btnShowNotFollowedBy.Text = "Who You Follow (but aren\'t followed by)";
+            this.btnShowNotFollowedBy.UseVisualStyleBackColor = true;
+            this.btnShowNotFollowedBy.Click += new System.EventHandler(this.btnShowNotFollowedBy_Click);
+            // 
+            // btnShowWhoYouFollow
+            // 
+            this.btnShowWhoYouFollow.Location = new System.Drawing.Point(6, 52);
+            this.btnShowWhoYouFollow.Name = "btnShowWhoYouFollow";
+            this.btnShowWhoYouFollow.Size = new System.Drawing.Size(158, 40);
+            this.btnShowWhoYouFollow.TabIndex = 1;
+            this.btnShowWhoYouFollow.Text = "Who You Follow";
+            this.btnShowWhoYouFollow.UseVisualStyleBackColor = true;
+            this.btnShowWhoYouFollow.Click += new System.EventHandler(this.btnShowWhoYouFollow_Click);
+            // 
+            // btnShowFollowers
+            // 
+            this.btnShowFollowers.Location = new System.Drawing.Point(6, 6);
+            this.btnShowFollowers.Name = "btnShowFollowers";
+            this.btnShowFollowers.Size = new System.Drawing.Size(158, 40);
+            this.btnShowFollowers.TabIndex = 0;
+            this.btnShowFollowers.Text = "Followers";
+            this.btnShowFollowers.UseVisualStyleBackColor = true;
+            this.btnShowFollowers.Click += new System.EventHandler(this.btnShowFollowers_Click);
             // 
             // listBox1
             // 
@@ -285,5 +309,7 @@
         private System.Windows.Forms.Button btnShowWhoYouFollow;
         private System.Windows.Forms.Button btnShowFollowers;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button btnShowYouNewlyFollowing;
+        private System.Windows.Forms.Button btnShowNewFollowers;
     }
 }

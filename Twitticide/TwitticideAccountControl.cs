@@ -88,5 +88,29 @@ namespace Twitticide
                 c.OutwardRelationship.Status == Relationship.StatusEnum.Unfollowed
             ).ToArray());
         }
+
+        private void btnShowNewFollowers_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();
+            listBox1.Items.AddRange(
+                Account.Contacts.Values
+                .Where(c =>c.InwardRelationship.Status == Relationship.StatusEnum.Following)
+                .Where(c => c.InwardRelationship.GetLatestEvent().Timestamp > DateTime.Now.AddDays(-7))
+                .OrderByDescending(c => c.InwardRelationship.GetLatestEvent().Timestamp)
+                .ToArray()
+            );
+        }
+
+        private void btnShowYouNewlyFollowing_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();
+            listBox1.Items.AddRange(
+                Account.Contacts.Values
+                .Where(c => c.OutwardRelationship.Status == Relationship.StatusEnum.Following)
+                .Where(c => c.OutwardRelationship.GetLatestEvent().Timestamp > DateTime.Now.AddDays(-7))
+                .OrderByDescending(c => c.OutwardRelationship.GetLatestEvent().Timestamp)
+                .ToArray()
+            );
+        }
     }
 }
