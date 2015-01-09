@@ -68,13 +68,25 @@ namespace Twitticide
         [Fact]
         public void Add_user_triggers_event()
         {
-            var expected = false;
+            var timesTriggered = 0;
 
             var target = IOC.Resolve<TwitticideController>();
-            target.AccountAdded += (sender, args) => expected = true;
+            target.AccountAdded += (sender, args) => timesTriggered++;
             target.AddUser(12345);
-            
-            Assert.True(expected);
+
+            Assert.Equal(1, timesTriggered);
+        }
+
+        [Fact]
+        public void Add_user_doesnt_trigger_event_if_user_already_exists()
+        {            
+            var timesTriggered = 0;
+            var target = IOC.Resolve<TwitticideController>();
+            target.AccountAdded += (sender, args) => timesTriggered++;
+            target.AddUser(12345);
+            target.AddUser(12345);
+
+            Assert.Equal(1, timesTriggered);
         }
     }
 }
