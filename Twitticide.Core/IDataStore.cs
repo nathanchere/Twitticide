@@ -14,19 +14,21 @@ namespace Twitticide
 
     public class MockDataStore : IDataStore
     {
+        private readonly Dictionary<long, TwitticideAccount> _accounts;
+
+        public MockDataStore()
+        {
+            _accounts = new Dictionary<long, TwitticideAccount>();
+        }
+
         public IEnumerable<TwitticideAccount> LoadAccounts()
         {
-            yield return new TwitticideAccount
-            {
-                Id = 1680121153,
-                UserName = "nathanchere",
-                DisplayName = "Nathan Chere",
-            };
+            return _accounts.Values;
         }
 
         public void SaveAccount(TwitticideAccount newAccount)
         {
-            // do nothing
+            _accounts[newAccount.Id] = newAccount;
         }
     }
 
