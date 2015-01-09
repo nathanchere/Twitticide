@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Tweetinvi.Core.Extensions;
 
 namespace Twitticide
 {
@@ -95,6 +96,7 @@ namespace Twitticide
             account.UserName = user.UserName;
             account.ProfileImageUrl = user.ProfileImageUrl;
 
+            var isNewAccount = account.Contacts.Any();
 
             var followers = _client.GetFollowers(account.UserName);
             var following = _client.GetFollowing(account.UserName);
@@ -116,6 +118,11 @@ namespace Twitticide
             {
                 if (!account.Contacts.ContainsKey(followingId)) account.Contacts[followingId] = new TwitterContact(followingId);
                 account.Contacts[followingId].OutwardRelationship.UpdateFollowStatus(true);
+            }
+
+            if (isNewAccount)
+            {
+                account.Contacts.Values.Foreach(c=>c.WhenProfileLastUpdated = DateTime.MinValue);
             }
 
             _dataStore.SaveAccount(account);
