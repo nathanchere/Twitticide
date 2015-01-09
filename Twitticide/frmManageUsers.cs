@@ -22,6 +22,11 @@ namespace Twitticide
             _controller.AccountRemoved += AccountsUpdated;            
         }
 
+        private void frmManageUsers_Load(object sender, EventArgs e)
+        {
+            RefreshAccountList();
+        }
+
         private void AccountsUpdated(object sender, TwitticideController.AccountsChangedEventArgs args)
         {
             RefreshAccountList();
@@ -29,8 +34,8 @@ namespace Twitticide
 
         private void RefreshAccountList()
         {
-            lstUsers.Items.Clear(); 
-            lstUsers.Items.AddRange(_controller.Users);
+            lstAccounts.Items.Clear(); 
+            lstAccounts.Items.AddRange(_controller.Users);
         }
 
         private void btnAddUser_Click(object sender, EventArgs e)
@@ -43,11 +48,22 @@ namespace Twitticide
             {
                 MessageBox.Show("Ohhh error: " + ex.Message);
             }
-        }
+        }        
 
-        private void frmManageUsers_Load(object sender, EventArgs e)
+        private void btnDeleteUser_Click(object sender, EventArgs e)
         {
-            RefreshAccountList();
+            try
+            {
+                var account = lstAccounts.SelectedItem as TwitticideAccount;
+                if (account == null) return;
+                if (MessageBox.Show("Are you sure? Cannot be undone!", "Really delete?", MessageBoxButtons.YesNoCancel) != DialogResult.Yes) return;
+
+                _controller.RemoveUser(account.Id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ohhh error: " + ex.Message);
+            }
         }
     }
 }

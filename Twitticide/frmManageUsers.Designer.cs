@@ -28,19 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lstUsers = new System.Windows.Forms.ListBox();
+            this.lstAccounts = new System.Windows.Forms.ListBox();
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.btnAddUser = new System.Windows.Forms.Button();
+            this.btnDeleteUser = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // lstUsers
+            // lstAccounts
             // 
-            this.lstUsers.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lstUsers.FormattingEnabled = true;
-            this.lstUsers.Location = new System.Drawing.Point(0, 51);
-            this.lstUsers.Name = "lstUsers";
-            this.lstUsers.Size = new System.Drawing.Size(352, 329);
-            this.lstUsers.TabIndex = 0;
+            this.lstAccounts.FormattingEnabled = true;
+            this.lstAccounts.Location = new System.Drawing.Point(0, 51);
+            this.lstAccounts.Name = "lstAccounts";
+            this.lstAccounts.Size = new System.Drawing.Size(352, 290);
+            this.lstAccounts.TabIndex = 0;
             // 
             // txtUserName
             // 
@@ -59,14 +59,25 @@
             this.btnAddUser.UseVisualStyleBackColor = true;
             this.btnAddUser.Click += new System.EventHandler(this.btnAddUser_Click);
             // 
+            // btnDeleteUser
+            // 
+            this.btnDeleteUser.Location = new System.Drawing.Point(101, 347);
+            this.btnDeleteUser.Name = "btnDeleteUser";
+            this.btnDeleteUser.Size = new System.Drawing.Size(150, 30);
+            this.btnDeleteUser.TabIndex = 3;
+            this.btnDeleteUser.Text = "Delete selected user";
+            this.btnDeleteUser.UseVisualStyleBackColor = true;
+            this.btnDeleteUser.Click += new System.EventHandler(this.btnDeleteUser_Click);
+            // 
             // frmManageUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(352, 380);
+            this.Controls.Add(this.btnDeleteUser);
             this.Controls.Add(this.btnAddUser);
             this.Controls.Add(this.txtUserName);
-            this.Controls.Add(this.lstUsers);
+            this.Controls.Add(this.lstAccounts);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "frmManageUsers";
@@ -79,8 +90,9 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox lstUsers;
+        private System.Windows.Forms.ListBox lstAccounts;
         private System.Windows.Forms.TextBox txtUserName;
         private System.Windows.Forms.Button btnAddUser;
+        private System.Windows.Forms.Button btnDeleteUser;
     }
 }
