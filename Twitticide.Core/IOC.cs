@@ -55,6 +55,11 @@ namespace Twitticide
         #endregion
 
         #region Binding
+        public static BindingContext Bind<T>()
+        {
+            return new BindingContext(Component.For(typeof(T)));
+        }
+
         public static BindingContext Bind(Type abstractType)
         {
             return new BindingContext(Component.For(abstractType));
