@@ -25,6 +25,21 @@ namespace Twitticide
         /// </summary>
         public Relationship InwardRelationship { get; set; }
 
+        public bool IsFollowedByYou
+        {
+            get
+            {
+                return OutwardRelationship.Status == Relationship.StatusEnum.Following;
+            }
+        }
+
+        public bool IsFollowingYou
+        {
+            get {
+                return InwardRelationship.Status == Relationship.StatusEnum.Following;
+            }
+        }
+
         public DateTime? WhenProfileLastUpdated { get; set; }        
         public TwitterProfile Profile { get; set; }
     }
