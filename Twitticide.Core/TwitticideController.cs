@@ -72,7 +72,26 @@ namespace Twitticide
             if (AccountAdded != null) AccountAdded(this, new AccountsChangedEventArgs(newAccount)); 
         }
 
-        private List<TwitticideAccount> _users; 
+        public void RemoveUser(string userName)
+        {
+            var user = _users.SingleOrDefault(x => x.UserName == userName);            
+            RemoveUser(user);
+        }
+
+        public void RemoveUser(long userId)
+        {
+            var user = _users.SingleOrDefault(x => x.Id == userId);            
+            RemoveUser(user);
+        }
+
+        private void RemoveUser(TwitticideAccount user)
+        {
+            if (user == null) return;
+            _users.Remove(user);
+            if (AccountRemoved != null) AccountRemoved(this, new AccountsChangedEventArgs(user));
+        }
+
+        private readonly List<TwitticideAccount> _users; 
         public TwitticideAccount[] Users
         {
             get { return _users.ToArray(); }

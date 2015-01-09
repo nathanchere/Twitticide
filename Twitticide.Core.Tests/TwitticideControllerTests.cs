@@ -51,6 +51,20 @@ namespace Twitticide
         }
 
         [Fact]
+        public void Add_multiple_users_works()
+        {
+            var expectedTotal = 3;
+
+            var target = IOC.Resolve<TwitticideController>();
+            target.AddUser(11);
+            target.AddUser(12);
+            target.AddUser(13);
+
+            var expected = target.Users.Length;
+            Assert.Equal(expectedTotal, expected);
+        }
+
+        [Fact]
         public void Add_user_doesnt_overwrite_if_user_already_exists()
         {
             var expectedId = 12345;
@@ -87,6 +101,38 @@ namespace Twitticide
             target.AddUser(12345);
 
             Assert.Equal(1, timesTriggered);
+        }
+
+        [Fact]
+        public void Remove_user_works()
+        {
+            const int expectedTotal = 2;
+
+            var target = IOC.Resolve<TwitticideController>();
+            target.AddUser(11);
+            target.AddUser(12);
+            target.AddUser(13);
+            target.RemoveUser(12);
+
+            var expected = target.Users.Length;
+            Assert.Equal(expectedTotal, expected);
+        }
+
+        [Fact]
+        public void Remove_removes_correct_user()
+        {
+            const int expectedId = 12345;
+
+            var target = IOC.Resolve<TwitticideController>();
+            target.AddUser(11);
+            target.AddUser(12);
+            target.AddUser(expectedId);
+            target.AddUser(13);            
+
+            target.RemoveUser(expectedId);
+
+            var expected = target.Users.Any(x=>x.Id == expectedId);
+            Assert.False(expected);
         }
     }
 }
