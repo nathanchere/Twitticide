@@ -31,6 +31,7 @@ namespace Twitticide
 
         private void RefreshAccountList()
         {
+            lstUsers.Items.Clear(); ;
             lstUsers.Items.AddRange(_controller.Users);
         }
 
