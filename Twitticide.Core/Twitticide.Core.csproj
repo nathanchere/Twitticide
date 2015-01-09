@@ -93,7 +93,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDataStore.cs" />
+    <Compile Include="DataStore\FileSystemDataStore.cs" />
+    <Compile Include="DataStore\IDataStore.cs" />
+    <Compile Include="DataStore\MockDataStore.cs" />
     <Compile Include="IOC.cs" />
     <Compile Include="TwitticideController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

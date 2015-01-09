@@ -30,12 +30,8 @@ namespace Twitticide
             _client = twitterClient;
             _dataStore = dataStore;
 
-            _users = new List<TwitticideAccount>();
-        }
+            _users = new List<TwitticideAccount>(); 
 
-        public void LoadUsers()
-        {            
-            _users.Clear();
             foreach(var user in _dataStore.LoadAccounts()) _users.Add(user);
         }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,32 +6,6 @@ using NServiceKit.Text;
 
 namespace Twitticide
 {
-    public interface IDataStore
-    {
-        IEnumerable<TwitticideAccount> LoadAccounts();
-        void SaveAccount(TwitticideAccount newAccount);
-    }
-
-    public class MockDataStore : IDataStore
-    {
-        private readonly Dictionary<long, TwitticideAccount> _accounts;
-
-        public MockDataStore()
-        {
-            _accounts = new Dictionary<long, TwitticideAccount>();
-        }
-
-        public IEnumerable<TwitticideAccount> LoadAccounts()
-        {
-            return _accounts.Values;
-        }
-
-        public void SaveAccount(TwitticideAccount newAccount)
-        {
-            _accounts[newAccount.Id] = newAccount;
-        }
-    }
-
     public class FileSystemDataStore : IDataStore
     {       
         // TODO: this will not live for long

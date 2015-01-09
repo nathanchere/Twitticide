@@ -20,7 +20,6 @@ namespace Twitticide
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            controller.LoadUsers();
             if (!controller.Users.Any())
             {
                 ShowManageUserDialog();                
