@@ -10,17 +10,17 @@ namespace Twitticide
 {
     public partial class frmMain : Form
     {
-        private readonly TwitticideController controller;
+        private readonly TwitticideController Controller;
 
         public frmMain()
         {
             InitializeComponent();
-            controller = IOC.Resolve<TwitticideController>();
+            Controller = IOC.Resolve<TwitticideController>();
         }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            if (!controller.Users.Any())
+            if (!Controller.Users.Any())
             {
                 ShowManageUserDialog();                
             }
@@ -32,11 +32,11 @@ namespace Twitticide
         {
             accountTabs.TabPages.Clear();
 
-            foreach (var user in controller.Users)
+            foreach (var user in Controller.Users)
             {
                 accountTabs.TabPages.Add(user.UserName, user.UserName);
 
-                var userControl = new TwitticideAccountControl(user);
+                var userControl = new TwitticideAccountControl(Controller, user);
                 accountTabs.TabPages[user.UserName].Controls.Add(userControl);
                 userControl.Dock = DockStyle.Fill;
             }
@@ -44,7 +44,7 @@ namespace Twitticide
 
         private void ShowManageUserDialog()
         {
-            (new frmManageUsers(controller)).ShowDialog();
+            (new frmManageUsers(Controller)).ShowDialog();
             ReloadUI();
         }
 
