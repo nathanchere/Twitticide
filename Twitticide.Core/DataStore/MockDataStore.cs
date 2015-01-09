@@ -20,5 +20,10 @@ namespace Twitticide
         {
             _accounts[newAccount.Id] = newAccount;
         }
+
+        public void DeleteAccount(TwitticideAccount accounts)
+        {
+            _accounts.Remove(accounts.Id);
+        }
     }
 }

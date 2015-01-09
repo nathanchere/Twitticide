@@ -82,6 +82,7 @@ namespace Twitticide
         {
             if (user == null) return;
             _users.Remove(user);
+            _dataStore.DeleteAccount(user);
             if (AccountRemoved != null) AccountRemoved(this, new AccountsChangedEventArgs(user));
         }
 

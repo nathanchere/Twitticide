@@ -37,5 +37,12 @@ namespace Twitticide
             var path = Path.Combine(DataPath, string.Format("{0}.account.json", account.Id));
             File.WriteAllText(path, text);            
         }
+
+        public void DeleteAccount(TwitticideAccount account)
+        {
+            VerifyDataPathExists();
+            var path = Path.Combine(DataPath, string.Format("{0}.account.json", account.Id));
+            File.Delete(path);
+        }
     }
 }
