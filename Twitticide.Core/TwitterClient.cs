@@ -12,6 +12,7 @@ namespace Twitticide
     public interface ITwitterClient
     {
         TwitterProfile GetUser(long id);
+        TwitterProfile GetUser(string userName);
         long[] GetFollowers(string username);
         long[] GetFollowing(string username);
     }

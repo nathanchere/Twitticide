@@ -18,7 +18,7 @@ namespace Twitticide
         [Test]
         public void Add_user_doesnt_overwrite_if_user_already_exists()
         {
-            var target = new TwitticideController();
+            var target = IOC.Resolve<TwitticideController>();
         }
     }
 }

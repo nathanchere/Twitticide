@@ -15,7 +15,7 @@ namespace Twitticide
         public frmMain()
         {
             InitializeComponent();
-            controller = new TwitticideController();
+            controller = IOC.Resolve<TwitticideController>();
         }
 
         private void frmMain_Load(object sender, EventArgs e)

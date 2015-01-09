@@ -21,11 +21,12 @@ namespace Twitticide
         }
         #endregion
 
-        private readonly TwitterClient _client;
+        private readonly ITwitterClient _client;
 
-        public TwitticideController()
+        public TwitticideController(ITwitterClient twitterClient)
         {
-            _client = new TwitterClient();
+            _client = twitterClient;
+
             _users = new List<TwitticideAccount>();
         }
 
