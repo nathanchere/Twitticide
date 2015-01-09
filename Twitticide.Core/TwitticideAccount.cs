@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Tweetinvi;
 using Tweetinvi.Core.Interfaces;
 
@@ -20,8 +21,14 @@ namespace Twitticide
             Contacts = new Dictionary<long, TwitterContact>();
         }
 
-        public void Update(IUser contact)
+        public int FollowersCount
         {
+            get { return Contacts.Values.Count(c => c.IsFollowingYou); }
+        }
+
+        public int FollowingCount
+        {
+            get { return Contacts.Values.Count(c => c.IsFollowedByYou); }
         }
 
         public override string ToString()
