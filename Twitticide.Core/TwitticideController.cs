@@ -36,7 +36,7 @@ namespace Twitticide
         public void LoadUsers()
         {            
             _users.Clear();
-            foreach(var user in _dataStore.LoadUsers()) _users.Add(user);
+            foreach(var user in _dataStore.LoadAccounts()) _users.Add(user);
         }
 
         public void AddUser(string userName)
@@ -64,6 +64,7 @@ namespace Twitticide
                 Contacts = new Dictionary<long, TwitterContact>(),
             };
 
+            _dataStore.SaveAccount(newAccount);
             _users.Add(newAccount);
 
             if (AccountAdded != null) AccountAdded(this, new AccountsChangedEventArgs(newAccount)); 

@@ -8,13 +8,13 @@ namespace Twitticide
 {
     public interface IDataStore
     {
-        IEnumerable<TwitticideAccount> LoadUsers();
-        void SaveUsers(TwitticideAccount[] users);
+        IEnumerable<TwitticideAccount> LoadAccounts();
+        void SaveAccount(TwitticideAccount newAccount);
     }
 
     public class MockDataStore : IDataStore
     {
-        public IEnumerable<TwitticideAccount> LoadUsers()
+        public IEnumerable<TwitticideAccount> LoadAccounts()
         {
             yield return new TwitticideAccount
             {
@@ -24,7 +24,7 @@ namespace Twitticide
             };
         }
 
-        public void SaveUsers(TwitticideAccount[] users)
+        public void SaveAccount(TwitticideAccount newAccount)
         {
             // do nothing
         }
@@ -36,7 +36,7 @@ namespace Twitticide
 
         private readonly string DataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Twitticide", "Accounts");
 
-        public IEnumerable<TwitticideAccount> LoadUsers()
+        public IEnumerable<TwitticideAccount> LoadAccounts()
         {
             VerifyDataPathExists();
 
@@ -51,18 +51,15 @@ namespace Twitticide
             if (!Directory.Exists(DataPath)) Directory.CreateDirectory(DataPath);
         }        
 
-        public void SaveUsers(TwitticideAccount[] users)
+        public void SaveAccount(TwitticideAccount account)
         {
             VerifyDataPathExists();
-            foreach (var user in users)
-            {
-                var text = user.ToJson();
+            var text = account.ToJson();
                 
-                // TODO: back up old file before writing over
+            // TODO: back up old file before writing over
 
-                var path = Path.Combine(DataPath, string.Format("{0}.account.json", user.Id));
-                File.WriteAllText(path, text);
-            }
+            var path = Path.Combine(DataPath, string.Format("{0}.account.json", account.Id));
+            File.WriteAllText(path, text);            
         }
     }
 }

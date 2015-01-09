@@ -19,9 +19,7 @@ namespace Twitticide
             InitializeComponent();
             _controller = controller;
             _controller.AccountAdded += AccountsUpdated;
-            _controller.AccountRemoved += AccountsUpdated;
-
-            RefreshAccountList();
+            _controller.AccountRemoved += AccountsUpdated;            
         }
 
         private void AccountsUpdated(object sender, TwitticideController.AccountsChangedEventArgs args)
@@ -31,7 +29,7 @@ namespace Twitticide
 
         private void RefreshAccountList()
         {
-            lstUsers.Items.Clear(); ;
+            lstUsers.Items.Clear(); 
             lstUsers.Items.AddRange(_controller.Users);
         }
 
@@ -45,6 +43,11 @@ namespace Twitticide
             {
                 MessageBox.Show("Ohhh error: " + ex.Message);
             }
+        }
+
+        private void frmManageUsers_Load(object sender, EventArgs e)
+        {
+            RefreshAccountList();
         }
     }
 }

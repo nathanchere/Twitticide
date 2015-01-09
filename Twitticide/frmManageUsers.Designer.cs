@@ -37,23 +37,23 @@
             // 
             this.lstUsers.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lstUsers.FormattingEnabled = true;
-            this.lstUsers.Location = new System.Drawing.Point(0, 181);
+            this.lstUsers.Location = new System.Drawing.Point(0, 51);
             this.lstUsers.Name = "lstUsers";
-            this.lstUsers.Size = new System.Drawing.Size(660, 199);
+            this.lstUsers.Size = new System.Drawing.Size(352, 329);
             this.lstUsers.TabIndex = 0;
             // 
             // txtUserName
             // 
             this.txtUserName.Location = new System.Drawing.Point(12, 11);
             this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(196, 20);
+            this.txtUserName.Size = new System.Drawing.Size(239, 20);
             this.txtUserName.TabIndex = 1;
             // 
             // btnAddUser
             // 
-            this.btnAddUser.Location = new System.Drawing.Point(214, 5);
+            this.btnAddUser.Location = new System.Drawing.Point(257, 5);
             this.btnAddUser.Name = "btnAddUser";
-            this.btnAddUser.Size = new System.Drawing.Size(95, 30);
+            this.btnAddUser.Size = new System.Drawing.Size(83, 30);
             this.btnAddUser.TabIndex = 2;
             this.btnAddUser.Text = "Add User";
             this.btnAddUser.UseVisualStyleBackColor = true;
@@ -63,12 +63,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(660, 380);
+            this.ClientSize = new System.Drawing.Size(352, 380);
             this.Controls.Add(this.btnAddUser);
             this.Controls.Add(this.txtUserName);
             this.Controls.Add(this.lstUsers);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "frmManageUsers";
-            this.Text = "frmManageUsers";
+            this.Text = "Enter user name to add";
+            this.Load += new System.EventHandler(this.frmManageUsers_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
