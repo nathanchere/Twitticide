@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Twitticide
 {
-    public partial class frmMain : DevExpress.XtraEditors.XtraForm
+    public partial class frmMain : Form
     {
         private readonly frmMainBrain brain;
 

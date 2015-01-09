@@ -27,58 +27,62 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
-        {
-            this.AccountTabs = new DevExpress.XtraTab.XtraTabControl();
-            this.xtraTabPage1 = new DevExpress.XtraTab.XtraTabPage();
-            this.xtraTabPage2 = new DevExpress.XtraTab.XtraTabPage();
-            ((System.ComponentModel.ISupportInitialize)(this.AccountTabs)).BeginInit();
-            this.AccountTabs.SuspendLayout();
+        {                        
+            this.accountTabs = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.accountTabs.SuspendLayout();
             this.SuspendLayout();
             // 
-            // AccountTabs
+            // accountTabs
             // 
-            this.AccountTabs.Location = new System.Drawing.Point(153, 131);
-            this.AccountTabs.Name = "AccountTabs";
-            this.AccountTabs.SelectedTabPage = this.xtraTabPage1;
-            this.AccountTabs.Size = new System.Drawing.Size(727, 434);
-            this.AccountTabs.TabIndex = 0;
-            this.AccountTabs.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
-            this.xtraTabPage1,
-            this.xtraTabPage2});
+            this.accountTabs.Controls.Add(this.tabPage1);
+            this.accountTabs.Controls.Add(this.tabPage2);
+            this.accountTabs.Location = new System.Drawing.Point(308, 148);
+            this.accountTabs.Name = "accountTabs";
+            this.accountTabs.SelectedIndex = 0;
+            this.accountTabs.Size = new System.Drawing.Size(462, 292);
+            this.accountTabs.TabIndex = 0;
             // 
-            // xtraTabPage1
+            // tabPage1
             // 
-            this.xtraTabPage1.Name = "xtraTabPage1";
-            this.xtraTabPage1.Size = new System.Drawing.Size(721, 406);
-            this.xtraTabPage1.Text = "xtraTabPage1";
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(454, 266);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // xtraTabPage2
+            // tabPage2
             // 
-            this.xtraTabPage2.Name = "xtraTabPage2";
-            this.xtraTabPage2.Size = new System.Drawing.Size(294, 272);
-            this.xtraTabPage2.Text = "xtraTabPage2";
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(454, 266);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1055, 611);
-            this.Controls.Add(this.AccountTabs);
+            this.Controls.Add(this.accountTabs);
             this.Name = "frmMain";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.frmMain_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.AccountTabs)).EndInit();
-            this.AccountTabs.ResumeLayout(false);
+            this.accountTabs.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
-        #endregion
+        #endregion       
 
-        private DevExpress.XtraTab.XtraTabControl AccountTabs;
-        private DevExpress.XtraTab.XtraTabPage xtraTabPage1;
-        private DevExpress.XtraTab.XtraTabPage xtraTabPage2;
-
+        private System.Windows.Forms.TabControl accountTabs;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }
 
