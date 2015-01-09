@@ -10,21 +10,21 @@ namespace Twitticide
 {
     public partial class frmMain : Form
     {
-        private readonly frmMainBrain brain;
+        private readonly TwitticideController controller;
 
         public frmMain()
         {
             InitializeComponent();
-            brain = new frmMainBrain();
+            controller = new TwitticideController();
         }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            brain.LoadUsers();
-            if (!brain.Users.Any())
+            controller.LoadUsers();
+            if (!controller.Users.Any())
             {
-                ShowAddUserDialog();
-                if(!brain.Users.Any()) Application.Exit();
+                ShowManageUserDialog();
+                // if(!brain.Users.Any()) Application.Exit();
             }
 
             ReloadUI();
@@ -34,7 +34,7 @@ namespace Twitticide
         {
             accountTabs.TabPages.Clear();
 
-            foreach (var user in brain.Users)
+            foreach (var user in controller.Users)
             {
                 accountTabs.TabPages.Add(user.UserName, user.UserName);
 
@@ -44,9 +44,14 @@ namespace Twitticide
             }
         }
 
-        private void ShowAddUserDialog()
+        private void ShowManageUserDialog()
         {
             MessageBox.Show("TODO: add user dialog here");
+        }
+
+        private void btnManageAccounts_Click(object sender, EventArgs e)
+        {
+            ShowManageUserDialog();
         }
     }
 }

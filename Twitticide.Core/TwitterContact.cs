@@ -25,11 +25,11 @@ namespace Twitticide
         public Relationship InwardRelationship { get; set; }
 
         public DateTime? WhenProfileLastUpdated { get; set; }        
-        public UserProfile Profile { get; set; }
+        public TwitterProfile Profile { get; set; }
     }
 
-    public class UserProfile
-    {
+    public class TwitterProfile
+    {        
         public string UserName { get; set; }
         public string DisplayName { get; set; }
         public string Bio { get; set; }

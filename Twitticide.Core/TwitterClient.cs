@@ -40,6 +40,12 @@ namespace Twitticide
             return result;
         }
 
+        public TwitterProfile GetUser(long id)
+        {
+            User.GetUserFromId(id);
+            return new TwitterProfile();
+        }
+
         public long[] GetFollowers(string username)
         {
             var user = User.GetUserFromScreenName(username);
