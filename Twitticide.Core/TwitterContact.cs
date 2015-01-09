@@ -54,6 +54,12 @@ namespace Twitticide
         {
             WhenProfileLastUpdated = DateTime.Now;
         }
+
+        public override string ToString()
+        {
+            if (Profile == null) return Id.ToString();
+            return Profile.ToString();
+        }
     }
 
     public class TwitterProfile
