@@ -90,6 +90,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDataStore.cs" />
     <Compile Include="IOC.cs" />
     <Compile Include="TwitticideController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

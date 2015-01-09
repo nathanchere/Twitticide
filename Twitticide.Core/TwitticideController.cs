@@ -36,12 +36,7 @@ namespace Twitticide
         public void LoadUsers()
         {            
             _users.Clear();
-            _users.Add(new TwitticideAccount
-            {
-                Id = 1680121153,
-                UserName  = "nathanchere",
-                DisplayName = "Nathan Chere",
-            });
+            foreach(var user in _dataStore.LoadUsers()) _users.Add(user);
         }
 
         public void AddUser(string userName)
