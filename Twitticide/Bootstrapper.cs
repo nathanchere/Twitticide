@@ -4,8 +4,10 @@
     {
         public static void Initialise()
         {
-            IOC.Bind<ITwitterClient>().To<TwitterClient>();
             IOC.Initialize();
+            IOC.Bind<ITwitterClient>().To<TwitterClient>().ScopeAsSingleton();
+
+            IOC.Bind<TwitticideController>().To<TwitticideController>();
         }
     }
 }
