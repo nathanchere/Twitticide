@@ -41,11 +41,11 @@
             // 
             this.accountTabs.Controls.Add(this.tabPage1);
             this.accountTabs.Controls.Add(this.tabPage2);
-            this.accountTabs.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.accountTabs.Location = new System.Drawing.Point(0, 206);
+            this.accountTabs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.accountTabs.Location = new System.Drawing.Point(0, 24);
             this.accountTabs.Name = "accountTabs";
             this.accountTabs.SelectedIndex = 0;
-            this.accountTabs.Size = new System.Drawing.Size(1055, 405);
+            this.accountTabs.Size = new System.Drawing.Size(1055, 587);
             this.accountTabs.TabIndex = 0;
             // 
             // tabPage1
@@ -53,7 +53,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1047, 379);
+            this.tabPage1.Size = new System.Drawing.Size(1047, 561);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -94,7 +94,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmMain";
-            this.Text = "Form1";
+            this.Text = "Twitticide - (c)2015 Nathan Chere";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.accountTabs.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
