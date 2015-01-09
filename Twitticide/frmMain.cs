@@ -45,7 +45,7 @@ namespace Twitticide
 
         private void ShowManageUserDialog()
         {
-            MessageBox.Show("TODO: add user dialog here");
+            (new frmManageUsers()).ShowDialog();
         }
 
         private void btnManageAccounts_Click(object sender, EventArgs e)
