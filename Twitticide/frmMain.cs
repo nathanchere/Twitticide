@@ -23,8 +23,7 @@ namespace Twitticide
             controller.LoadUsers();
             if (!controller.Users.Any())
             {
-                ShowManageUserDialog();
-                // if(!brain.Users.Any()) Application.Exit();
+                ShowManageUserDialog();                
             }
 
             ReloadUI();
