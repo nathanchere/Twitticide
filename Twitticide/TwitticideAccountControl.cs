@@ -31,8 +31,8 @@ namespace Twitticide
         {
             lblUserName.Text = Account.UserName;
             lblDisplayName.Text = Account.DisplayName;
-            lblFollowersCount.Text = "0";
-            lblFollowingCount.Text = "0";
+            lblFollowersCount.Text = Account.FollowersCount.ToString();
+            lblFollowingCount.Text = Account.FollowingCount.ToString();
         }
     }
 }
