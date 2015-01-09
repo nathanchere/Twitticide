@@ -12,7 +12,7 @@ namespace Twitticide
 {
     public partial class TwitticideAccountControl : UserControl
     {
-        private TwitticideAccount _account;
+        public TwitticideAccount Account { get; private set; }
 
         public TwitticideAccountControl()
         {
@@ -23,13 +23,16 @@ namespace Twitticide
         {
             InitializeComponent();
 
-            _account = account;
+            Account = account;
             RefreshUI();
         }
 
         private void RefreshUI()
         {
-            lblUserName.Text = _account.UserName;
+            lblUserName.Text = Account.UserName;
+            lblDisplayName.Text = Account.DisplayName;
+            lblFollowersCount.Text = "0";
+            lblFollowingCount.Text = "0";
         }
     }
 }

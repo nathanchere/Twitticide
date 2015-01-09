@@ -33,8 +33,8 @@
             this.lblDisplayName = new System.Windows.Forms.Label();
             this.lblUserName = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblFollowersCount = new System.Windows.Forms.Label();
+            this.lblFollowingCount = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -46,8 +46,8 @@
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.lblFollowingCount);
+            this.panel1.Controls.Add(this.lblFollowersCount);
             this.panel1.Controls.Add(this.picAvatar);
             this.panel1.Controls.Add(this.lblDisplayName);
             this.panel1.Controls.Add(this.lblUserName);
@@ -98,27 +98,27 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             // 
-            // label1
+            // lblFollowersCount
             // 
-            this.label1.BackColor = System.Drawing.Color.Lavender;
-            this.label1.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(238, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(126, 45);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "{displayName}";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblFollowersCount.BackColor = System.Drawing.Color.Lavender;
+            this.lblFollowersCount.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFollowersCount.Location = new System.Drawing.Point(238, 25);
+            this.lblFollowersCount.Name = "lblFollowersCount";
+            this.lblFollowersCount.Size = new System.Drawing.Size(126, 45);
+            this.lblFollowersCount.TabIndex = 3;
+            this.lblFollowersCount.Text = "{displayName}";
+            this.lblFollowersCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label2
+            // lblFollowingCount
             // 
-            this.label2.BackColor = System.Drawing.Color.Lavender;
-            this.label2.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(370, 25);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(126, 45);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "{displayName}";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblFollowingCount.BackColor = System.Drawing.Color.Lavender;
+            this.lblFollowingCount.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFollowingCount.Location = new System.Drawing.Point(370, 25);
+            this.lblFollowingCount.Name = "lblFollowingCount";
+            this.lblFollowingCount.Size = new System.Drawing.Size(126, 45);
+            this.lblFollowingCount.TabIndex = 4;
+            this.lblFollowingCount.Text = "{displayName}";
+            this.lblFollowingCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
@@ -166,7 +166,7 @@
         private System.Windows.Forms.PictureBox picAvatar;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblFollowingCount;
+        private System.Windows.Forms.Label lblFollowersCount;
     }
 }
