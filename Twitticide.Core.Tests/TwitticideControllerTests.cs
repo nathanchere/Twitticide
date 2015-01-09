@@ -134,5 +134,43 @@ namespace Twitticide
             var expected = target.Users.Any(x=>x.Id == expectedId);
             Assert.False(expected);
         }
+
+        [Fact]
+        public void Remove_user_triggers_event()
+        {
+            var timesTriggered = 0;
+
+            var target = IOC.Resolve<TwitticideController>();
+            target.AccountRemoved += (sender, args) => timesTriggered++;
+            target.AddUser(11);
+            target.AddUser(12);
+            target.AddUser(13);
+            target.RemoveUser(13);
+            target.RemoveUser(11);
+
+            Assert.Equal(2, timesTriggered);
+        }
+
+        [Fact]
+        public void Remove_user_doesnt_trigger_event_if_user_doesnt_exist()
+        {
+            var timesTriggered = 0;
+
+            var target = IOC.Resolve<TwitticideController>();
+            target.AccountRemoved += (sender, args) => timesTriggered++;
+            target.AddUser(11);
+            target.AddUser(12);
+            target.AddUser(13);
+            target.AddUser(14);
+            target.AddUser(15);
+
+            target.RemoveUser(0);
+            target.RemoveUser(13);
+            target.RemoveUser(14);
+            target.RemoveUser(12345);
+
+
+            Assert.Equal(2, timesTriggered);
+        }
     }
 }
