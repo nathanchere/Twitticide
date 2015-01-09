@@ -6,7 +6,7 @@ namespace Twitticide
 {
     public class Relationship
     {
-        private class FollowEvent
+        public class FollowEvent //TODO: make private; only public for serialising
         {
             public FollowEvent() { }
 
@@ -27,7 +27,7 @@ namespace Twitticide
             Unfollowed,
         }
 
-        private List<FollowEvent> Events { get; set; }
+        public List<FollowEvent> Events { get; set; } //TODO: make private; only public for serialising
 
         public Relationship()
         {
