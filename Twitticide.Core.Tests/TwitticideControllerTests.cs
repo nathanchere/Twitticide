@@ -64,5 +64,17 @@ namespace Twitticide
             
             Assert.Equal(expected.UserName, expectedMatch.UserName);
         }
+
+        [Fact]
+        public void Add_user_triggers_event()
+        {
+            var expected = false;
+
+            var target = IOC.Resolve<TwitticideController>();
+            target.AccountAdded += (sender, args) => expected = true;
+            target.AddUser(12345);
+            
+            Assert.True(expected);
+        }
     }
 }
