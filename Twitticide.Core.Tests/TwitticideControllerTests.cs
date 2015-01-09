@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Moq;
-using NUnit.Framework;
 using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.AutoMoq;
+using Xunit;
 
 namespace Twitticide
 {
-    [TestFixture]
     public class TwitticideControllerTests
     {
         private IFixture _fixture;
@@ -40,12 +34,11 @@ namespace Twitticide
                 });
 
             IOC.Initialize();
-            IOC.Bind<ITwitterClient>().ToInstance(mockClient.Object);
-
-            IOC.Bind<TwitticideController>().To<TwitticideController>();
+            IOC.Bind<ITwitterClient>().ToInstance(mockClient.Object).ScopeAsTransient();
+            IOC.Bind<TwitticideController>().To<TwitticideController>().ScopeAsTransient();
         }
 
-        [Test]
+        [Fact]
         public void Add_user_works()
         {
             var expectedId = 12345;
@@ -57,7 +50,7 @@ namespace Twitticide
             Assert.NotNull(expected);
         }
 
-        [Test]
+        [Fact]
         public void Add_user_doesnt_overwrite_if_user_already_exists()
         {
             var expectedId = 12345;
@@ -69,7 +62,7 @@ namespace Twitticide
             target.AddUser(expectedId);
             var expectedMatch = target.Users.Single(x => x.Id == expectedId);
             
-            Assert.Equals(expected.UserName, expectedMatch.UserName);
+            Assert.Equal(expected.UserName, expectedMatch.UserName);
         }
     }
 }
