@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Configuration;
 using NServiceKit.Text;
 using Tweetinvi.Core.Extensions;
 
@@ -88,38 +89,50 @@ namespace Twitticide
             if (AccountRemoved != null) AccountRemoved(this, new AccountsChangedEventArgs(user));
         }
 
-        public void RefreshAccount(TwitticideAccount account)
+        public RefreshResult RefreshAccount(TwitticideAccount account)
         {
-            var user = _client.GetUser(account.Id);
-
-            account.LastUpdated = DateTime.Now;
-            account.DisplayName = user.DisplayName;
-            account.UserName = user.UserName;
-            account.ProfileImageUrl = user.ProfileImageUrl;            
-
-            var followers = _client.GetFollowers(account.UserName);
-            var following = _client.GetFollowing(account.UserName);
-
-            // Update old ones
-            foreach (var contact in account.Contacts.Values)
+            var result = new RefreshResult();
+            try
             {
-                if (!followers.Contains(contact.Id)) account.Contacts[contact.Id].InwardRelationship.UpdateFollowStatus(false);
-                if (!following.Contains(contact.Id)) account.Contacts[contact.Id].OutwardRelationship.UpdateFollowStatus(false);
+                var user = _client.GetUser(account.Id);
+
+                var followers = _client.GetFollowers(account.UserName);
+                var following = _client.GetFollowing(account.UserName);
+
+                // Update old ones
+                foreach (var contact in account.Contacts.Values)
+                {
+                    if (!followers.Contains(contact.Id)) account.Contacts[contact.Id].InwardRelationship.UpdateFollowStatus(false);
+                    if (!following.Contains(contact.Id)) account.Contacts[contact.Id].OutwardRelationship.UpdateFollowStatus(false);
+                }
+
+                // Add new ones
+                foreach (var followerId in followers)
+                {
+                    if (!account.Contacts.ContainsKey(followerId)) account.Contacts[followerId] = new TwitterContact(followerId);
+                    account.Contacts[followerId].InwardRelationship.UpdateFollowStatus(true);
+                }
+                foreach (var followingId in following)
+                {
+                    if (!account.Contacts.ContainsKey(followingId)) account.Contacts[followingId] = new TwitterContact(followingId);
+                    account.Contacts[followingId].OutwardRelationship.UpdateFollowStatus(true);
+                }                
+
+                account.LastUpdated = DateTime.Now;
+                account.DisplayName = user.DisplayName;
+                account.UserName = user.UserName;
+                account.ProfileImageUrl = user.ProfileImageUrl;
+
+                _dataStore.SaveAccount(account);
+            }
+            catch (Exception ex)
+            {
+                _dataStore.LoadAccount(account.Id);
+                result.IsSuccessful = false;
+                result.ErrorMessage = ex.Message;
             }
 
-            // Add new ones
-            foreach (var followerId in followers)
-            {
-                if (!account.Contacts.ContainsKey(followerId)) account.Contacts[followerId] = new TwitterContact(followerId);
-                account.Contacts[followerId].InwardRelationship.UpdateFollowStatus(true);
-            }
-            foreach (var followingId in following)
-            {
-                if (!account.Contacts.ContainsKey(followingId)) account.Contacts[followingId] = new TwitterContact(followingId);
-                account.Contacts[followingId].OutwardRelationship.UpdateFollowStatus(true);
-            }
-
-            _dataStore.SaveAccount(account);
+            return result;
         }
 
         public void RefreshContactProfiles(TwitticideAccount account, bool onlyNew = true)
@@ -163,5 +176,18 @@ namespace Twitticide
             get { return _users.ToArray(); }
         }
         
+    }
+
+    public class RefreshResult
+    {
+        public int NewFollowers { get; set; }
+        public int NewFollowing { get; set; }
+        public int NewUnfollowers { get; set; }
+        public int NewUnfollowing { get; set; }
+        public int TotalFollowers { get; set; }
+        public int TotalFollowing { get; set; }
+
+        public bool IsSuccessful { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }

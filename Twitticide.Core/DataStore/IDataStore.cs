@@ -7,5 +7,6 @@ namespace Twitticide
         IEnumerable<TwitticideAccount> LoadAccounts();
         void SaveAccount(TwitticideAccount newAccount);
         void DeleteAccount(TwitticideAccount accounts);
+        TwitticideAccount LoadAccount(long id);
     }
 }

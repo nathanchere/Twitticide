@@ -50,5 +50,16 @@ namespace Twitticide
             var path = Path.Combine(DataPath, string.Format("{0}.account.json", account.Id));
             File.Delete(path);
         }
+
+        public TwitticideAccount LoadAccount(long id)
+        {
+            VerifyDataPathExists();
+
+            // TODO: check if any .bak accounts remaining and offer to recover
+
+            var file = Directory.GetFiles(DataPath).SingleOrDefault(x => x == id + ".account.json");
+            if(file == null) throw new FileNotFoundException("No data file found for account " + id);
+            return File.ReadAllText(file).FromJson<TwitticideAccount>();
+        }
     }
 }

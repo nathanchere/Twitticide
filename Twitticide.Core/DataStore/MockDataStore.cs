@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Twitticide
@@ -24,6 +25,12 @@ namespace Twitticide
         public void DeleteAccount(TwitticideAccount accounts)
         {
             _accounts.Remove(accounts.Id);
+        }
+
+        public TwitticideAccount LoadAccount(long id)
+        {
+            if(!_accounts.ContainsKey(id)) throw new Exception("Account not found");
+            return _accounts[id];
         }
     }
 }
