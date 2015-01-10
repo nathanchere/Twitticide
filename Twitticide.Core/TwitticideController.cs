@@ -132,6 +132,7 @@ namespace Twitticide
             foreach (var contact in contactsToUpdate)
             {
                 var profile = _client.GetUser(contact.Id);
+
                 if (profile.Id == 0)
                 {
                     profile = contact.Profile ?? new TwitterProfile
