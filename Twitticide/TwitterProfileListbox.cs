@@ -94,8 +94,8 @@ namespace Twitticide
         }
         #endregion
 
-        private DisplayModes _displayMode;
         private IRenderer _renderer;
+        private DisplayModes _displayMode;        
 
         public DisplayModes DisplayMode
         {
@@ -130,6 +130,7 @@ namespace Twitticide
         public TwitterProfileListbox()
         {
             InitializeComponent();
+            DisplayMode = DisplayModes.Minimal;
             DrawMode = DrawMode.OwnerDrawFixed;            
         }
 
