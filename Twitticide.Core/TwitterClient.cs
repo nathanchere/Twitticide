@@ -91,6 +91,7 @@ namespace Twitticide
         private void CheckForExceptions()
         {
             var x = ExceptionHandler.GetExceptions();
+            if (x.Any()) Debugger.Break();
         }
     }
 }

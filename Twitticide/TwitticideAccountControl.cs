@@ -37,7 +37,10 @@ namespace Twitticide
                 Account.LastUpdated.ToLongTimeString());
 
             if (Account.ProfileImageUrl != null)
+            {
                 picAvatar.Load(Account.ProfileImageUrl);
+                picAvatar.SizeMode = PictureBoxSizeMode.StretchImage; 
+            }else picAvatar.Image = new Bitmap(1,1);
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
