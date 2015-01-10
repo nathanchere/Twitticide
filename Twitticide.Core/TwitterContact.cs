@@ -91,5 +91,10 @@ namespace Twitticide
         public bool IsVerified { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("{0}: @{1} (\"{2}\")", Id, UserName, DisplayName);
+        }
     }
 }
