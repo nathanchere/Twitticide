@@ -53,6 +53,7 @@
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.onlyGetMissingProfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnResetNewEventCutoff = new System.Windows.Forms.ToolStripMenuItem();
+            this.profileListbox = new Twitticide.TwitterProfileListbox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).BeginInit();
             this.panel2.SuspendLayout();
@@ -260,11 +261,11 @@
             // 
             // listBox1
             // 
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox1.Dock = System.Windows.Forms.DockStyle.Left;
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(167, 122);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(683, 338);
+            this.listBox1.Size = new System.Drawing.Size(232, 338);
             this.listBox1.TabIndex = 2;
             // 
             // menuStrip1
@@ -316,10 +317,22 @@
             this.btnResetNewEventCutoff.Text = "Reset new event cutoff";
             this.btnResetNewEventCutoff.Click += new System.EventHandler(this.btnResetTimeCutoff_Click);
             // 
+            // profileListbox
+            // 
+            this.profileListbox.Dock = System.Windows.Forms.DockStyle.Right;
+            this.profileListbox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.profileListbox.FormattingEnabled = true;
+            this.profileListbox.ItemHeight = 24;
+            this.profileListbox.Location = new System.Drawing.Point(445, 122);
+            this.profileListbox.Name = "profileListbox";
+            this.profileListbox.Size = new System.Drawing.Size(405, 338);
+            this.profileListbox.TabIndex = 4;
+            // 
             // TwitticideAccountControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.profileListbox);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -364,5 +377,6 @@
         private System.Windows.Forms.ToolStripMenuItem allToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem onlyGetMissingProfilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem btnResetNewEventCutoff;
+        private TwitterProfileListbox profileListbox;
     }
 }

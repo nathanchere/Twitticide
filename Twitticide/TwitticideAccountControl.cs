@@ -51,52 +51,49 @@ namespace Twitticide
 
         private void btnShowFollowers_Click(object sender, EventArgs e)
         {
-            listBox1.Items.Clear();
-            listBox1.Items.AddRange(Account.Contacts.Values.Where(c => c.IsFollowingYou).ToArray());
+            ShowContacts(Account.Contacts.Values.Where(c => c.IsFollowingYou).ToArray());
         }
 
         private void btnShowWhoYouFollow_Click(object sender, EventArgs e)
         {
-            listBox1.Items.Clear();
-            listBox1.Items.AddRange(Account.Contacts.Values.Where(c => c.IsFollowedByYou).ToArray());
+            ShowContacts(Account.Contacts.Values.Where(c => c.IsFollowedByYou).ToArray());
         }
 
         private void btnShowNotFollowedBy_Click(object sender, EventArgs e)
         {
-            listBox1.Items.Clear();
-            listBox1.Items.AddRange(Account.Contacts.Values.Where(c =>
+            ShowContacts(
+                Account.Contacts.Values.Where(c =>
                 !c.IsFollowingYou && c.IsFollowedByYou
             ).ToArray());
         }
 
         private void btnShowNotFollowing_Click(object sender, EventArgs e)
         {
-            listBox1.Items.Clear();
-            listBox1.Items.AddRange(Account.Contacts.Values.Where(c =>
+            ShowContacts(
+                Account.Contacts.Values.Where(c =>
                 c.IsFollowingYou && !c.IsFollowedByYou
             ).ToArray());
         }
 
         private void btnShowUnfollowedBy_Click(object sender, EventArgs e)
         {
-            listBox1.Items.Clear();
-            listBox1.Items.AddRange(Account.Contacts.Values.Where(c =>
+            ShowContacts(
+                Account.Contacts.Values.Where(c =>
                 c.InwardRelationship.Status == Relationship.StatusEnum.Unfollowed
             ).ToArray());
         }
 
         private void btnShowYouUnfollowed_Click(object sender, EventArgs e)
         {
-            listBox1.Items.Clear();
-            listBox1.Items.AddRange(Account.Contacts.Values.Where(c =>
+            ShowContacts(
+                Account.Contacts.Values.Where(c =>
                 c.OutwardRelationship.Status == Relationship.StatusEnum.Unfollowed
             ).ToArray());
         }
 
         private void btnShowNewFollowers_Click(object sender, EventArgs e)
         {
-            listBox1.Items.Clear();
-            listBox1.Items.AddRange(
+            ShowContacts(
                 Account.Contacts.Values
                 .Where(c => c.InwardRelationship.Status == Relationship.StatusEnum.Following)
                 .Where(c => c.InwardRelationship.GetLatestEvent().Timestamp > Account.LastClearedUpdates)
@@ -107,8 +104,7 @@ namespace Twitticide
 
         private void btnShowYouNewlyFollowing_Click(object sender, EventArgs e)
         {
-            listBox1.Items.Clear();
-            listBox1.Items.AddRange(
+            ShowContacts(
                 Account.Contacts.Values
                 .Where(c => c.OutwardRelationship.Status == Relationship.StatusEnum.Following)
                 .Where(c => c.OutwardRelationship.GetLatestEvent().Timestamp > Account.LastClearedUpdates)
@@ -130,6 +126,14 @@ namespace Twitticide
         private void onlyGetMissingProfilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Controller.RefreshContactProfiles(Account);
+        }
+
+        private void ShowContacts(TwitterContact[] contacts)
+        {
+            listBox1.Items.Clear();
+            listBox1.Items.AddRange(contacts);
+            profileListbox.Items.Clear();
+            profileListbox.Items.AddRange(contacts);
         }
     }
 }
