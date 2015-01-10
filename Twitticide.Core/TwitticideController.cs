@@ -129,13 +129,15 @@ namespace Twitticide
             var contactsToUpdate = account.Contacts.Values.ToArray();
             if (onlyNew) contactsToUpdate = contactsToUpdate.Where(x => x.Profile == null).ToArray();
 
-            var profiles = _client.GetUsers(contactsToUpdate.Select(x => x.Id));
+            var profiles = _client.GetUsers(contactsToUpdate.Select(x => x.Id)).ToArray();
+            
+            // Check not rate limited
 
             foreach (var contact in contactsToUpdate)
             {
-                var profile = _client.GetUser(contact.Id);
+                var profile = profiles.SingleOrDefault(p => p.Id == contact.Id);
 
-                if (profile.Id == 0)
+                if (profile == null)
                 {
                     profile = contact.Profile ?? new TwitterProfile
                     {
