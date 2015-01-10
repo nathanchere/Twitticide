@@ -48,7 +48,7 @@ namespace Twitticide
             }
         }
 
-        public DateTime? WhenProfileLastUpdated { get; set; }        
+        public DateTime WhenProfileLastUpdated { get; set; }        
         public TwitterProfile Profile { get; set; }
 
         public override string ToString()

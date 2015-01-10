@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NServiceKit.Text;
 using Tweetinvi.Core.Extensions;
 
 namespace Twitticide
@@ -120,13 +121,20 @@ namespace Twitticide
                 account.Contacts[followingId].OutwardRelationship.UpdateFollowStatus(true);
             }
 
-            if (isNewAccount)
-            {
-                account.Contacts.Values.Foreach(c=>c.WhenProfileLastUpdated = DateTime.MinValue);
-            }
-
             _dataStore.SaveAccount(account);
         }
+
+        public void RefreshContactProfiles(TwitticideAccount account, bool onlyNew = true)
+        {
+            var contactsToUpdate = account.Contacts.Values.AsEnumerable();
+            if (onlyNew) contactsToUpdate = contactsToUpdate.Where(x => x.Profile == null);
+
+            foreach (var contact in contactsToUpdate)
+            {
+                contact.Profile = _client.GetUser(contact.Id);
+            }
+        }
+
 
         private readonly List<TwitticideAccount> _users; 
         public TwitticideAccount[] Users
