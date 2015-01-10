@@ -149,6 +149,8 @@ namespace Twitticide
                 contact.Profile = profile;
                 contact.WhenProfileLastUpdated = DateTime.Now;
             }
+
+            _dataStore.SaveAccount(account);
         }
 
 
