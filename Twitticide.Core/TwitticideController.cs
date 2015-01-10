@@ -95,9 +95,7 @@ namespace Twitticide
             account.LastUpdated = DateTime.Now;
             account.DisplayName = user.DisplayName;
             account.UserName = user.UserName;
-            account.ProfileImageUrl = user.ProfileImageUrl;
-
-            var isNewAccount = account.Contacts.Any();
+            account.ProfileImageUrl = user.ProfileImageUrl;            
 
             var followers = _client.GetFollowers(account.UserName);
             var following = _client.GetFollowing(account.UserName);

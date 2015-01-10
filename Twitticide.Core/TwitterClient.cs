@@ -60,12 +60,14 @@ namespace Twitticide
         public IEnumerable<TwitterProfile> GetUsers(IEnumerable<long> ids)
         {
             var profiles = User.GetUsersFromIds(ids);
+            CheckForExceptions();
             return profiles.Select(profile => new TwitterProfile(profile));
         }
 
         public TwitterProfile GetUser(string userName)
         {
             var profile = User.GetUserFromScreenName(userName);
+            CheckForExceptions();
             if (profile == null) return new TwitterProfile();
             return new TwitterProfile(profile);
         }
@@ -74,6 +76,7 @@ namespace Twitticide
         {
             var user = User.GetUserFromScreenName(username);
             var followers = user.GetFollowerIds(FETCH_LIMIT);
+            CheckForExceptions();
             return followers.ToArray();
         }
 
@@ -81,7 +84,13 @@ namespace Twitticide
         {
             var user = User.GetUserFromScreenName(username);
             var friends = user.GetFriendIds(FETCH_LIMIT);
+            CheckForExceptions();
             return friends.ToArray();
-        }        
+        }
+
+        private void CheckForExceptions()
+        {
+            var x = ExceptionHandler.GetExceptions();
+        }
     }
 }
