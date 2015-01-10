@@ -14,6 +14,7 @@ namespace Twitticide
     public interface ITwitterClient
     {
         TwitterProfile GetUser(long id);
+        IEnumerable<TwitterProfile> GetUsers(IEnumerable<long> id);
         TwitterProfile GetUser(string userName);
         long[] GetFollowers(string username);
         long[] GetFollowing(string username);
@@ -56,7 +57,7 @@ namespace Twitticide
             return GetUsers(new []{ id }).FirstOrDefault() ?? new TwitterProfile();
         }
 
-        public IEnumerable<TwitterProfile> GetUsers(long[] ids)
+        public IEnumerable<TwitterProfile> GetUsers(IEnumerable<long> ids)
         {
             var profiles = User.GetUsersFromIds(ids);
             return profiles.Select(profile => new TwitterProfile(profile));

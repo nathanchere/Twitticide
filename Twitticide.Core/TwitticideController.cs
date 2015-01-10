@@ -126,8 +126,10 @@ namespace Twitticide
 
         public void RefreshContactProfiles(TwitticideAccount account, bool onlyNew = true)
         {
-            var contactsToUpdate = account.Contacts.Values.AsEnumerable();
-            if (onlyNew) contactsToUpdate = contactsToUpdate.Where(x => x.Profile == null);
+            var contactsToUpdate = account.Contacts.Values.ToArray();
+            if (onlyNew) contactsToUpdate = contactsToUpdate.Where(x => x.Profile == null).ToArray();
+
+            var profiles = _client.GetUsers(contactsToUpdate.Select(x => x.Id));
 
             foreach (var contact in contactsToUpdate)
             {
