@@ -40,15 +40,15 @@ namespace Twitticide
             {
                 const TextFormatFlags flags = TextFormatFlags.Left | TextFormatFlags.VerticalCenter;
 
-                if (e.Index >= 0)
+                if (e.args.Index >= 0)
                 {
-                    e.DrawBackground();
-                    var textRect = e.Bounds;
+                    e.args.DrawBackground();
+                    var textRect = e.args.Bounds;
                     textRect.X += 20;
                     textRect.Width -= 4;
-                    string itemText = designMode ? "AddressListBox" : Items[e.Index].ToString();
-                    TextRenderer.DrawText(e.Graphics, itemText, e.Font, textRect, e.ForeColor, flags);
-                    e.DrawFocusRectangle();
+                    string itemText = e.designMode ? "AddressListBox" : e.item.ToString();
+                    TextRenderer.DrawText(e.args.Graphics, itemText, e.args.Font, textRect, e.args.ForeColor, flags);
+                    e.args.DrawFocusRectangle();
                 }
             }
         }
@@ -60,17 +60,15 @@ namespace Twitticide
             {
                 const TextFormatFlags flags = TextFormatFlags.Left | TextFormatFlags.VerticalCenter;
 
-                if (e.Index >= 0)
+                if (e.args.Index >= 0)
                 {
-                    e.DrawBackground();
-                    e.Graphics.DrawRectangle(Pens.Red, 2, e.Bounds.Y + 2, 14, 14); // Simulate an icon.
-
-                    var textRect = e.Bounds;
+                    e.args.DrawBackground();
+                    var textRect = e.args.Bounds;
                     textRect.X += 20;
-                    textRect.Width -= 20;
-                    string itemText = DesignMode ? "AddressListBox" : Items[e.Index].ToString();
-                    TextRenderer.DrawText(e.Graphics, itemText, e.Font, textRect, e.ForeColor, flags);
-                    e.DrawFocusRectangle();
+                    textRect.Width -= 4;
+                    string itemText = e.designMode ? "AddressListBox" : e.item.ToString();
+                    TextRenderer.DrawText(e.args.Graphics, itemText, e.args.Font, textRect, e.args.ForeColor, flags);
+                    e.args.DrawFocusRectangle();
                 }
             }
         }
@@ -82,17 +80,15 @@ namespace Twitticide
             {
                 const TextFormatFlags flags = TextFormatFlags.Left | TextFormatFlags.VerticalCenter;
 
-                if (e.Index >= 0)
+                if (e.args.Index >= 0)
                 {
-                    e.DrawBackground();
-                    e.Graphics.DrawRectangle(Pens.Red, 2, e.Bounds.Y + 2, 14, 14); // Simulate an icon.
-
-                    var textRect = e.Bounds;
+                    e.args.DrawBackground();
+                    var textRect = e.args.Bounds;
                     textRect.X += 20;
-                    textRect.Width -= 20;
-                    string itemText = DesignMode ? "AddressListBox" : Items[e.Index].ToString();
-                    TextRenderer.DrawText(e.Graphics, itemText, e.Font, textRect, e.ForeColor, flags);
-                    e.DrawFocusRectangle();
+                    textRect.Width -= 4;
+                    string itemText = e.designMode ? "AddressListBox" : e.item.ToString();
+                    TextRenderer.DrawText(e.args.Graphics, itemText, e.args.Font, textRect, e.args.ForeColor, flags);
+                    e.args.DrawFocusRectangle();
                 }
             }
         }
@@ -138,8 +134,8 @@ namespace Twitticide
         }
 
         protected override void OnDrawItem(DrawItemEventArgs e)
-        {
-            _renderer.Render(e);
+        {            
+            _renderer.Render(new RenderItemEventArgs(e, Items[e.Index] as TwitterContact, DesignMode));
         }
     }    
 }
