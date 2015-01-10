@@ -142,6 +142,10 @@ namespace Twitticide
             if (result.IsSuccessful)
             {
                 text.AppendLine("Refresh completed at " + DateTime.Now);
+                if (result.NewFollowers > 0) text.AppendLine("New followers: " + result.NewFollowers);
+                if (result.NewFollowing > 0) text.AppendLine("New following: " + result.NewFollowing);
+                if (result.NewUnfollowers > 0) text.AppendLine("New unfollowers: " + result.NewUnfollowers);
+                if (result.NewUnfollowing > 0) text.AppendLine("New unfollowing: " + result.NewUnfollowing);
             }
             else
             {                
