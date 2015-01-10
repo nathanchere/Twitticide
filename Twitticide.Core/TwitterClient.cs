@@ -51,7 +51,9 @@ namespace Twitticide
 
         public TwitterProfile GetUser(long id)
         {
-            return new TwitterProfile(User.GetUserFromId(id));
+            var profile = User.GetUserFromId(id);
+            if (profile == null) return new TwitterProfile();
+            return new TwitterProfile(profile);
         }
 
         public TwitterProfile GetUser(string userName)

@@ -131,7 +131,23 @@ namespace Twitticide
 
             foreach (var contact in contactsToUpdate)
             {
-                contact.Profile = _client.GetUser(contact.Id);
+                var profile = _client.GetUser(contact.Id);
+                if (profile.Id == 0)
+                {
+                    profile = contact.Profile ?? new TwitterProfile
+                    {
+                        Id = contact.Id,
+                        DisplayName = "[deleted]",
+                        UserName = "[deleted]",
+                    };
+                    profile.IsDeleted = true;
+                }
+                else
+                {
+                    profile.IsDeleted = false;
+                }
+                contact.Profile = profile;
+                contact.WhenProfileLastUpdated = DateTime.Now;
             }
         }
 

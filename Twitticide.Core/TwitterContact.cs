@@ -60,7 +60,13 @@ namespace Twitticide
 
     public class TwitterProfile
     {
-        public TwitterProfile(){ }
+        public TwitterProfile(){
+            UserName = "";
+            DisplayName = "";
+            Bio = "";
+            Location = "";
+            ProfileImageUrl = "";
+        }
 
         public TwitterProfile(IUser user)
         {
@@ -82,6 +88,8 @@ namespace Twitticide
 
         public string Url { get; set; }
         public string ProfileImageUrl { get; set; }
-        public bool IsVerified { get; set; }        
+        public bool IsVerified { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }
