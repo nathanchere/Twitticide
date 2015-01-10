@@ -12,6 +12,24 @@ namespace Twitticide
 {
     public partial class TwitterProfileListbox : ListBox
     {
+        private DisplayModes _displayMode;
+
+        public DisplayModes DisplayMode
+        {
+            get { return _displayMode; }
+            set {
+                _displayMode = value;
+                
+            }
+        }
+
+        public enum DisplayModes
+        {
+            Minimal,
+            Normal,
+            Detailed,
+        }
+
         public TwitterProfileListbox()
         {
             InitializeComponent();
@@ -37,5 +55,5 @@ namespace Twitticide
             }
 
         }
-    }
+    }    
 }

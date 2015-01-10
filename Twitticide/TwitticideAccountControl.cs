@@ -130,8 +130,6 @@ namespace Twitticide
 
         private void ShowContacts(TwitterContact[] contacts)
         {
-            listBox1.Items.Clear();
-            listBox1.Items.AddRange(contacts);
             profileListbox.Items.Clear();
             profileListbox.Items.AddRange(contacts);
         }

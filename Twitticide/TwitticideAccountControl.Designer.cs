@@ -46,7 +46,6 @@
             this.btnShowNotFollowedBy = new System.Windows.Forms.Button();
             this.btnShowWhoYouFollow = new System.Windows.Forms.Button();
             this.btnShowFollowers = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updateContactProfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -259,15 +258,6 @@
             this.btnShowFollowers.UseVisualStyleBackColor = true;
             this.btnShowFollowers.Click += new System.EventHandler(this.btnShowFollowers_Click);
             // 
-            // listBox1
-            // 
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(167, 122);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(232, 338);
-            this.listBox1.TabIndex = 2;
-            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -333,7 +323,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.profileListbox);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
@@ -368,7 +357,6 @@
         private System.Windows.Forms.Button btnShowNotFollowedBy;
         private System.Windows.Forms.Button btnShowWhoYouFollow;
         private System.Windows.Forms.Button btnShowFollowers;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button btnShowYouNewlyFollowing;
         private System.Windows.Forms.Button btnShowNewFollowers;
         private System.Windows.Forms.MenuStrip menuStrip1;
