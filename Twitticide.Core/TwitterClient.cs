@@ -91,7 +91,13 @@ namespace Twitticide
         private void CheckForExceptions()
         {
             var x = ExceptionHandler.GetExceptions();
-            if (x.Any()) Debugger.Break();
+            if (x.Any()) {
+                var ex = x.Last();
+                if (ex.StatusCode == 429) throw new TooManyRequestsException();
+                Debugger.Break();
+            } 
         }
     }
+
+    public class TooManyRequestsException : Exception { }
 }
