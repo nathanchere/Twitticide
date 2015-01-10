@@ -121,12 +121,20 @@ namespace Twitticide
 
         private void allToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Controller.RefreshContactProfiles(Account, false);
-        }
+            var result = Controller.RefreshContactProfiles(Account, false);            
+            Log(result == 0
+                ? "No profiles updated"
+                : string.Format("Updated {0} profiles",result)
+            );
+        }        
 
         private void onlyGetMissingProfilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Controller.RefreshContactProfiles(Account);
+            var result = Controller.RefreshContactProfiles(Account);
+            Log(result == 0
+                ? "No profiles updated"
+                : string.Format("Updated {0} profiles", result)
+            );
         }
 
         private void ShowContacts(TwitterContact[] contacts)
@@ -140,12 +148,14 @@ namespace Twitticide
             var text = new StringBuilder();
             text.AppendLine("".PadRight(30, '='));
             if (result.IsSuccessful)
-            {
-                text.AppendLine("Refresh completed at " + DateTime.Now);
+            {                
                 if (result.NewFollowers > 0) text.AppendLine("New followers: " + result.NewFollowers);
                 if (result.NewFollowing > 0) text.AppendLine("New following: " + result.NewFollowing);
                 if (result.NewUnfollowers > 0) text.AppendLine("New unfollowers: " + result.NewUnfollowers);
                 if (result.NewUnfollowing > 0) text.AppendLine("New unfollowing: " + result.NewUnfollowing);
+
+                if (text.Length == 0) text.AppendLine("No changes detected");
+                text.AppendLine("Refresh completed at " + DateTime.Now);
             }
             else
             {                
@@ -154,7 +164,12 @@ namespace Twitticide
             }
 
             text.AppendLine("".PadRight(30, '='));            
-            txtLog.AppendText(text.ToString());
+            Log(text.ToString());
+        }
+
+        private void Log(string text)
+        {
+            txtLog.AppendText(text + Environment.NewLine);
         }
     }
 }

@@ -161,7 +161,7 @@ namespace Twitticide
             return result;
         }
 
-        public void RefreshContactProfiles(TwitticideAccount account, bool onlyNew = true)
+        public int RefreshContactProfiles(TwitticideAccount account, bool onlyNew = true)
         {
             var contactsToUpdate = account.Contacts.Values.ToArray();
             if (onlyNew) contactsToUpdate = contactsToUpdate.Where(x => x.Profile == null).ToArray();
@@ -193,6 +193,8 @@ namespace Twitticide
             }
 
             _dataStore.SaveAccount(account);
+
+            return contactsToUpdate.Length;
         }
 
 
