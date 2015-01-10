@@ -97,6 +97,7 @@
     <Compile Include="DataStore\IDataStore.cs" />
     <Compile Include="DataStore\MockDataStore.cs" />
     <Compile Include="IOC.cs" />
+    <Compile Include="RefreshResult.cs" />
     <Compile Include="TwitticideController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Relationship.cs" />

@@ -99,24 +99,46 @@ namespace Twitticide
                 var followers = _client.GetFollowers(account.UserName);
                 var following = _client.GetFollowing(account.UserName);
 
+                result.TotalFollowers = followers.Length;
+                result.TotalFollowing = followers.Length;
+
                 // Update old ones
                 foreach (var contact in account.Contacts.Values)
                 {
-                    if (!followers.Contains(contact.Id)) account.Contacts[contact.Id].InwardRelationship.UpdateFollowStatus(false);
-                    if (!following.Contains(contact.Id)) account.Contacts[contact.Id].OutwardRelationship.UpdateFollowStatus(false);
+                    if (!followers.Contains(contact.Id))
+                    {
+                        account.Contacts[contact.Id].InwardRelationship.UpdateFollowStatus(false);
+                        result.NewUnfollowers++;
+                    }
+                    if (!following.Contains(contact.Id))
+                    {
+                        account.Contacts[contact.Id].OutwardRelationship.UpdateFollowStatus(false);
+                        result.NewUnfollowing++;
+                    }
                 }
 
                 // Add new ones
                 foreach (var followerId in followers)
                 {
-                    if (!account.Contacts.ContainsKey(followerId)) account.Contacts[followerId] = new TwitterContact(followerId);
+                    if (!account.Contacts.ContainsKey(followerId))
+                    {
+                        account.Contacts[followerId] = new TwitterContact(followerId);
+                        result.NewFollowers++;
+                    }
                     account.Contacts[followerId].InwardRelationship.UpdateFollowStatus(true);
                 }
                 foreach (var followingId in following)
                 {
-                    if (!account.Contacts.ContainsKey(followingId)) account.Contacts[followingId] = new TwitterContact(followingId);
+                    if (!account.Contacts.ContainsKey(followingId))
+                    {
+                        account.Contacts[followingId] = new TwitterContact(followingId);
+                        result.NewFollowing++;
+                    }
                     account.Contacts[followingId].OutwardRelationship.UpdateFollowStatus(true);
-                }                
+                }
+
+                result.IsSuccessful = true;
+                result.ErrorMessage = "";
 
                 account.LastUpdated = DateTime.Now;
                 account.DisplayName = user.DisplayName;
@@ -176,18 +198,5 @@ namespace Twitticide
             get { return _users.ToArray(); }
         }
         
-    }
-
-    public class RefreshResult
-    {
-        public int NewFollowers { get; set; }
-        public int NewFollowing { get; set; }
-        public int NewUnfollowers { get; set; }
-        public int NewUnfollowing { get; set; }
-        public int TotalFollowers { get; set; }
-        public int TotalFollowing { get; set; }
-
-        public bool IsSuccessful { get; set; }
-        public string ErrorMessage { get; set; }
     }
 }
