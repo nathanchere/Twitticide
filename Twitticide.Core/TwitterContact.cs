@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tweetinvi.Core.Interfaces;
@@ -30,7 +31,7 @@ namespace Twitticide
         /// <summary>
         /// Them following you
         /// </summary>
-        public Relationship InwardRelationship { get; set; }
+        public Relationship InwardRelationship { get; set; }     
 
         public bool IsFollowedByYou
         {
@@ -49,11 +50,6 @@ namespace Twitticide
 
         public DateTime? WhenProfileLastUpdated { get; set; }        
         public TwitterProfile Profile { get; set; }
-
-        public void Update()
-        {
-            WhenProfileLastUpdated = DateTime.Now;
-        }
 
         public override string ToString()
         {

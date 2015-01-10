@@ -66,6 +66,15 @@ namespace Twitticide
             return Events.Last().IsFollowing;
         }
 
+        public DateTime WhenLastUpdated
+        {
+            get
+            {
+                if (!Events.Any()) return DateTime.MinValue;
+                return GetLatestEvent().Timestamp;
+            }
+        }
+
         public FollowEvent GetLatestEvent()
         {
             if (!Events.Any()) return null;
