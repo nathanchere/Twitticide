@@ -53,6 +53,7 @@
             this.onlyGetMissingProfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnResetNewEventCutoff = new System.Windows.Forms.ToolStripMenuItem();
             this.profileListbox = new Twitticide.TwitterProfileListbox();
+            this.txtLog = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).BeginInit();
             this.panel2.SuspendLayout();
@@ -309,20 +310,36 @@
             // 
             // profileListbox
             // 
-            this.profileListbox.Dock = System.Windows.Forms.DockStyle.Right;
+            this.profileListbox.DisplayMode = Twitticide.TwitterProfileListbox.DisplayModes.Minimal;
+            this.profileListbox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.profileListbox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.profileListbox.FormattingEnabled = true;
             this.profileListbox.ItemHeight = 24;
-            this.profileListbox.Location = new System.Drawing.Point(445, 122);
+            this.profileListbox.Location = new System.Drawing.Point(167, 122);
             this.profileListbox.Name = "profileListbox";
-            this.profileListbox.Size = new System.Drawing.Size(405, 338);
+            this.profileListbox.Size = new System.Drawing.Size(683, 222);
             this.profileListbox.TabIndex = 4;
+            // 
+            // txtLog
+            // 
+            this.txtLog.BackColor = System.Drawing.Color.Black;
+            this.txtLog.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.txtLog.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLog.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.txtLog.Location = new System.Drawing.Point(167, 344);
+            this.txtLog.Multiline = true;
+            this.txtLog.Name = "txtLog";
+            this.txtLog.ReadOnly = true;
+            this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLog.Size = new System.Drawing.Size(683, 116);
+            this.txtLog.TabIndex = 5;
             // 
             // TwitticideAccountControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.profileListbox);
+            this.Controls.Add(this.txtLog);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
@@ -366,5 +383,6 @@
         private System.Windows.Forms.ToolStripMenuItem onlyGetMissingProfilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem btnResetNewEventCutoff;
         private TwitterProfileListbox profileListbox;
+        private System.Windows.Forms.TextBox txtLog;
     }
 }

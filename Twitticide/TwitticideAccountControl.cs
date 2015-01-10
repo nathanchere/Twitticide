@@ -45,7 +45,8 @@ namespace Twitticide
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            Controller.RefreshAccount(Account);
+            var result = Controller.RefreshAccount(Account);
+            Log(result);
             RefreshUI();
         }
 
@@ -132,6 +133,24 @@ namespace Twitticide
         {
             profileListbox.Items.Clear();
             profileListbox.Items.AddRange(contacts);
+        }
+
+        private void Log(RefreshResult result)
+        {
+            var text = new StringBuilder();
+            text.AppendLine("".PadRight(30, '='));
+            if (result.IsSuccessful)
+            {
+                text.AppendLine("Refresh completed at " + DateTime.Now);
+            }
+            else
+            {                
+                text.AppendLine("Refresh failed!");
+                text.AppendLine("Reason:" + result.ErrorMessage);
+            }
+
+            text.AppendLine("".PadRight(30, '='));            
+            txtLog.AppendText(text.ToString());
         }
     }
 }
