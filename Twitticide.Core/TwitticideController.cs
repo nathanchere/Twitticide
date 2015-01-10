@@ -107,13 +107,17 @@ namespace Twitticide
                 {
                     if (!followers.Contains(contact.Id))
                     {
-                        account.Contacts[contact.Id].InwardRelationship.UpdateFollowStatus(false);
-                        result.NewUnfollowers++;
+                        if(account.Contacts[contact.Id].InwardRelationship.Status == Relationship.StatusEnum.Following)
+                            result.NewUnfollowers++;
+
+                        account.Contacts[contact.Id].InwardRelationship.UpdateFollowStatus(false);                        
                     }
                     if (!following.Contains(contact.Id))
                     {
-                        account.Contacts[contact.Id].OutwardRelationship.UpdateFollowStatus(false);
-                        result.NewUnfollowing++;
+                        if (account.Contacts[contact.Id].OutwardRelationship.Status == Relationship.StatusEnum.Following)
+                            result.NewUnfollowing++;
+
+                        account.Contacts[contact.Id].OutwardRelationship.UpdateFollowStatus(false);                        
                     }
                 }
 
