@@ -118,5 +118,15 @@ namespace Twitticide
         {
             Account.LastClearedUpdates = DateTime.Now;
         }
+
+        private void allToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Controller.RefreshContactProfiles(Account, false);
+        }
+
+        private void onlyGetMissingProfilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Controller.RefreshContactProfiles(Account);
+        }
     }
 }

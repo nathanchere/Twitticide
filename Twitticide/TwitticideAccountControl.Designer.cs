@@ -30,7 +30,6 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblLastUpdated = new System.Windows.Forms.Label();
-            this.btnRefresh = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lblFollowingCount = new System.Windows.Forms.Label();
@@ -48,18 +47,22 @@
             this.btnShowWhoYouFollow = new System.Windows.Forms.Button();
             this.btnShowFollowers = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.btnResetTimeCutoff = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateContactProfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.onlyGetMissingProfilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnResetNewEventCutoff = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).BeginInit();
             this.panel2.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.btnResetTimeCutoff);
             this.panel1.Controls.Add(this.lblLastUpdated);
-            this.panel1.Controls.Add(this.btnRefresh);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.lblFollowingCount);
@@ -68,9 +71,9 @@
             this.panel1.Controls.Add(this.lblDisplayName);
             this.panel1.Controls.Add(this.lblUserName);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(695, 98);
+            this.panel1.Size = new System.Drawing.Size(850, 98);
             this.panel1.TabIndex = 0;
             // 
             // lblLastUpdated
@@ -81,16 +84,6 @@
             this.lblLastUpdated.Size = new System.Drawing.Size(72, 13);
             this.lblLastUpdated.TabIndex = 8;
             this.lblLastUpdated.Text = "{lastUpdated}";
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Location = new System.Drawing.Point(531, 5);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(85, 30);
-            this.btnRefresh.TabIndex = 7;
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // label3
             // 
@@ -142,7 +135,7 @@
             this.picAvatar.BackColor = System.Drawing.Color.Yellow;
             this.picAvatar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picAvatar.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.picAvatar.Location = new System.Drawing.Point(622, 7);
+            this.picAvatar.Location = new System.Drawing.Point(777, 7);
             this.picAvatar.Name = "picAvatar";
             this.picAvatar.Size = new System.Drawing.Size(64, 64);
             this.picAvatar.TabIndex = 2;
@@ -180,9 +173,9 @@
             this.panel2.Controls.Add(this.btnShowWhoYouFollow);
             this.panel2.Controls.Add(this.btnShowFollowers);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel2.Location = new System.Drawing.Point(0, 98);
+            this.panel2.Location = new System.Drawing.Point(0, 122);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(167, 362);
+            this.panel2.Size = new System.Drawing.Size(167, 338);
             this.panel2.TabIndex = 1;
             // 
             // btnShowYouNewlyFollowing
@@ -269,20 +262,59 @@
             // 
             this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(167, 98);
+            this.listBox1.Location = new System.Drawing.Point(167, 122);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(528, 362);
+            this.listBox1.Size = new System.Drawing.Size(683, 338);
             this.listBox1.TabIndex = 2;
             // 
-            // btnResetTimeCutoff
+            // menuStrip1
             // 
-            this.btnResetTimeCutoff.Location = new System.Drawing.Point(531, 41);
-            this.btnResetTimeCutoff.Name = "btnResetTimeCutoff";
-            this.btnResetTimeCutoff.Size = new System.Drawing.Size(85, 50);
-            this.btnResetTimeCutoff.TabIndex = 9;
-            this.btnResetTimeCutoff.Text = "Reset FollowedSince";
-            this.btnResetTimeCutoff.UseVisualStyleBackColor = true;
-            this.btnResetTimeCutoff.Click += new System.EventHandler(this.btnResetTimeCutoff_Click);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem,
+            this.updateContactProfilesToolStripMenuItem,
+            this.btnResetNewEventCutoff});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(850, 24);
+            this.menuStrip1.TabIndex = 3;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // updateContactProfilesToolStripMenuItem
+            // 
+            this.updateContactProfilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.allToolStripMenuItem,
+            this.onlyGetMissingProfilesToolStripMenuItem});
+            this.updateContactProfilesToolStripMenuItem.Name = "updateContactProfilesToolStripMenuItem";
+            this.updateContactProfilesToolStripMenuItem.Size = new System.Drawing.Size(129, 20);
+            this.updateContactProfilesToolStripMenuItem.Text = "Update contact profiles";
+            // 
+            // allToolStripMenuItem
+            // 
+            this.allToolStripMenuItem.Name = "allToolStripMenuItem";
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.allToolStripMenuItem.Text = "All";
+            this.allToolStripMenuItem.Click += new System.EventHandler(this.allToolStripMenuItem_Click);
+            // 
+            // onlyGetMissingProfilesToolStripMenuItem
+            // 
+            this.onlyGetMissingProfilesToolStripMenuItem.Name = "onlyGetMissingProfilesToolStripMenuItem";
+            this.onlyGetMissingProfilesToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.onlyGetMissingProfilesToolStripMenuItem.Text = "Only get missing profiles";
+            this.onlyGetMissingProfilesToolStripMenuItem.Click += new System.EventHandler(this.onlyGetMissingProfilesToolStripMenuItem_Click);
+            // 
+            // btnResetNewEventCutoff
+            // 
+            this.btnResetNewEventCutoff.Name = "btnResetNewEventCutoff";
+            this.btnResetNewEventCutoff.Size = new System.Drawing.Size(130, 20);
+            this.btnResetNewEventCutoff.Text = "Reset new event cutoff";
+            this.btnResetNewEventCutoff.Click += new System.EventHandler(this.btnResetTimeCutoff_Click);
             // 
             // TwitticideAccountControl
             // 
@@ -291,13 +323,17 @@
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.menuStrip1);
             this.Name = "TwitticideAccountControl";
-            this.Size = new System.Drawing.Size(695, 460);
+            this.Size = new System.Drawing.Size(850, 460);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).EndInit();
             this.panel2.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -311,7 +347,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblFollowingCount;
         private System.Windows.Forms.Label lblFollowersCount;
-        private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Label lblLastUpdated;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnShowYouUnfollowed;
@@ -323,6 +358,11 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button btnShowYouNewlyFollowing;
         private System.Windows.Forms.Button btnShowNewFollowers;
-        private System.Windows.Forms.Button btnResetTimeCutoff;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem updateContactProfilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem onlyGetMissingProfilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnResetNewEventCutoff;
     }
 }
