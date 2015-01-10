@@ -32,6 +32,8 @@ namespace Twitticide
             get { return Contacts.Values.Count(c => c.IsFollowedByYou); }
         }
 
+        public DateTime LastClearedUpdates { get; set; }
+
         public override string ToString()
         {
             return string.Format("{0}: {1} (\"{2}\")", Id, UserName ?? "[null]", DisplayName ?? "[null]");

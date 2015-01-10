@@ -96,7 +96,7 @@ namespace Twitticide
             listBox1.Items.AddRange(
                 Account.Contacts.Values
                 .Where(c => c.InwardRelationship.Status == Relationship.StatusEnum.Following)
-                .Where(c => c.InwardRelationship.GetLatestEvent().Timestamp > DateTime.Now.AddDays(-7))
+                .Where(c => c.InwardRelationship.GetLatestEvent().Timestamp > Account.LastClearedUpdates)
                 .OrderByDescending(c => c.InwardRelationship.GetLatestEvent().Timestamp)
                 .ToArray()
             );
@@ -108,10 +108,15 @@ namespace Twitticide
             listBox1.Items.AddRange(
                 Account.Contacts.Values
                 .Where(c => c.OutwardRelationship.Status == Relationship.StatusEnum.Following)
-                .Where(c => c.OutwardRelationship.GetLatestEvent().Timestamp > DateTime.Now.AddDays(-7))
+                .Where(c => c.OutwardRelationship.GetLatestEvent().Timestamp > Account.LastClearedUpdates)
                 .OrderByDescending(c => c.OutwardRelationship.GetLatestEvent().Timestamp)
                 .ToArray()
             );
+        }
+
+        private void btnResetTimeCutoff_Click(object sender, EventArgs e)
+        {
+            Account.LastClearedUpdates = DateTime.Now;
         }
     }
 }

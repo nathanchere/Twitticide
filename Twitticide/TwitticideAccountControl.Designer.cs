@@ -48,6 +48,7 @@
             this.btnShowWhoYouFollow = new System.Windows.Forms.Button();
             this.btnShowFollowers = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.btnResetTimeCutoff = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).BeginInit();
             this.panel2.SuspendLayout();
@@ -56,6 +57,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.btnResetTimeCutoff);
             this.panel1.Controls.Add(this.lblLastUpdated);
             this.panel1.Controls.Add(this.btnRefresh);
             this.panel1.Controls.Add(this.label3);
@@ -82,9 +84,9 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(538, 21);
+            this.btnRefresh.Location = new System.Drawing.Point(531, 5);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(53, 49);
+            this.btnRefresh.Size = new System.Drawing.Size(85, 30);
             this.btnRefresh.TabIndex = 7;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
@@ -272,6 +274,16 @@
             this.listBox1.Size = new System.Drawing.Size(528, 362);
             this.listBox1.TabIndex = 2;
             // 
+            // btnResetTimeCutoff
+            // 
+            this.btnResetTimeCutoff.Location = new System.Drawing.Point(531, 41);
+            this.btnResetTimeCutoff.Name = "btnResetTimeCutoff";
+            this.btnResetTimeCutoff.Size = new System.Drawing.Size(85, 50);
+            this.btnResetTimeCutoff.TabIndex = 9;
+            this.btnResetTimeCutoff.Text = "Reset FollowedSince";
+            this.btnResetTimeCutoff.UseVisualStyleBackColor = true;
+            this.btnResetTimeCutoff.Click += new System.EventHandler(this.btnResetTimeCutoff_Click);
+            // 
             // TwitticideAccountControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -311,5 +323,6 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button btnShowYouNewlyFollowing;
         private System.Windows.Forms.Button btnShowNewFollowers;
+        private System.Windows.Forms.Button btnResetTimeCutoff;
     }
 }
