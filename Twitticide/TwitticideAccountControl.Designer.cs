@@ -54,6 +54,10 @@
             this.btnResetNewEventCutoff = new System.Windows.Forms.ToolStripMenuItem();
             this.profileListbox = new Twitticide.TwitterProfileListbox();
             this.txtLog = new System.Windows.Forms.TextBox();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.minimalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.standardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.detailedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).BeginInit();
             this.panel2.SuspendLayout();
@@ -264,7 +268,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem,
             this.updateContactProfilesToolStripMenuItem,
-            this.btnResetNewEventCutoff});
+            this.btnResetNewEventCutoff,
+            this.viewToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(850, 24);
@@ -274,7 +279,7 @@
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
@@ -284,27 +289,27 @@
             this.allToolStripMenuItem,
             this.onlyGetMissingProfilesToolStripMenuItem});
             this.updateContactProfilesToolStripMenuItem.Name = "updateContactProfilesToolStripMenuItem";
-            this.updateContactProfilesToolStripMenuItem.Size = new System.Drawing.Size(129, 20);
+            this.updateContactProfilesToolStripMenuItem.Size = new System.Drawing.Size(142, 20);
             this.updateContactProfilesToolStripMenuItem.Text = "Update contact profiles";
             // 
             // allToolStripMenuItem
             // 
             this.allToolStripMenuItem.Name = "allToolStripMenuItem";
-            this.allToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.allToolStripMenuItem.Text = "All";
             this.allToolStripMenuItem.Click += new System.EventHandler(this.allToolStripMenuItem_Click);
             // 
             // onlyGetMissingProfilesToolStripMenuItem
             // 
             this.onlyGetMissingProfilesToolStripMenuItem.Name = "onlyGetMissingProfilesToolStripMenuItem";
-            this.onlyGetMissingProfilesToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.onlyGetMissingProfilesToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.onlyGetMissingProfilesToolStripMenuItem.Text = "Only get missing profiles";
             this.onlyGetMissingProfilesToolStripMenuItem.Click += new System.EventHandler(this.onlyGetMissingProfilesToolStripMenuItem_Click);
             // 
             // btnResetNewEventCutoff
             // 
             this.btnResetNewEventCutoff.Name = "btnResetNewEventCutoff";
-            this.btnResetNewEventCutoff.Size = new System.Drawing.Size(130, 20);
+            this.btnResetNewEventCutoff.Size = new System.Drawing.Size(139, 20);
             this.btnResetNewEventCutoff.Text = "Reset new event cutoff";
             this.btnResetNewEventCutoff.Click += new System.EventHandler(this.btnResetTimeCutoff_Click);
             // 
@@ -333,6 +338,37 @@
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtLog.Size = new System.Drawing.Size(683, 116);
             this.txtLog.TabIndex = 5;
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.minimalToolStripMenuItem,
+            this.standardToolStripMenuItem,
+            this.detailedToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // minimalToolStripMenuItem
+            // 
+            this.minimalToolStripMenuItem.Name = "minimalToolStripMenuItem";
+            this.minimalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.minimalToolStripMenuItem.Text = "Minimal";
+            this.minimalToolStripMenuItem.Click += new System.EventHandler(this.minimalToolStripMenuItem_Click);
+            // 
+            // standardToolStripMenuItem
+            // 
+            this.standardToolStripMenuItem.Name = "standardToolStripMenuItem";
+            this.standardToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.standardToolStripMenuItem.Text = "Standard";
+            this.standardToolStripMenuItem.Click += new System.EventHandler(this.standardToolStripMenuItem_Click);
+            // 
+            // detailedToolStripMenuItem
+            // 
+            this.detailedToolStripMenuItem.Name = "detailedToolStripMenuItem";
+            this.detailedToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.detailedToolStripMenuItem.Text = "Detailed";
+            this.detailedToolStripMenuItem.Click += new System.EventHandler(this.detailedToolStripMenuItem_Click);
             // 
             // TwitticideAccountControl
             // 
@@ -384,5 +420,9 @@
         private System.Windows.Forms.ToolStripMenuItem btnResetNewEventCutoff;
         private TwitterProfileListbox profileListbox;
         private System.Windows.Forms.TextBox txtLog;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem minimalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem standardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem detailedToolStripMenuItem;
     }
 }

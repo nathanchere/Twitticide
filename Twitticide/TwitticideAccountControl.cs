@@ -40,8 +40,9 @@ namespace Twitticide
             if (Account.ProfileImageUrl != null)
             {
                 picAvatar.Load(Account.ProfileImageUrl);
-                picAvatar.SizeMode = PictureBoxSizeMode.StretchImage; 
-            }else picAvatar.Image = new Bitmap(1,1);
+                picAvatar.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+            else picAvatar.Image = new Bitmap(1, 1);
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -65,54 +66,54 @@ namespace Twitticide
         {
             ShowContacts(
                 Account.Contacts.Values.Where(c =>
-                !c.IsFollowingYou && c.IsFollowedByYou
-            ).ToArray());
+                    !c.IsFollowingYou && c.IsFollowedByYou
+                    ).ToArray());
         }
 
         private void btnShowNotFollowing_Click(object sender, EventArgs e)
         {
             ShowContacts(
                 Account.Contacts.Values.Where(c =>
-                c.IsFollowingYou && !c.IsFollowedByYou
-            ).ToArray());
+                    c.IsFollowingYou && !c.IsFollowedByYou
+                    ).ToArray());
         }
 
         private void btnShowUnfollowedBy_Click(object sender, EventArgs e)
         {
             ShowContacts(
                 Account.Contacts.Values.Where(c =>
-                c.InwardRelationship.Status == Relationship.StatusEnum.Unfollowed
-            ).ToArray());
+                    c.InwardRelationship.Status == Relationship.StatusEnum.Unfollowed
+                    ).ToArray());
         }
 
         private void btnShowYouUnfollowed_Click(object sender, EventArgs e)
         {
             ShowContacts(
                 Account.Contacts.Values.Where(c =>
-                c.OutwardRelationship.Status == Relationship.StatusEnum.Unfollowed
-            ).ToArray());
+                    c.OutwardRelationship.Status == Relationship.StatusEnum.Unfollowed
+                    ).ToArray());
         }
 
         private void btnShowNewFollowers_Click(object sender, EventArgs e)
         {
             ShowContacts(
                 Account.Contacts.Values
-                .Where(c => c.InwardRelationship.Status == Relationship.StatusEnum.Following)
-                .Where(c => c.InwardRelationship.GetLatestEvent().Timestamp > Account.LastClearedUpdates)
-                .OrderByDescending(c => c.InwardRelationship.GetLatestEvent().Timestamp)
-                .ToArray()
-            );
+                    .Where(c => c.InwardRelationship.Status == Relationship.StatusEnum.Following)
+                    .Where(c => c.InwardRelationship.GetLatestEvent().Timestamp > Account.LastClearedUpdates)
+                    .OrderByDescending(c => c.InwardRelationship.GetLatestEvent().Timestamp)
+                    .ToArray()
+                );
         }
 
         private void btnShowYouNewlyFollowing_Click(object sender, EventArgs e)
         {
             ShowContacts(
                 Account.Contacts.Values
-                .Where(c => c.OutwardRelationship.Status == Relationship.StatusEnum.Following)
-                .Where(c => c.OutwardRelationship.GetLatestEvent().Timestamp > Account.LastClearedUpdates)
-                .OrderByDescending(c => c.OutwardRelationship.GetLatestEvent().Timestamp)
-                .ToArray()
-            );
+                    .Where(c => c.OutwardRelationship.Status == Relationship.StatusEnum.Following)
+                    .Where(c => c.OutwardRelationship.GetLatestEvent().Timestamp > Account.LastClearedUpdates)
+                    .OrderByDescending(c => c.OutwardRelationship.GetLatestEvent().Timestamp)
+                    .ToArray()
+                );
         }
 
         private void btnResetTimeCutoff_Click(object sender, EventArgs e)
@@ -124,7 +125,7 @@ namespace Twitticide
         {
             var result = Controller.RefreshContactProfiles(Account, false);
             Log(result);
-        }        
+        }
 
         private void onlyGetMissingProfilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -159,7 +160,7 @@ namespace Twitticide
             var text = new StringBuilder();
             text.AppendLine("".PadRight(30, '='));
             if (result.IsSuccessful)
-            {                
+            {
                 if (result.NewFollowers > 0) text.AppendLine("New followers: " + result.NewFollowers);
                 if (result.NewFollowing > 0) text.AppendLine("New following: " + result.NewFollowing);
                 if (result.NewUnfollowers > 0) text.AppendLine("New unfollowers: " + result.NewUnfollowers);
@@ -175,13 +176,28 @@ namespace Twitticide
                 Log("Reason:" + result.ErrorMessage);
             }
 
-            text.AppendLine("".PadRight(30, '='));            
+            text.AppendLine("".PadRight(30, '='));
             Log(text.ToString());
         }
 
         private void Log(string text)
         {
             txtLog.AppendText(text + Environment.NewLine);
+        }
+
+        private void minimalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            profileListbox.DisplayMode = TwitterProfileListbox.DisplayModes.Minimal;
+        }
+
+        private void standardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            profileListbox.DisplayMode = TwitterProfileListbox.DisplayModes.Normal;
+        }
+
+        private void detailedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            profileListbox.DisplayMode = TwitterProfileListbox.DisplayModes.Detailed;
         }
     }
 }
