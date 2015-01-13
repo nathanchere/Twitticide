@@ -33,6 +33,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.btnManageAccounts = new System.Windows.Forms.ToolStripMenuItem();
+            this.setDataDirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accountTabs.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -63,7 +64,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1047, 379);
+            this.tabPage2.Size = new System.Drawing.Size(1047, 561);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -71,7 +72,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnManageAccounts});
+            this.btnManageAccounts,
+            this.setDataDirToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1055, 24);
@@ -81,9 +83,16 @@
             // btnManageAccounts
             // 
             this.btnManageAccounts.Name = "btnManageAccounts";
-            this.btnManageAccounts.Size = new System.Drawing.Size(106, 20);
+            this.btnManageAccounts.Size = new System.Drawing.Size(115, 20);
             this.btnManageAccounts.Text = "Manage Accounts";
             this.btnManageAccounts.Click += new System.EventHandler(this.btnManageAccounts_Click);
+            // 
+            // setDataDirToolStripMenuItem
+            // 
+            this.setDataDirToolStripMenuItem.Name = "setDataDirToolStripMenuItem";
+            this.setDataDirToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.setDataDirToolStripMenuItem.Text = "Set data dir";
+            this.setDataDirToolStripMenuItem.Click += new System.EventHandler(this.setDataDirToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -111,6 +120,7 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem btnManageAccounts;
+        private System.Windows.Forms.ToolStripMenuItem setDataDirToolStripMenuItem;
     }
 }
 

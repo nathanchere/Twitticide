@@ -52,5 +52,17 @@ namespace Twitticide
         {
             ShowManageUserDialog();
         }
+
+        private void setDataDirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var dialog = new FolderBrowserDialog()
+            {
+                Description = "Select where to save data",
+                RootFolder = Controller.ApplicationDataPath,
+                SelectedPath = Controller.ApplicationDataPath,
+                ShowNewFolderButton = true,
+            };
+            Controller.
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Configuration;
+using Newtonsoft.Json.Bson;
 using NServiceKit.Text;
 using Tweetinvi.Core.Extensions;
 
@@ -197,12 +198,20 @@ namespace Twitticide
             return contactsToUpdate.Length;
         }
 
+        public string ApplicationDataPath {
+            get { return _dataStore.ApplicationDataPath; }
+        }
+
+        public void SetApplicationDataPath(string value)
+        {
+            // TODO: move to config provider
+            _dataStore.ApplicationDataPath = value;
+        }
 
         private readonly List<TwitticideAccount> _users; 
         public TwitticideAccount[] Users
         {
             get { return _users.ToArray(); }
-        }
-        
+        }        
     }
 }

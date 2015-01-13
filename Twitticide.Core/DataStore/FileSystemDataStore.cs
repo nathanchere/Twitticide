@@ -1,16 +1,31 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
+using Microsoft.Win32;
 using NServiceKit.Text;
 
 namespace Twitticide
 {
     public class FileSystemDataStore : IDataStore
-    {
-        // TODO: this will not live for long
+    {               
+        private readonly string DefaultDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Twitticide", "Accounts");
+        private const string REG_PATH = @"HKEY_CURRENT_USER\SOFTWARE\NathanChere\Twitticide";
 
-        private readonly string DataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Twitticide", "Accounts");
+        private string DataPath{
+            get
+            {
+                const string key = "DataPath";
+                if (string.IsNullOrEmpty(ApplicationDataPath))
+                {
+                    ApplicationDataPath = (string)Registry.GetValue(REG_PATH, key, null)
+                        ?? ConfigurationManager.AppSettings[key]
+                        ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Twitticide", "Accounts");                    
+                }
+                return ApplicationDataPath;
+            }
+        }
 
         public IEnumerable<TwitticideAccount> LoadAccounts()
         {
@@ -61,5 +76,7 @@ namespace Twitticide
             if(file == null) throw new FileNotFoundException("No data file found for account " + id);
             return File.ReadAllText(file).FromJson<TwitticideAccount>();
         }
+
+        public string ApplicationDataPath { get; set; }
     }
 }
