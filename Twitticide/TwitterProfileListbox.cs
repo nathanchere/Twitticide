@@ -123,16 +123,21 @@ namespace Twitticide
                     e.args.DrawBackground();
                     var textRectUserName = e.args.Bounds;
                     textRectUserName.X += 66;
+                    textRectUserName.Y += 6;
                     textRectUserName.Width -= 66;
+                    var fontUserName = new Font(e.args.Font.FontFamily, 18, FontStyle.Bold);
+                
 
-                    var textDisplayName= e.args.Bounds;
-                    textDisplayName.X += 66;
-                    textDisplayName.Width -= 66;
+                    var textRectDisplayName= e.args.Bounds;
+                    textRectDisplayName.X += 66;
+                    textRectDisplayName.Width -= 66;
+                    textRectDisplayName.Height -= 8;
+                    var fontDisplayName = new Font(e.args.Font.FontFamily, 11);
 
                     string userName = e.designMode ? "@UserName" : "@" + e.item.Profile.UserName;
-                    string displayName = e.designMode ? "Twitter User" : "@" + e.item.Profile.DisplayName;
-                    TextRenderer.DrawText(e.args.Graphics, userName, e.args.Font, textRectUserName, e.args.ForeColor, TextFormatFlags.Left | TextFormatFlags.Top);
-                    TextRenderer.DrawText(e.args.Graphics, displayName, e.args.Font, textRectUserName, e.args.ForeColor, TextFormatFlags.Left | TextFormatFlags.Bottom);
+                    string displayName = e.designMode ? "Twitter User" : e.item.Profile.DisplayName;
+                    TextRenderer.DrawText(e.args.Graphics, userName, fontUserName, textRectUserName, e.args.ForeColor, TextFormatFlags.Left | TextFormatFlags.Top);
+                    TextRenderer.DrawText(e.args.Graphics, displayName, fontDisplayName, textRectDisplayName, e.args.ForeColor, TextFormatFlags.Left | TextFormatFlags.Bottom);
                     e.args.DrawFocusRectangle();
                 }
             }
