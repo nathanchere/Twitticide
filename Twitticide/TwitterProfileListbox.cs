@@ -13,10 +13,23 @@ namespace Twitticide
     public partial class TwitterProfileListbox : ListBox
     {
         #region Item renderers
+
         private interface IRenderer
         {
             int ItemHeight { get; }
             void Render(RenderItemEventArgs e);
+
+            event ProfileInteractionDelegate Follow;
+            event ProfileInteractionDelegate Unfollow;
+            event ProfileInteractionDelegate Mute;
+            event ProfileInteractionDelegate Block;
+        }
+
+        public delegate void ProfileInteractionDelegate(object sender, ProfileInteractionEventArgs args);
+
+        public class ProfileInteractionEventArgs : EventArgs
+        {
+            public long TwitterAccountId { get; set; }
         }
 
         private class RenderItemEventArgs : EventArgs
@@ -33,28 +46,43 @@ namespace Twitticide
             }
         }
 
-        private abstract class BaseRenderer : IRenderer
+        private class MinimalRenderer : IRenderer
         {
-            public delegate void ProfileInteractionDelegate(object sender, ProfileInteractionEventArgs args);
+            public int ItemHeight
+            {
+                get { return 14; }
+            }
+
+            public void Render(RenderItemEventArgs e)
+            {
+                const TextFormatFlags flags = TextFormatFlags.Left | TextFormatFlags.VerticalCenter;
+
+                if (e.args.Index >= 0)
+                {
+                    e.args.DrawBackground();
+                    var textRect = e.args.Bounds;
+                    textRect.X += 20;
+                    textRect.Width -= 4;
+                    string itemText = e.designMode ? "AddressListBox" : e.item.ToString();
+                    TextRenderer.DrawText(e.args.Graphics, itemText, e.args.Font, textRect, e.args.ForeColor, flags);
+                    e.args.DrawFocusRectangle();
+                }
+            }
 
             public event ProfileInteractionDelegate Follow;
             public event ProfileInteractionDelegate Unfollow;
             public event ProfileInteractionDelegate Mute;
             public event ProfileInteractionDelegate Block;
-
-            public class ProfileInteractionEventArgs : EventArgs
-            {
-                public long TwitterAccountId { get; set; }
-            }
-
-            public abstract int ItemHeight { get; }
-            public abstract void Render(RenderItemEventArgs e);
         }
 
-        private class MinimalRenderer : BaseRenderer 
+        private class NormalRenderer : IRenderer
         {
-            public override int ItemHeight { get { return 14; } }
-            public override void Render(RenderItemEventArgs e)
+            public int ItemHeight
+            {
+                get { return 34; }
+            }
+
+            public void Render(RenderItemEventArgs e)
             {
                 const TextFormatFlags flags = TextFormatFlags.Left | TextFormatFlags.VerticalCenter;
 
@@ -69,56 +97,62 @@ namespace Twitticide
                     e.args.DrawFocusRectangle();
                 }
             }
+
+            public event ProfileInteractionDelegate Follow;
+            public event ProfileInteractionDelegate Unfollow;
+            public event ProfileInteractionDelegate Mute;
+            public event ProfileInteractionDelegate Block;
         }
 
-        private class NormalRenderer : BaseRenderer
+        private class DetailedRenderer : IRenderer
         {
-            public override int ItemHeight { get { return 34; } }
-            public override void Render(RenderItemEventArgs e)
-            {
-                const TextFormatFlags flags = TextFormatFlags.Left | TextFormatFlags.VerticalCenter;
+            public Bitmap UserIcon { get; set; }
 
+            public int ItemHeight
+            {
+                get { return 66; }
+            }
+
+            public void Render(RenderItemEventArgs e)
+            {
                 if (e.args.Index >= 0)
                 {
+                    UserIcon = UserIcon ?? new Bitmap(64, 64);
+                    e.args.Graphics.DrawImage(UserIcon, 2, 2, 64, 64);
+
                     e.args.DrawBackground();
-                    var textRect = e.args.Bounds;
-                    textRect.X += 20;
-                    textRect.Width -= 4;
-                    string itemText = e.designMode ? "AddressListBox" : e.item.ToString();
-                    TextRenderer.DrawText(e.args.Graphics, itemText, e.args.Font, textRect, e.args.ForeColor, flags);
+                    var textRectUserName = e.args.Bounds;
+                    textRectUserName.X += 66;
+                    textRectUserName.Width -= 66;
+
+                    var textDisplayName= e.args.Bounds;
+                    textDisplayName.X += 66;
+                    textDisplayName.Width -= 66;
+
+                    string userName = e.designMode ? "@UserName" : "@" + e.item.Profile.UserName;
+                    string displayName = e.designMode ? "Twitter User" : "@" + e.item.Profile.DisplayName;
+                    TextRenderer.DrawText(e.args.Graphics, userName, e.args.Font, textRectUserName, e.args.ForeColor, TextFormatFlags.Left | TextFormatFlags.Top);
+                    TextRenderer.DrawText(e.args.Graphics, displayName, e.args.Font, textRectUserName, e.args.ForeColor, TextFormatFlags.Left | TextFormatFlags.Bottom);
                     e.args.DrawFocusRectangle();
                 }
             }
+
+            public event ProfileInteractionDelegate Follow;
+            public event ProfileInteractionDelegate Unfollow;
+            public event ProfileInteractionDelegate Mute;
+            public event ProfileInteractionDelegate Block;
         }
 
-        private class DetailedRenderer : BaseRenderer
-        {
-            public override int ItemHeight { get { return 66; } }
-            public override void Render(RenderItemEventArgs e)
-            {
-                const TextFormatFlags flags = TextFormatFlags.Left | TextFormatFlags.VerticalCenter;
-
-                if (e.args.Index >= 0)
-                {
-                    e.args.DrawBackground();
-                    var textRect = e.args.Bounds;
-                    textRect.X += 20;
-                    textRect.Width -= 4;
-                    string itemText = e.designMode ? "AddressListBox" : e.item.ToString();
-                    TextRenderer.DrawText(e.args.Graphics, itemText, e.args.Font, textRect, e.args.ForeColor, flags);
-                    e.args.DrawFocusRectangle();
-                }
-            }
-        }
         #endregion
 
         private IRenderer _renderer;
-        private DisplayModes _displayMode;        
+        private DisplayModes _displayMode;
 
         public DisplayModes DisplayMode
         {
             get { return _displayMode; }
-            set {
+            set
+            {
                 _displayMode = value;
                 switch (value)
                 {
@@ -149,7 +183,7 @@ namespace Twitticide
         {
             InitializeComponent();
             DisplayMode = DisplayModes.Minimal;
-            DrawMode = DrawMode.OwnerDrawFixed;            
+            DrawMode = DrawMode.OwnerDrawFixed;
         }
 
         protected override void OnDrawItem(DrawItemEventArgs e)
@@ -162,5 +196,5 @@ namespace Twitticide
 
             _renderer.Render(new RenderItemEventArgs(e, e.Index >= 0 ? Items[e.Index] as TwitterContact : null, false));
         }
-    }    
+    }
 }
