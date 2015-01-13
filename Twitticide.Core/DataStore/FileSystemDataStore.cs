@@ -10,22 +10,22 @@ namespace Twitticide
 {
     public class FileSystemDataStore : IDataStore
     {               
-        private readonly string DefaultDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Twitticide", "Accounts");
+        private readonly string DefaultDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Twitticide");
         private const string REG_PATH = @"HKEY_CURRENT_USER\SOFTWARE\NathanChere\Twitticide";
 
         private string DataPath{
             get
             {
                 const string key = "DataPath";
-                if (string.IsNullOrEmpty(ApplicationDataPath))
-                {
-                    ApplicationDataPath = (string)Registry.GetValue(REG_PATH, key, null)
+                ApplicationDataPath = ApplicationDataPath ?? (string)Registry.GetValue(REG_PATH, key, null)
                         ?? ConfigurationManager.AppSettings[key]
-                        ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Twitticide", "Accounts");                    
-                }
+                        ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Twitticide", "Accounts");
+
                 return ApplicationDataPath;
             }
         }
+
+        private string DataPathAccounts { get { return Path.Combine(DataPath, "Accounts"); } }
 
         public IEnumerable<TwitticideAccount> LoadAccounts()
         {
@@ -33,7 +33,7 @@ namespace Twitticide
 
             // TODO: check if any .bak accounts remaining and offer to recover
 
-            var files = Directory.GetFiles(DataPath).Where(x => x.EndsWith(".account.json"));
+            var files = Directory.GetFiles(DataPathAccounts).Where(x => x.EndsWith(".account.json"));
             return files
                 .Select(File.ReadAllText)
                 .Select(text => text.FromJson<TwitticideAccount>());

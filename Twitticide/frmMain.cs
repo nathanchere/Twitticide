@@ -61,6 +61,9 @@ namespace Twitticide
                 SelectedPath = Controller.ApplicationDataPath,
                 ShowNewFolderButton = true,
             };
+            if (dialog.ShowDialog() != DialogResult.OK) return;
+
+            Controller.SetApplicationDataPath(dialog.SelectedPath);
         }
     }
 }
