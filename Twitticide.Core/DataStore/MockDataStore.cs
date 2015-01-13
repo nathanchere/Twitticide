@@ -32,5 +32,7 @@ namespace Twitticide
             if(!_accounts.ContainsKey(id)) throw new Exception("Account not found");
             return _accounts[id];
         }
+
+        public string ApplicationDataPath { get; set; }
     }
 }

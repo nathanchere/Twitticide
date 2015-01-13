@@ -58,11 +58,9 @@ namespace Twitticide
             var dialog = new FolderBrowserDialog()
             {
                 Description = "Select where to save data",
-                RootFolder = Controller.ApplicationDataPath,
                 SelectedPath = Controller.ApplicationDataPath,
                 ShowNewFolderButton = true,
             };
-            Controller.
         }
     }
 }
