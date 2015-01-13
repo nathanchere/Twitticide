@@ -34,9 +34,9 @@ namespace Twitticide
             _client = twitterClient;
             _dataStore = dataStore;
 
-            _users = new List<TwitticideAccount>(); 
+            _users = new List<TwitticideAccount>();
 
-            foreach(var user in _dataStore.LoadAccounts()) _users.Add(user);
+            foreach (var user in _dataStore.LoadAccounts()) _users.Add(user);
         }
 
         public void AddUser(string userName)
@@ -54,7 +54,7 @@ namespace Twitticide
         }
 
         private void AddUser(TwitterProfile user)
-        {            
+        {
             var newAccount = new TwitticideAccount
             {
                 Id = user.Id,
@@ -67,18 +67,18 @@ namespace Twitticide
             _dataStore.SaveAccount(newAccount);
             _users.Add(newAccount);
 
-            if (AccountAdded != null) AccountAdded(this, new AccountsChangedEventArgs(newAccount)); 
+            if (AccountAdded != null) AccountAdded(this, new AccountsChangedEventArgs(newAccount));
         }
 
         public void RemoveUser(string userName)
         {
-            var user = _users.SingleOrDefault(x => x.UserName == userName);            
+            var user = _users.SingleOrDefault(x => x.UserName == userName);
             RemoveUser(user);
         }
 
         public void RemoveUser(long userId)
         {
-            var user = _users.SingleOrDefault(x => x.Id == userId);            
+            var user = _users.SingleOrDefault(x => x.Id == userId);
             RemoveUser(user);
         }
 
@@ -108,17 +108,17 @@ namespace Twitticide
                 {
                     if (!followers.Contains(contact.Id))
                     {
-                        if(account.Contacts[contact.Id].InwardRelationship.Status == Relationship.StatusEnum.Following)
+                        if (account.Contacts[contact.Id].InwardRelationship.Status == Relationship.StatusEnum.Following)
                             result.NewUnfollowers++;
 
-                        account.Contacts[contact.Id].InwardRelationship.UpdateFollowStatus(false);                        
+                        account.Contacts[contact.Id].InwardRelationship.UpdateFollowStatus(false);
                     }
                     if (!following.Contains(contact.Id))
                     {
                         if (account.Contacts[contact.Id].OutwardRelationship.Status == Relationship.StatusEnum.Following)
                             result.NewUnfollowing++;
 
-                        account.Contacts[contact.Id].OutwardRelationship.UpdateFollowStatus(false);                        
+                        account.Contacts[contact.Id].OutwardRelationship.UpdateFollowStatus(false);
                     }
                 }
 
@@ -162,43 +162,59 @@ namespace Twitticide
             return result;
         }
 
-        public int RefreshContactProfiles(TwitticideAccount account, bool onlyNew = true)
+        public RefreshProfilesResult RefreshContactProfiles(TwitticideAccount account, bool onlyNew = true)
         {
-            var contactsToUpdate = account.Contacts.Values.ToArray();
-            if (onlyNew) contactsToUpdate = contactsToUpdate.Where(x => x.Profile == null).ToArray();
-
-            var profiles = _client.GetUsers(contactsToUpdate.Select(x => x.Id)).ToArray();
-            
-            // Check not rate limited
-
-            foreach (var contact in contactsToUpdate)
+            try
             {
-                var profile = profiles.SingleOrDefault(p => p.Id == contact.Id);
+                var contactsToUpdate = account.Contacts.Values.ToArray();
+                if (onlyNew) contactsToUpdate = contactsToUpdate.Where(x => x.Profile == null).ToArray();
 
-                if (profile == null)
+                var profiles = _client.GetUsers(contactsToUpdate.Select(x => x.Id)).ToArray();
+
+                // Check not rate limited
+
+                foreach (var contact in contactsToUpdate)
                 {
-                    profile = contact.Profile ?? new TwitterProfile
+                    var profile = profiles.SingleOrDefault(p => p.Id == contact.Id);
+
+                    if (profile == null)
                     {
-                        Id = contact.Id,
-                        DisplayName = "[deleted]",
-                        UserName = "[deleted]",
-                    };
-                    profile.IsDeleted = true;
+                        profile = contact.Profile ?? new TwitterProfile
+                        {
+                            Id = contact.Id,
+                            DisplayName = "[deleted]",
+                            UserName = "[deleted]",
+                        };
+                        profile.IsDeleted = true;
+                    }
+                    else
+                    {
+                        profile.IsDeleted = false;
+                    }
+                    contact.Profile = profile;
+                    contact.WhenProfileLastUpdated = DateTime.Now;
                 }
-                else
+
+                _dataStore.SaveAccount(account);
+
+                return new RefreshProfilesResult
                 {
-                    profile.IsDeleted = false;
-                }
-                contact.Profile = profile;
-                contact.WhenProfileLastUpdated = DateTime.Now;
+                    ProfilesRefreshedCount = contactsToUpdate.Length,
+                    IsSuccessful = true,
+                };
             }
-
-            _dataStore.SaveAccount(account);
-
-            return contactsToUpdate.Length;
+            catch (Exception ex)
+            {
+                return new RefreshProfilesResult
+                {
+                    IsSuccessful = false,
+                    ErrorMessage = ex.Message,
+                };
+            }
         }
 
-        public string ApplicationDataPath {
+        public string ApplicationDataPath
+        {
             get { return _dataStore.ApplicationDataPath; }
         }
 
@@ -208,10 +224,17 @@ namespace Twitticide
             _dataStore.ApplicationDataPath = value;
         }
 
-        private readonly List<TwitticideAccount> _users; 
+        private readonly List<TwitticideAccount> _users;
         public TwitticideAccount[] Users
         {
             get { return _users.ToArray(); }
-        }        
+        }
+    }
+
+    public class RefreshProfilesResult
+    {
+        public bool IsSuccessful { get; set; }
+        public string ErrorMessage { get; set; }
+        public int ProfilesRefreshedCount { get; set; }
     }
 }

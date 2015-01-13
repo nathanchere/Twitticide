@@ -29,7 +29,7 @@ namespace Twitticide
 
         public IEnumerable<TwitticideAccount> LoadAccounts()
         {
-            VerifyDataPathExists();
+            VerifyDataPathExists(DataPathAccounts);
 
             // TODO: check if any .bak accounts remaining and offer to recover
 
@@ -39,18 +39,18 @@ namespace Twitticide
                 .Select(text => text.FromJson<TwitticideAccount>());
         }
 
-        private void VerifyDataPathExists()
+        private void VerifyDataPathExists(string path)
         {
-            if (!Directory.Exists(DataPath)) Directory.CreateDirectory(DataPath);
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
         }
 
         public void SaveAccount(TwitticideAccount account)
         {
-            VerifyDataPathExists();
+            VerifyDataPathExists(DataPathAccounts);
             var text = account.ToJson();
 
-            var path = Path.Combine(DataPath, string.Format("{0}.account.json", account.Id));
-            var pathBak = Path.Combine(DataPath, string.Format("{0}.account.bak.json", account.Id));
+            var path = Path.Combine(DataPathAccounts, string.Format("{0}.account.json", account.Id));
+            var pathBak = Path.Combine(DataPathAccounts, string.Format("{0}.account.bak.json", account.Id));
 
             if (File.Exists(path)) File.Move(path, pathBak);
 
@@ -61,18 +61,18 @@ namespace Twitticide
 
         public void DeleteAccount(TwitticideAccount account)
         {
-            VerifyDataPathExists();
-            var path = Path.Combine(DataPath, string.Format("{0}.account.json", account.Id));
+            VerifyDataPathExists(DataPathAccounts);
+            var path = Path.Combine(DataPathAccounts, string.Format("{0}.account.json", account.Id));
             File.Delete(path);
         }
 
         public TwitticideAccount LoadAccount(long id)
         {
-            VerifyDataPathExists();
+            VerifyDataPathExists(DataPathAccounts);
 
             // TODO: check if any .bak accounts remaining and offer to recover
 
-            var file = Directory.GetFiles(DataPath).SingleOrDefault(x => Path.GetFileName(x) == id + ".account.json");
+            var file = Directory.GetFiles(DataPathAccounts).SingleOrDefault(x => Path.GetFileName(x) == id + ".account.json");
             if(file == null) throw new FileNotFoundException("No data file found for account " + id);
             return File.ReadAllText(file).FromJson<TwitticideAccount>();
         }
