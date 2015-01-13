@@ -73,9 +73,18 @@ namespace Twitticide
             //TODO: remove the direct tweetinvi dependency
             var limits = Controller.CheckLimits();
             var result = new StringBuilder();
+            result.AppendLine(string.Format("FollowersIds: {0} of {1} (reset {2})", limits.FollowersIdsLimit.Remaining, limits.FollowersIdsLimit.Limit, SecondsToString(limits.FollowersIdsLimit.ResetDateTimeInSeconds)));
+            result.AppendLine(string.Format("FriendsIds: {0} of {1} (reset {2})", limits.FriendsIdsLimit.Remaining, limits.FriendsIdsLimit.Limit, SecondsToString(limits.FriendsIdsLimit.ResetDateTimeInSeconds)));
+            result.AppendLine(string.Format("UsersLookup: {0} of {1} (reset {2})", limits.UsersLookupLimit.Remaining, limits.UsersLookupLimit.Limit, SecondsToString(limits.UsersLookupLimit.ResetDateTimeInSeconds)));
+            result.AppendLine(string.Format("DirectMessagesShow: {0} of {1} (reset {2})", limits.DirectMessagesShowLimit.Remaining, limits.DirectMessagesShowLimit.Limit, SecondsToString(limits.DirectMessagesShowLimit.ResetDateTimeInSeconds)));
+            RageMessageBox.Show("Rate limts retrieved", "Rate limits", result.ToString(), RageMessageBox.RageMessageBoxButtons.OK, RageMessageBox.RageMessageBoxIcon.TrollDerp);
+        }
 
-            RageMessageBox.Show("", "Rate limits", result.ToString(), RageMessageBox.RageMessageBoxButtons.OK, RageMessageBox.RageMessageBoxIcon.TrollDerp);
-
+        private string SecondsToString(double value)
+        {
+            var minutes = Math.Floor(value / 60);
+            var seconds = Math.Floor(value % 60);
+            return string.Format("{0}m {1}s", minutes, seconds);
         }
 
         private void backUpToolStripMenuItem_Click(object sender, EventArgs e)
