@@ -22,6 +22,8 @@ namespace Twitticide
 
             Account = account;
             Controller = controller;
+            
+            profileListbox.DisplayMode = TwitterProfileListbox.DisplayModes.Normal;
 
             RefreshUI();
         }
