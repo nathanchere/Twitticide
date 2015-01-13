@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FerretLib.WinForms.Controls;
 
 namespace Twitticide
 {
@@ -122,22 +123,17 @@ namespace Twitticide
         private void allToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var result = Controller.RefreshContactProfiles(Account, false);
-            if (result.IsSuccessful)
-            {
-                Log(result.ProfilesRefreshedCount == 0
-                    ? "No profiles updated"
-                    : string.Format("Updated {0} profiles", result));
-            }
-            else
-            {
-                Log("Refresh failed!");
-                Log("Reason:" + result.ErrorMessage);
-            }    
+            Log(result);
         }        
 
         private void onlyGetMissingProfilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var result = Controller.RefreshContactProfiles(Account);
+            Log(result);
+        }
+
+        private void Log(RefreshProfilesResult result)
+        {
             if (result.IsSuccessful)
             {
                 Log(result.ProfilesRefreshedCount == 0
@@ -146,9 +142,10 @@ namespace Twitticide
             }
             else
             {
-                Log("Refresh failed!");
+                RageMessageBox.Show("Refresh failed", null, result.ErrorMessage);
+                Log("Refresh user profiles failed!");
                 Log("Reason:" + result.ErrorMessage);
-            }   
+            }
         }
 
         private void ShowContacts(TwitterContact[] contacts)
@@ -173,6 +170,7 @@ namespace Twitticide
             }
             else
             {
+                RageMessageBox.Show("Refresh account failed", null, result.ErrorMessage);
                 Log("Refresh failed!");
                 Log("Reason:" + result.ErrorMessage);
             }
