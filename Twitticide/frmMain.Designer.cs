@@ -34,6 +34,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.btnManageAccounts = new System.Windows.Forms.ToolStripMenuItem();
             this.setDataDirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.manageDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.backUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.restoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accountTabs.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -73,7 +76,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnManageAccounts,
-            this.setDataDirToolStripMenuItem});
+            this.setDataDirToolStripMenuItem,
+            this.manageDataToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1055, 24);
@@ -93,6 +97,27 @@
             this.setDataDirToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
             this.setDataDirToolStripMenuItem.Text = "Set data dir";
             this.setDataDirToolStripMenuItem.Click += new System.EventHandler(this.setDataDirToolStripMenuItem_Click);
+            // 
+            // manageDataToolStripMenuItem
+            // 
+            this.manageDataToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.backUpToolStripMenuItem,
+            this.restoreToolStripMenuItem});
+            this.manageDataToolStripMenuItem.Name = "manageDataToolStripMenuItem";
+            this.manageDataToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
+            this.manageDataToolStripMenuItem.Text = "Manage data";
+            // 
+            // backUpToolStripMenuItem
+            // 
+            this.backUpToolStripMenuItem.Name = "backUpToolStripMenuItem";
+            this.backUpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.backUpToolStripMenuItem.Text = "Back up";
+            // 
+            // restoreToolStripMenuItem
+            // 
+            this.restoreToolStripMenuItem.Name = "restoreToolStripMenuItem";
+            this.restoreToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.restoreToolStripMenuItem.Text = "Restore";
             // 
             // frmMain
             // 
@@ -121,6 +146,9 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem btnManageAccounts;
         private System.Windows.Forms.ToolStripMenuItem setDataDirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem manageDataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem backUpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem restoreToolStripMenuItem;
     }
 }
 
