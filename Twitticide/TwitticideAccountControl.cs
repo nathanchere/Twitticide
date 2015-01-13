@@ -121,20 +121,34 @@ namespace Twitticide
 
         private void allToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var result = Controller.RefreshContactProfiles(Account, false);            
-            Log(result == 0
-                ? "No profiles updated"
-                : string.Format("Updated {0} profiles",result)
-            );
+            var result = Controller.RefreshContactProfiles(Account, false);
+            if (result.IsSuccessful)
+            {
+                Log(result.ProfilesRefreshedCount == 0
+                    ? "No profiles updated"
+                    : string.Format("Updated {0} profiles", result));
+            }
+            else
+            {
+                Log("Refresh failed!");
+                Log("Reason:" + result.ErrorMessage);
+            }    
         }        
 
         private void onlyGetMissingProfilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var result = Controller.RefreshContactProfiles(Account);
-            Log(result == 0
-                ? "No profiles updated"
-                : string.Format("Updated {0} profiles", result)
-            );
+            if (result.IsSuccessful)
+            {
+                Log(result.ProfilesRefreshedCount == 0
+                    ? "No profiles updated"
+                    : string.Format("Updated {0} profiles", result));
+            }
+            else
+            {
+                Log("Refresh failed!");
+                Log("Reason:" + result.ErrorMessage);
+            }   
         }
 
         private void ShowContacts(TwitterContact[] contacts)
@@ -155,12 +169,12 @@ namespace Twitticide
                 if (result.NewUnfollowing > 0) text.AppendLine("New unfollowing: " + result.NewUnfollowing);
 
                 if (text.Length == 0) text.AppendLine("No changes detected");
-                text.AppendLine("Refresh completed at " + DateTime.Now);
+                Log("Refresh completed at " + DateTime.Now);
             }
             else
-            {                
-                text.AppendLine("Refresh failed!");
-                text.AppendLine("Reason:" + result.ErrorMessage);
+            {
+                Log("Refresh failed!");
+                Log("Reason:" + result.ErrorMessage);
             }
 
             text.AppendLine("".PadRight(30, '='));            
