@@ -107,6 +107,7 @@ namespace Twitticide
             if (result != DialogResult.OK) return;
 
             Controller.RestoreBackup(dialog.FileName);
+            ReloadUI();
         }
     }
 }
