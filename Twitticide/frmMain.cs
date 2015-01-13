@@ -93,5 +93,20 @@ namespace Twitticide
 
             Controller.BackupData(dialog.FileName);
         }
+
+        private void restoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog()
+            {
+                CheckFileExists = true,
+                RestoreDirectory = true,
+                Title = "Select file to restore",
+                Filter = "Twitticide Backup|TwitticideBackup_*.zip",
+            };
+            var result = dialog.ShowDialog();
+            if (result != DialogResult.OK) return;
+
+            Controller.RestoreBackup(dialog.FileName);
+        }
     }
 }

@@ -38,5 +38,10 @@ namespace Twitticide
         {
             return;
         }
+
+        public void RestoreBackup(string fileName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

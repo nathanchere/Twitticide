@@ -241,6 +241,11 @@ namespace Twitticide
         {
             _dataStore.BackupData(fileName);
         }
+
+        public void RestoreBackup(string fileName)
+        {
+            _dataStore.RestoreBackup(fileName);
+        }
     }
 
     public class RefreshProfilesResult

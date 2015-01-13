@@ -49,6 +49,7 @@ namespace Twitticide
         public void SaveAccount(TwitticideAccount account)
         {
             VerifyDataPathExists(DataPathAccounts);
+
             var text = account.ToJson();
 
             var path = Path.Combine(DataPathAccounts, string.Format("{0}.account.json", account.Id));
@@ -64,6 +65,7 @@ namespace Twitticide
         public void DeleteAccount(TwitticideAccount account)
         {
             VerifyDataPathExists(DataPathAccounts);
+
             var path = Path.Combine(DataPathAccounts, string.Format("{0}.account.json", account.Id));
             File.Delete(path);
         }
@@ -83,12 +85,29 @@ namespace Twitticide
 
         private IEnumerable<string> GetAllAccountDataFiles()
         {
-            VerifyDataPathExists(DataPathAccounts);
             return Directory.GetFiles(DataPathAccounts);
+        }
+
+        public void RestoreBackup(string fileName)
+        {
+            VerifyDataPathExists(DataPathAccounts);            
+
+            using (var zip = ZipFile.OpenRead(fileName))
+            {
+                foreach (var file in zip.Entries)
+                {
+                    var outputPath = Path.Combine(DataPathAccounts, file.Name);
+                    if(File.Exists(outputPath)) File.Delete(outputPath);
+
+                    file.ExtractToFile(outputPath);
+                }
+            }
         }
 
         public void BackupData(string fileName)
         {
+            VerifyDataPathExists(DataPathAccounts);
+
             using (var zip = ZipFile.Open(fileName, ZipArchiveMode.Create, Encoding.UTF8))
             {
                 foreach (var file in GetAllAccountDataFiles())

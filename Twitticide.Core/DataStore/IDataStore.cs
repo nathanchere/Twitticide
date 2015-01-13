@@ -10,5 +10,6 @@ namespace Twitticide
         TwitticideAccount LoadAccount(long id);
         string ApplicationDataPath { get; set; }
         void BackupData(string fileName);
+        void RestoreBackup(string fileName);
     }
 }
