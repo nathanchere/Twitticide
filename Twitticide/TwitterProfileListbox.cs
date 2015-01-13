@@ -33,10 +33,28 @@ namespace Twitticide
             }
         }
 
-        private class MinimalRenderer : IRenderer
+        private abstract class BaseRenderer : IRenderer
         {
-            public int ItemHeight { get { return 14; } }
-            public void Render(RenderItemEventArgs e)
+            public delegate void ProfileInteractionDelegate(object sender, ProfileInteractionEventArgs args);
+
+            public event ProfileInteractionDelegate Follow;
+            public event ProfileInteractionDelegate Unfollow;
+            public event ProfileInteractionDelegate Mute;
+            public event ProfileInteractionDelegate Block;
+
+            public class ProfileInteractionEventArgs : EventArgs
+            {
+                public long TwitterAccountId { get; set; }
+            }
+
+            public abstract int ItemHeight { get; }
+            public abstract void Render(RenderItemEventArgs e);
+        }
+
+        private class MinimalRenderer : BaseRenderer 
+        {
+            public override int ItemHeight { get { return 14; } }
+            public override void Render(RenderItemEventArgs e)
             {
                 const TextFormatFlags flags = TextFormatFlags.Left | TextFormatFlags.VerticalCenter;
 
@@ -53,10 +71,10 @@ namespace Twitticide
             }
         }
 
-        private class NormalRenderer : IRenderer
+        private class NormalRenderer : BaseRenderer
         {
-            public int ItemHeight { get { return 34; } }
-            public void Render(RenderItemEventArgs e)
+            public override int ItemHeight { get { return 34; } }
+            public override void Render(RenderItemEventArgs e)
             {
                 const TextFormatFlags flags = TextFormatFlags.Left | TextFormatFlags.VerticalCenter;
 
@@ -73,10 +91,10 @@ namespace Twitticide
             }
         }
 
-        private class DetailedRenderer : IRenderer
+        private class DetailedRenderer : BaseRenderer
         {
-            public int ItemHeight { get { return 66; } }
-            public void Render(RenderItemEventArgs e)
+            public override int ItemHeight { get { return 66; } }
+            public override void Render(RenderItemEventArgs e)
             {
                 const TextFormatFlags flags = TextFormatFlags.Left | TextFormatFlags.VerticalCenter;
 
