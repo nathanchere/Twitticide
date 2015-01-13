@@ -5,6 +5,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
+using FerretLib.WinForms.Controls;
 
 namespace Twitticide
 {
@@ -64,6 +66,32 @@ namespace Twitticide
             if (dialog.ShowDialog() != DialogResult.OK) return;
 
             Controller.SetApplicationDataPath(dialog.SelectedPath);
+        }
+
+        private void checkRateLimitsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //TODO: remove the direct tweetinvi dependency
+            var limits = Controller.CheckLimits();
+            var result = new StringBuilder();
+
+            RageMessageBox.Show("", "Rate limits", result.ToString(), RageMessageBox.RageMessageBoxButtons.OK, RageMessageBox.RageMessageBoxIcon.TrollDerp);
+
+        }
+
+        private void backUpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var defaultFileName = String.Format("TwitticideBackup_{0}.zip", DateTime.Now.ToString("yyyy-MM-dd_hhmmss"));
+            var dialog = new SaveFileDialog
+            {
+                CheckPathExists = true,
+                FileName = defaultFileName,
+                RestoreDirectory = true,
+                Title = "Select backup location",
+            };
+            var result = dialog.ShowDialog();
+            if (result != DialogResult.OK) return;
+
+            Controller.BackupData(dialog.FileName);
         }
     }
 }

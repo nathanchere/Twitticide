@@ -9,5 +9,6 @@ namespace Twitticide
         void DeleteAccount(TwitticideAccount accounts);
         TwitticideAccount LoadAccount(long id);
         string ApplicationDataPath { get; set; }
+        void BackupData(string fileName);
     }
 }

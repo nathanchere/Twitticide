@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Text;
 using Microsoft.Win32;
 using NServiceKit.Text;
 
@@ -72,11 +74,33 @@ namespace Twitticide
 
             // TODO: check if any .bak accounts remaining and offer to recover
 
-            var file = Directory.GetFiles(DataPathAccounts).SingleOrDefault(x => Path.GetFileName(x) == id + ".account.json");
+            var file = GetAllAccountDataFiles().SingleOrDefault(x => Path.GetFileName(x) == id + ".account.json");
             if(file == null) throw new FileNotFoundException("No data file found for account " + id);
             return File.ReadAllText(file).FromJson<TwitticideAccount>();
         }
 
         public string ApplicationDataPath { get; set; }
+
+        private IEnumerable<string> GetAllAccountDataFiles()
+        {
+            VerifyDataPathExists(DataPathAccounts);
+            return Directory.GetFiles(DataPathAccounts);
+        }
+
+        public void BackupData(string fileName)
+        {
+            using (var zip = ZipFile.Open(fileName, ZipArchiveMode.Create, Encoding.UTF8))
+            {
+                foreach (var file in GetAllAccountDataFiles())
+                {
+                    var text = File.ReadAllText(file);
+                    var entry = zip.CreateEntry(Path.GetFileName(file));
+                    using (var writer = new StreamWriter(entry.Open()))
+                    {
+                        writer.Write(text);
+                    }
+                }
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Win32;
 using Tweetinvi;
 using Tweetinvi.Core.Extensions;
+using Tweetinvi.Core.Interfaces.Credentials;
 
 namespace Twitticide
 {
@@ -18,6 +19,7 @@ namespace Twitticide
         TwitterProfile GetUser(string userName);
         long[] GetFollowers(string username);
         long[] GetFollowing(string username);
+        ITokenRateLimits CheckLimits();
     }
 
     public class TwitterClient : ITwitterClient
@@ -86,6 +88,11 @@ namespace Twitticide
             var friends = user.GetFriendIds(FETCH_LIMIT);
             CheckForExceptions();
             return friends.ToArray();
+        }
+
+        public ITokenRateLimits CheckLimits()
+        {
+            return RateLimit.GetCurrentCredentialsRateLimits();            
         }
 
         private void CheckForExceptions()

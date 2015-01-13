@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Configuration;
 using Newtonsoft.Json.Bson;
 using NServiceKit.Text;
 using Tweetinvi.Core.Extensions;
+using Tweetinvi.Core.Interfaces.Credentials;
 
 namespace Twitticide
 {
@@ -228,6 +230,16 @@ namespace Twitticide
         public TwitticideAccount[] Users
         {
             get { return _users.ToArray(); }
+        }
+
+        public ITokenRateLimits CheckLimits()
+        {
+            return _client.CheckLimits();
+        }
+
+        public void BackupData(string fileName)
+        {
+            _dataStore.BackupData(fileName);
         }
     }
 

@@ -34,5 +34,9 @@ namespace Twitticide
         }
 
         public string ApplicationDataPath { get; set; }
+        public void BackupData(string fileName)
+        {
+            return;
+        }
     }
 }

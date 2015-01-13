@@ -135,11 +135,14 @@ namespace Twitticide
         }
 
         protected override void OnDrawItem(DrawItemEventArgs e)
-        {            
-            if(DesignMode)
+        {
+            if (DesignMode)
+            {
                 _renderer.Render(new RenderItemEventArgs(e, new TwitterContact(), true));
-            else
-            _renderer.Render(new RenderItemEventArgs(e, Items[e.Index] as TwitterContact, false));
+                return;
+            }
+
+            _renderer.Render(new RenderItemEventArgs(e, e.Index >= 0 ? Items[e.Index] as TwitterContact : null, false));
         }
     }    
 }
