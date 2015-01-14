@@ -142,8 +142,8 @@ namespace Twitticide
                     textRectDisplayName.Height -= 8;
                     var fontDisplayName = new Font(e.args.Font.FontFamily, 11);
 
-                    string userName = e.designMode ? "@UserName" : "@" + e.item.Profile.UserName;
-                    string displayName = e.designMode ? "Twitter User" : e.item.Profile.DisplayName;
+                    string userName = e.designMode ? "@UserName" : e.item.Profile != null ? "@" + e.item.Profile.UserName : "#" + e.item.Id;
+                    string displayName = e.designMode ? "Twitter User" : e.item.Profile != null ? e.item.Profile.DisplayName : "[no profile]";
                     TextRenderer.DrawText(e.args.Graphics, userName, fontUserName, textRectUserName, e.args.ForeColor, TextFormatFlags.Left | TextFormatFlags.Top);
                     TextRenderer.DrawText(e.args.Graphics, displayName, fontDisplayName, textRectDisplayName, e.args.ForeColor, TextFormatFlags.Left | TextFormatFlags.Bottom);
                     e.args.DrawFocusRectangle();
@@ -154,6 +154,7 @@ namespace Twitticide
             {
                 if (item.Profile == null) {
                     _icons.Add(item.Id, Properties.Resources.Avatar_Missing);
+                    return;
                 }
                 try
                 {
