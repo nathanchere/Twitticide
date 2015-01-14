@@ -15,6 +15,13 @@ namespace Twitticide
         private readonly string DefaultDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Twitticide");
         private const string REG_PATH = @"HKEY_CURRENT_USER\SOFTWARE\NathanChere\Twitticide";
 
+        private IConfigProvider _config;
+
+        public FileSystemDataStore(IConfigProvider config)
+        {
+            _config = config;
+        }
+
         private string DataPath{
             get
             {

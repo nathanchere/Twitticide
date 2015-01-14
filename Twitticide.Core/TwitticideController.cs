@@ -30,11 +30,13 @@ namespace Twitticide
 
         private readonly ITwitterClient _client;
         private readonly IDataStore _dataStore;
+        private readonly IConfigProvider _config;
 
-        public TwitticideController(ITwitterClient twitterClient, IDataStore dataStore)
+        public TwitticideController(ITwitterClient twitterClient, IDataStore dataStore, IConfigProvider config)
         {
             _client = twitterClient;
             _dataStore = dataStore;
+            _config = config;
 
             _users = new List<TwitticideAccount>();
 
