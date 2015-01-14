@@ -1,6 +1,6 @@
 namespace Twitticide
 {
-    public class RefreshResult
+    public class RefreshAccountContactsResult
     {
         public int NewFollowers { get; set; }
         public int NewFollowing { get; set; }
