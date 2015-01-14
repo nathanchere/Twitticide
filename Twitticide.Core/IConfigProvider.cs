@@ -16,7 +16,7 @@ namespace Twitticide
         string TwitterApiKeySecret { get; }
     }
 
-    internal class ConfigProvider : IConfigProvider
+    public class ConfigProvider : IConfigProvider
     {
         private const string REG_PATH = @"HKEY_CURRENT_USER\SOFTWARE\NathanChere\Twitticide";
         private const string KEY_DATAPATH = @"DataPath";

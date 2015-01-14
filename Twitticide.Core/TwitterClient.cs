@@ -24,13 +24,9 @@ namespace Twitticide
 
     public class TwitterClient : ITwitterClient
     {
-
         private IConfigProvider _config;
-        private const int FETCH_LIMIT = Int32.MaxValue;
 
-        #region .ctor
         public TwitterClient(IConfigProvider config) : this(null, null, null, null, config) { }
-
         public TwitterClient(string apiKey, string apiKeySecret, string accessToken, string accessTokenSecret, IConfigProvider config)
         {
             _config = config;            
@@ -40,7 +36,6 @@ namespace Twitticide
                 accessToken ?? _config.TwitterApiKey,
                 accessTokenSecret ?? _config.TwitterApiKeySecret);
         }        
-        #endregion
 
         public TwitterProfile GetUser(long id)
         {
@@ -65,7 +60,7 @@ namespace Twitticide
         public long[] GetFollowers(string username)
         {
             var user = User.GetUserFromScreenName(username);
-            var followers = user.GetFollowerIds(FETCH_LIMIT);
+            var followers = user.GetFollowerIds();
             CheckForExceptions();
             return followers.ToArray();
         }
@@ -73,7 +68,7 @@ namespace Twitticide
         public long[] GetFollowing(string username)
         {
             var user = User.GetUserFromScreenName(username);
-            var friends = user.GetFriendIds(FETCH_LIMIT);
+            var friends = user.GetFriendIds();
             CheckForExceptions();
             return friends.ToArray();
         }
