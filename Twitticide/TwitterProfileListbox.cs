@@ -125,9 +125,10 @@ namespace Twitticide
                 if (e.args.Index >= 0)
                 {
                     if (!_icons.ContainsKey(e.item.Id)) RefreshIcon(e.item);                    
-                    e.args.Graphics.DrawImage(_icons[e.item.Id], 2, 2, 64, 64);
-
                     e.args.DrawBackground();
+                    
+                    e.args.Graphics.DrawImage(_icons[e.item.Id], e.args.Bounds.X + 2, e.args.Bounds.Y + 2, 64, 64);
+
                     var textRectUserName = e.args.Bounds;
                     textRectUserName.X += 66;
                     textRectUserName.Y += 6;
@@ -151,11 +152,22 @@ namespace Twitticide
 
             private void RefreshIcon(TwitterContact item)
             {
-                var request = WebRequest.Create(item.Profile.ProfileImageUrl);
-                using (var response = request.GetResponse())
-                using (var stream = response.GetResponseStream())
+                if (item.Profile == null) {
+                    _icons.Add(item.Id, Properties.Resources.Avatar_Missing);
+                }
+                try
                 {
-                    _icons.Add(item.Id, new Bitmap(Bitmap.FromStream(stream), 64, 64));
+
+                    var request = WebRequest.Create(item.Profile.ProfileImageUrl);
+                    using (var response = request.GetResponse())
+                    using (var stream = response.GetResponseStream())
+                    {
+                        _icons.Add(item.Id, new Bitmap(Bitmap.FromStream(stream), 64, 64));
+                    }
+                }
+                catch(Exception ex)
+                {
+                    _icons.Add(item.Id, Properties.Resources.Avatar_Missing);
                 }
             }
 
