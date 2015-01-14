@@ -98,6 +98,7 @@
     <Compile Include="DataStore\FileSystemDataStore.cs" />
     <Compile Include="DataStore\IDataStore.cs" />
     <Compile Include="DataStore\MockDataStore.cs" />
+    <Compile Include="IConfigProvider.cs" />
     <Compile Include="IOC.cs" />
     <Compile Include="RefreshResult.cs" />
     <Compile Include="TwitticideController.cs" />

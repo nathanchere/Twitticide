@@ -13,11 +13,13 @@ namespace Twitticide
     public partial class frmMain : Form
     {
         private readonly TwitticideController Controller;
+        private readonly IConfigProvider Config;
 
         public frmMain()
-        {
+        {            
             InitializeComponent();
             Controller = IOC.Resolve<TwitticideController>();
+            Config = IOC.Resolve<IConfigProvider>();
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -60,12 +62,13 @@ namespace Twitticide
             var dialog = new FolderBrowserDialog()
             {
                 Description = "Select where to save data",
-                SelectedPath = Controller.ApplicationDataPath,
+                SelectedPath = Config.ApplicationDataPath,
                 ShowNewFolderButton = true,
             };
             if (dialog.ShowDialog() != DialogResult.OK) return;
 
-            Controller.SetApplicationDataPath(dialog.SelectedPath);
+            Config.ApplicationDataPath = dialog.SelectedPath;
+            Controller.ReloadAccounts();
         }
 
         private void checkRateLimitsToolStripMenuItem_Click(object sender, EventArgs e)

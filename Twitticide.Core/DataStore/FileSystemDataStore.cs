@@ -12,8 +12,7 @@ namespace Twitticide
 {
     public class FileSystemDataStore : IDataStore
     {               
-        private readonly string DefaultDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Twitticide");
-        private const string REG_PATH = @"HKEY_CURRENT_USER\SOFTWARE\NathanChere\Twitticide";
+        private readonly string DefaultDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Twitticide");        
 
         private IConfigProvider _config;
 
@@ -22,19 +21,7 @@ namespace Twitticide
             _config = config;
         }
 
-        private string DataPath{
-            get
-            {
-                const string key = "DataPath";
-                ApplicationDataPath = ApplicationDataPath ?? (string)Registry.GetValue(REG_PATH, key, null)
-                        ?? ConfigurationManager.AppSettings[key]
-                        ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Twitticide", "Accounts");
-
-                return ApplicationDataPath;
-            }
-        }
-
-        private string DataPathAccounts { get { return Path.Combine(DataPath, "Accounts"); } }
+        private string DataPathAccounts { get { return Path.Combine(_config.ApplicationDataPath, "Accounts"); } }
 
         public IEnumerable<TwitticideAccount> LoadAccounts()
         {
@@ -86,9 +73,7 @@ namespace Twitticide
             var file = GetAllAccountDataFiles().SingleOrDefault(x => Path.GetFileName(x) == id + ".account.json");
             if(file == null) throw new FileNotFoundException("No data file found for account " + id);
             return File.ReadAllText(file).FromJson<TwitticideAccount>();
-        }
-
-        public string ApplicationDataPath { get; set; }
+        }        
 
         private IEnumerable<string> GetAllAccountDataFiles()
         {

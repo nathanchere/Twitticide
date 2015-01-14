@@ -40,7 +40,7 @@ namespace Twitticide
 
             _users = new List<TwitticideAccount>();
 
-            foreach (var user in _dataStore.LoadAccounts()) _users.Add(user);
+            ReloadAccounts();
         }
 
         public void AddUser(string userName)
@@ -215,18 +215,7 @@ namespace Twitticide
                     ErrorMessage = ex.Message,
                 };
             }
-        }
-
-        public string ApplicationDataPath
-        {
-            get { return _dataStore.ApplicationDataPath; }
-        }
-
-        public void SetApplicationDataPath(string value)
-        {
-            // TODO: move to config provider
-            _dataStore.ApplicationDataPath = value;
-        }
+        }        
 
         private readonly List<TwitticideAccount> _users;
         public TwitticideAccount[] Users
@@ -247,6 +236,12 @@ namespace Twitticide
         public void RestoreBackup(string fileName)
         {
             _dataStore.RestoreBackup(fileName);
+        }
+
+        public void ReloadAccounts()
+        {
+            _users.Clear();
+            foreach (var user in _dataStore.LoadAccounts()) _users.Add(user);
         }
     }
 
