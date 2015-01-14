@@ -94,9 +94,9 @@ namespace Twitticide
             if (AccountRemoved != null) AccountRemoved(this, new AccountsChangedEventArgs(user));
         }
 
-        public RefreshResult RefreshAccount(TwitticideAccount account)
+        public RefreshAccountContactsResult RefreshAccountContacts(TwitticideAccount account)
         {
-            var result = new RefreshResult();
+            var result = new RefreshAccountContactsResult();
             try
             {
                 var user = _client.GetUser(account.Id);
@@ -243,12 +243,5 @@ namespace Twitticide
             _users.Clear();
             foreach (var user in _dataStore.LoadAccounts()) _users.Add(user);
         }
-    }
-
-    public class RefreshProfilesResult
-    {
-        public bool IsSuccessful { get; set; }
-        public string ErrorMessage { get; set; }
-        public int ProfilesRefreshedCount { get; set; }
     }
 }

@@ -49,7 +49,7 @@ namespace Twitticide
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            var result = Controller.RefreshAccount(Account);
+            var result = Controller.RefreshAccountContacts(Account);
             Log(result);
             RefreshUI();
         }
@@ -157,25 +157,25 @@ namespace Twitticide
             profileListbox.Items.AddRange(contacts);
         }
 
-        private void Log(RefreshResult result)
+        private void Log(RefreshAccountContactsResult accountContactsResult)
         {
             var text = new StringBuilder();
             text.AppendLine("".PadRight(30, '='));
-            if (result.IsSuccessful)
+            if (accountContactsResult.IsSuccessful)
             {
-                if (result.NewFollowers > 0) text.AppendLine("New followers: " + result.NewFollowers);
-                if (result.NewFollowing > 0) text.AppendLine("New following: " + result.NewFollowing);
-                if (result.NewUnfollowers > 0) text.AppendLine("New unfollowers: " + result.NewUnfollowers);
-                if (result.NewUnfollowing > 0) text.AppendLine("New unfollowing: " + result.NewUnfollowing);
+                if (accountContactsResult.NewFollowers > 0) text.AppendLine("New followers: " + accountContactsResult.NewFollowers);
+                if (accountContactsResult.NewFollowing > 0) text.AppendLine("New following: " + accountContactsResult.NewFollowing);
+                if (accountContactsResult.NewUnfollowers > 0) text.AppendLine("New unfollowers: " + accountContactsResult.NewUnfollowers);
+                if (accountContactsResult.NewUnfollowing > 0) text.AppendLine("New unfollowing: " + accountContactsResult.NewUnfollowing);
 
                 if (text.Length == 0) text.AppendLine("No changes detected");
                 Log("Refresh completed at " + DateTime.Now);
             }
             else
             {
-                RageMessageBox.Show("Refresh account failed", null, result.ErrorMessage);
+                RageMessageBox.Show("Refresh account failed", null, accountContactsResult.ErrorMessage);
                 Log("Refresh failed!");
-                Log("Reason:" + result.ErrorMessage);
+                Log("Reason:" + accountContactsResult.ErrorMessage);
             }
 
             text.AppendLine("".PadRight(30, '='));

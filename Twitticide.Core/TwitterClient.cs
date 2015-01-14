@@ -24,34 +24,22 @@ namespace Twitticide
 
     public class TwitterClient : ITwitterClient
     {
-        private const string REG_PATH = @"HKEY_CURRENT_USER\SOFTWARE\NathanChere\Twitticide";
+
+        private IConfigProvider _config;
         private const int FETCH_LIMIT = Int32.MaxValue;
 
         #region .ctor
-        public TwitterClient() : this(null, null, null, null) { }
+        public TwitterClient(IConfigProvider config) : this(null, null, null, null, config) { }
 
-        public TwitterClient(string apiKey, string apiKeySecret, string accessToken, string accessTokenSecret)
+        public TwitterClient(string apiKey, string apiKeySecret, string accessToken, string accessTokenSecret, IConfigProvider config)
         {
-            const string KEY_API = @"ApiKey";
-            const string KEY_APIPRIVATE = @"ApiSecret";
-            const string KEY_TOKEN = @"AccessToken";
-            const string KEY_TOKENPRIVATE = @"AccessTokenSecret";
-
+            _config = config;            
             TwitterCredentials.SetCredentials(
-                GetConfigValue(accessToken, KEY_TOKEN),
-                GetConfigValue(accessTokenSecret, KEY_TOKENPRIVATE),
-                GetConfigValue(apiKey, KEY_API),
-                GetConfigValue(apiKeySecret, KEY_APIPRIVATE));
-        }
-
-        private string GetConfigValue(string defaultValue, string index)
-        {
-            var result = defaultValue
-                         ?? (string)Registry.GetValue(REG_PATH, index, null)
-                         ?? ConfigurationManager.AppSettings[index];
-            if (result == null) throw new ConfigurationErrorsException("No defaultValue for " + index + " found in registry or app.config");
-            return result;
-        }
+                apiKey ?? _config.TwitterAccessToken,
+                apiKeySecret ?? _config.TwitterAccessTokenSecret,
+                accessToken ?? _config.TwitterApiKey,
+                accessTokenSecret ?? _config.TwitterApiKeySecret);
+        }        
         #endregion
 
         public TwitterProfile GetUser(long id)
