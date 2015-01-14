@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Linq;
+using System.Net;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -106,7 +108,12 @@ namespace Twitticide
 
         private class DetailedRenderer : IRenderer
         {
-            public Bitmap UserIcon { get; set; }
+            private readonly Dictionary<long, Bitmap> _icons;
+
+            public DetailedRenderer()
+            {
+                _icons = new Dictionary<long, Bitmap>();
+            }
 
             public int ItemHeight
             {
@@ -117,8 +124,8 @@ namespace Twitticide
             {
                 if (e.args.Index >= 0)
                 {
-                    UserIcon = UserIcon ?? new Bitmap(64, 64);
-                    e.args.Graphics.DrawImage(UserIcon, 2, 2, 64, 64);
+                    if (!_icons.ContainsKey(e.item.Id)) RefreshIcon(e.item);                    
+                    e.args.Graphics.DrawImage(_icons[e.item.Id], 2, 2, 64, 64);
 
                     e.args.DrawBackground();
                     var textRectUserName = e.args.Bounds;
@@ -139,6 +146,16 @@ namespace Twitticide
                     TextRenderer.DrawText(e.args.Graphics, userName, fontUserName, textRectUserName, e.args.ForeColor, TextFormatFlags.Left | TextFormatFlags.Top);
                     TextRenderer.DrawText(e.args.Graphics, displayName, fontDisplayName, textRectDisplayName, e.args.ForeColor, TextFormatFlags.Left | TextFormatFlags.Bottom);
                     e.args.DrawFocusRectangle();
+                }
+            }
+
+            private void RefreshIcon(TwitterContact item)
+            {
+                var request = WebRequest.Create(item.Profile.ProfileImageUrl);
+                using (var response = request.GetResponse())
+                using (var stream = response.GetResponseStream())
+                {
+                    _icons.Add(item.Id, new Bitmap(Bitmap.FromStream(stream), 64, 64));
                 }
             }
 
@@ -189,7 +206,7 @@ namespace Twitticide
             InitializeComponent();
             DisplayMode = DisplayModes.Minimal;
             DrawMode = DrawMode.OwnerDrawFixed;
-        }
+        }        
 
         protected override void OnDrawItem(DrawItemEventArgs e)
         {
