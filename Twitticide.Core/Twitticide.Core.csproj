@@ -101,11 +101,10 @@
     <Compile Include="DataStore\MockDataStore.cs" />
     <Compile Include="IConfigProvider.cs" />
     <Compile Include="IImageCache.cs" />
-    <Compile Include="ImageCache.cs" />
     <Compile Include="IOC.cs" />
     <Compile Include="RefreshProfilesResult.cs" />
     <Compile Include="RefreshAccountContactsResult.cs" />
-    <Compile Include="ThreadedImageCache.cs" />
+    <Compile Include="ImageCache.cs" />
     <Compile Include="TwitticideController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Relationship.cs" />
