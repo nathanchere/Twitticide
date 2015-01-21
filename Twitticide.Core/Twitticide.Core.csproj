@@ -108,6 +108,7 @@
     <Compile Include="TwitticideAccount.cs" />
     <Compile Include="TwitterClient.cs" />
     <Compile Include="TwitterContact.cs" />
+    <Compile Include="Util\ConcurrentHashset.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

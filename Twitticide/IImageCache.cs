@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Net;
@@ -7,7 +8,6 @@ namespace Twitticide
 {
     public interface IImageCache
     {
-        void Cache(TwitterContact contact);
         Bitmap GetAvatar(long id);
     }
 
@@ -16,15 +16,11 @@ namespace Twitticide
     {
         public ImageCache()
         {
-            _icons = new Dictionary<long, Bitmap>();
+            _icons = new ConcurrentDictionary<long, Bitmap>();
         }
 
-        private readonly Dictionary<long, Bitmap> _icons;
-
-        public void Cache(TwitterContact contact)
-        {
-            if (!_icons.ContainsKey(contact.Id)) RefreshIcon(contact);
-        }
+        private readonly IDictionary<long, Bitmap> _icons;
+        private readonly HashSet<long> _queue; // Icons to download 
 
         private void RefreshIcon(TwitterContact item)
         {
@@ -46,11 +42,19 @@ namespace Twitticide
             }
         }
 
+        private void UpdateCache(long id)
+        {
+        }
+
         public Bitmap GetAvatar(long id)
         {
             try
             {
-                if (!_icons.ContainsKey(id)) return Properties.Resources.Avatar_Missing;
+                if (!_icons.ContainsKey(id))
+                {
+                    UpdateCache(id);
+                    return Properties.Resources.Avatar_Missing;
+                }
                 return _icons[id];
             }
             catch(Exception ex)
