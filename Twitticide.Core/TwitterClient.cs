@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
@@ -24,6 +25,7 @@ namespace Twitticide
 
     public class TwitterClient : ITwitterClient
     {
+        private DateTime _lastExceptionTimestamp;
         private IConfigProvider _config;
 
         public TwitterClient(IConfigProvider config) : this(null, null, null, null, config) { }
@@ -83,6 +85,10 @@ namespace Twitticide
             var x = ExceptionHandler.GetExceptions();
             if (x.Any()) {
                 var ex = x.Last();
+                if (ex.CreationDate <= _lastExceptionTimestamp) return;
+
+                _lastExceptionTimestamp = ex.CreationDate;
+
                 if (ex.StatusCode == 429) throw new TooManyRequestsException();
                 Debugger.Break();
             } 
