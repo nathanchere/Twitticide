@@ -45,7 +45,7 @@ namespace System.Collections.Concurrent
 
         public int Count { get { return storage.Count; } }
 
-        public bool IsEmptry { get { return storage.IsEmpty; } }
+        public bool IsEmpty { get { return storage.IsEmpty; } }
 
         public void Clear()
         {

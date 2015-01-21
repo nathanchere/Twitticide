@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Twitticide
 {
@@ -28,44 +30,61 @@ namespace Twitticide
                 Image = image;
                 WhenUpdated = DateTime.Now;
             }
-        }
+        }        
 
         public ImageCache()
         {
+            _queue = new ConcurrentDictionary<long, TwitterProfile>();
             _icons = new ConcurrentDictionary<long, TimestampedImage>();
         }
 
-        private readonly ConcurrentHashset<long> _queue; // Icons to download
+        private readonly ConcurrentDictionary<long, TwitterProfile> _queue;
         private readonly ConcurrentDictionary<long, TimestampedImage> _icons;
+        
+        private Task _updateThread = null;
 
-        private void RefreshIcon(long id)
-        {                        
-            //try
-            //{
-            //    var request = WebRequest.Create(item.Profile.ProfileImageUrl);
-            //    using (var response = request.GetResponse())
-            //    using (var stream = response.GetResponseStream())
-            //    {
-            //        _icons.Add(item.Id, new Bitmap(Image.FromStream(stream), 64, 64));
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    if (_icons.ContainsKey(item.Id)) return;
-            //    _icons.Add(item.Id, Properties.Resources.Avatar_Missing);
-            //}
-            
-            var nextId = _queue.FirstOrDefault();
-            if (nextId != default(long))
+        private void RefreshCache()
+        {
+            while (_queue.Any())
             {
-                _queue.TryRemove(nextId);
-                ThreadPool.QueueUserWorkItem(_ => RefreshIcon(nextId));
+                var id = _queue.First().Key;
+                TwitterProfile profile;
+                _queue.TryRemove(id, out profile);
+
+                Debug.WriteLine("ImageCache fetching profile image " + id);
+
+                try
+                {
+                    var request = WebRequest.Create(profile.ProfileImageUrl);
+                    using (var response = request.GetResponse())
+                    using (var stream = response.GetResponseStream())
+                    {
+                        _icons[profile.Id] = new TimestampedImage(new Bitmap(Image.FromStream(stream), 64, 64));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debugger.Break();
+                    //_icons[profile.Id, Properties.Resources.Avatar_Missing);
+                }
             }
         }
 
-        private void UpdateCache(long id)
+        /// <summary>
+        /// Tells the cache to fetch and cache the image for a given profile
+        /// </summary>
+        private void UpdateCache(TwitterProfile profile)
         {
-            ThreadPool.QueueUserWorkItem(_ => RefreshIcon(id));
+            if(!_queue.ContainsKey(profile.Id) || _icons.ContainsKey(profile.Id)) return;
+            
+            _queue[profile.Id] = profile;
+
+            // Start the worker thread if not already working
+            if (_updateThread == null || _updateThread.IsCanceled || _updateThread.IsCompleted || _updateThread.IsFaulted)
+            {
+                _updateThread = new Task(RefreshCache);
+                _updateThread.Start();
+            }
         }
 
         public Bitmap GetAvatar(long id)
@@ -74,7 +93,6 @@ namespace Twitticide
             {
                 if (!_icons.ContainsKey(id))
                 {
-                    UpdateCache(id);
                     return Properties.Resources.Avatar_Missing;
                 }
                 return _icons[id].Image;
