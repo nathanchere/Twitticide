@@ -197,7 +197,7 @@ namespace Twitticide
             InitializeComponent();
             DisplayMode = DisplayModes.Minimal;
             DrawMode = DrawMode.OwnerDrawFixed;
-            _imageCache = new ImageCache();
+            _imageCache = IOC.Resolve<IImageCache>();
         }
 
         protected override void OnBindingContextChanged(EventArgs e)
