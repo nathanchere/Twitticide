@@ -7,8 +7,8 @@ using System.Net;
 using System.Threading.Tasks;
 
 namespace Twitticide
-{
-    public class ImageCache : IImageCache
+{/*
+    public class ImageCache : IImageCache  
     {       
         public ImageCache(IDataStore dataStore)
         {
@@ -69,4 +69,5 @@ namespace Twitticide
             //return Properties.Resources.Avatar_Missing;
         }
     }
+  * */
 }
