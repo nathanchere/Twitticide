@@ -42,7 +42,7 @@ namespace Twitticide
             {
                 return (string) Registry.GetValue(REG_PATH, KEY_DATAPATH, null)
                        ?? ConfigurationManager.AppSettings[KEY_DATAPATH]
-                       ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Twitticide", "Accounts");
+                       ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Twitticide");
             }
 
             set { Registry.SetValue(REG_PATH, KEY_DATAPATH, value); }
