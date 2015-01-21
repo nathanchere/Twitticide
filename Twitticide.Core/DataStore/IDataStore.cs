@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace Twitticide
 {
@@ -10,5 +12,9 @@ namespace Twitticide
         TwitticideAccount LoadAccount(long id);        
         void BackupData(string fileName);
         void RestoreBackup(string fileName);
+
+        IEnumerable<Tuple<long, Bitmap>> GetAllAvatars();
+        Bitmap GetAvatar(long id);
+        void SaveAvatar(long id, Bitmap image);
     }
 }

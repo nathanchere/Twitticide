@@ -10,8 +10,6 @@ namespace Twitticide
 {
     public class ThreadedImageCache : IImageCache
     {
-        // TODO: Save and load from disk        
-
         private class TimestampedImage
         {
             public DateTime WhenUpdated { get; set; }
@@ -22,22 +20,33 @@ namespace Twitticide
                 Image = image;
                 WhenUpdated = DateTime.Now;
             }
-        }        
+        }
 
-        public ThreadedImageCache()
+        public ThreadedImageCache(IDataStore dataStore)
         {
+            _dataStore = dataStore;
             _queue = new ConcurrentDictionary<long, TwitterProfile>();
             _icons = new ConcurrentDictionary<long, TimestampedImage>();
             _placeholderBitmap = new Bitmap(3, 3);
             var graphics = Graphics.FromImage(_placeholderBitmap);
             graphics.Clear(Color.Red);
+
+            ReloadCache();
+        }
+
+        private void ReloadCache()
+        {
+            foreach (var result in _dataStore.GetAllAvatars())
+            {
+                _icons.TryAdd(result.Item1, new TimestampedImage(result.Item2));
+            }
         }
 
         private readonly ConcurrentDictionary<long, TwitterProfile> _queue;
         private readonly ConcurrentDictionary<long, TimestampedImage> _icons;
         private readonly Bitmap _placeholderBitmap;
-        private Guid _guid = Guid.NewGuid();
-        
+        private readonly IDataStore _dataStore;
+
         private Task _updateThread = null;
 
         private void RefreshCache()
@@ -55,8 +64,10 @@ namespace Twitticide
                     var request = WebRequest.Create(profile.ProfileImageUrl);
                     using (var response = request.GetResponse())
                     using (var stream = response.GetResponseStream())
-                    {
-                        _icons[profile.Id] = new TimestampedImage(new Bitmap(Image.FromStream(stream), 64, 64));
+                    {   
+                        var image= new Bitmap(Image.FromStream(stream), 64, 64);
+                        _icons[profile.Id] = new TimestampedImage(image);
+                        _dataStore.SaveAvatar(profile.Id, image);
                     }
                 }
                 catch (Exception ex)
@@ -72,10 +83,11 @@ namespace Twitticide
         /// </summary>
         public void UpdateCache(TwitterProfile profile)
         {
-            if(!_queue.ContainsKey(profile.Id) && !_icons.ContainsKey(profile.Id)) _queue[profile.Id] = profile;
+            if (!_queue.ContainsKey(profile.Id) && !_icons.ContainsKey(profile.Id)) _queue[profile.Id] = profile;
 
             // Start the worker thread if not already working
-            if (_updateThread == null || _updateThread.IsCanceled || _updateThread.IsCompleted || _updateThread.IsFaulted)
+            if (_updateThread == null || _updateThread.IsCanceled || _updateThread.IsCompleted ||
+                _updateThread.IsFaulted)
             {
                 _updateThread = new Task(RefreshCache);
                 _updateThread.Start();
@@ -92,7 +104,7 @@ namespace Twitticide
                 }
                 return _icons[id].Image;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return GetDefaultAvatar();
             }

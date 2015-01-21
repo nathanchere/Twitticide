@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -22,6 +24,7 @@ namespace Twitticide
         }
 
         private string DataPathAccounts { get { return Path.Combine(_config.ApplicationDataPath, "Accounts"); } }
+        private string DataPathImages { get { return Path.Combine(_config.ApplicationDataPath, "Images"); } }
 
         public IEnumerable<TwitticideAccount> LoadAccounts()
         {
@@ -80,6 +83,11 @@ namespace Twitticide
             return Directory.GetFiles(DataPathAccounts);
         }
 
+        private IEnumerable<string> GetAllTwitterProfileImageCacheFiles()
+        {
+            return Directory.GetFiles(DataPathImages);
+        }
+
         public void RestoreBackup(string fileName)
         {
             VerifyDataPathExists(DataPathAccounts);            
@@ -94,6 +102,33 @@ namespace Twitticide
                     file.ExtractToFile(outputPath);
                 }
             }
+        }
+
+        public IEnumerable<Tuple<long, Bitmap>> GetAllAvatars()
+        {
+            VerifyDataPathExists(DataPathImages);
+
+            var files = Directory.GetFiles(DataPathAccounts).Where(x => x.EndsWith(".profile.png"));
+            return files
+                .Select(f =>
+                {
+                    var image = new Bitmap(f);
+                    var id = long.Parse(Path.GetFileName(f).Split('.')[0]);
+                    return new Tuple<long, Bitmap>(id, image);
+                });
+        }
+
+        public Bitmap GetAvatar(long id)
+        {
+            var file = Directory.GetFiles(DataPathAccounts).Single(x => Path.GetFileName(x) == id + ".profile.png");
+            return new Bitmap(file);
+        }
+
+        public void SaveAvatar(long id, Bitmap image)
+        {
+            var fileName = Path.Combine(DataPathImages, id + ".profile.png");
+            if(File.Exists(fileName)) File.Delete(fileName);
+            image.Save(fileName, ImageFormat.Png);
         }
 
         public void BackupData(string fileName)

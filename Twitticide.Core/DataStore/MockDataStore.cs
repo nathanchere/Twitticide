@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace Twitticide
 {
@@ -40,6 +41,21 @@ namespace Twitticide
         }
 
         public void RestoreBackup(string fileName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Tuple<long, Bitmap>> GetAllAvatars()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Bitmap GetAvatar(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveAvatar(long id, Bitmap image)
         {
             throw new NotImplementedException();
         }
