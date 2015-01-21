@@ -8,10 +8,6 @@ using System.Threading.Tasks;
 
 namespace Twitticide
 {
-
-    /// <summary>
-    /// TODO: worry about performance later
-    /// </summary>
     public class ThreadedImageCache : IImageCache
     {
         // TODO: Save and load from disk        
@@ -32,10 +28,14 @@ namespace Twitticide
         {
             _queue = new ConcurrentDictionary<long, TwitterProfile>();
             _icons = new ConcurrentDictionary<long, TimestampedImage>();
+            _placeholderBitmap = new Bitmap(3, 3);
+            var graphics = Graphics.FromImage(_placeholderBitmap);
+            graphics.Clear(Color.Red);
         }
 
         private readonly ConcurrentDictionary<long, TwitterProfile> _queue;
         private readonly ConcurrentDictionary<long, TimestampedImage> _icons;
+        private readonly Bitmap _placeholderBitmap;
         private Guid _guid = Guid.NewGuid();
         
         private Task _updateThread = null;
@@ -74,14 +74,12 @@ namespace Twitticide
         {
             if(!_queue.ContainsKey(profile.Id) && !_icons.ContainsKey(profile.Id)) _queue[profile.Id] = profile;
 
-            RefreshCache();
-
-            //// Start the worker thread if not already working
-            //if (_updateThread == null || _updateThread.IsCanceled || _updateThread.IsCompleted || _updateThread.IsFaulted)
-            //{
-            //    _updateThread = new Task(RefreshCache);
-            //    _updateThread.Start();
-            //}
+            // Start the worker thread if not already working
+            if (_updateThread == null || _updateThread.IsCanceled || _updateThread.IsCompleted || _updateThread.IsFaulted)
+            {
+                _updateThread = new Task(RefreshCache);
+                _updateThread.Start();
+            }
         }
 
         public Bitmap GetAvatar(long id)
@@ -102,7 +100,7 @@ namespace Twitticide
 
         private Bitmap GetDefaultAvatar()
         {
-            return new Bitmap(3,3);
+            return _placeholderBitmap;
             //return Properties.Resources.Avatar_Missing;
         }
     }
