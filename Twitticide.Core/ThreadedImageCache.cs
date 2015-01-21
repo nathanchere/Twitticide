@@ -1,32 +1,18 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Twitticide
 {
-    public interface IImageCache
-    {
-        /// <summary>
-        /// Retrieve a Twitter user's avatar if cached, otherwise return a placeholder image
-        /// </summary>
-        Bitmap GetAvatar(long id);
-        
-        /// <summary>
-        /// Tells the cache to fetch and cache the image for a given profile
-        /// </summary>
-        void UpdateCache(TwitterProfile profile);
 
-        //TODO: mechanism for updating old/stale ones
-    }
-
-    // TODO: support saving and loading locally
-    public class ImageCache : IImageCache
+    /// <summary>
+    /// TODO: worry about performance later
+    /// </summary>
+    public class ThreadedImageCache : IImageCache
     {
         // TODO: Save and load from disk        
 
@@ -42,7 +28,7 @@ namespace Twitticide
             }
         }        
 
-        public ImageCache()
+        public ThreadedImageCache()
         {
             _queue = new ConcurrentDictionary<long, TwitterProfile>();
             _icons = new ConcurrentDictionary<long, TimestampedImage>();
