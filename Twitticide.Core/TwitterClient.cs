@@ -27,6 +27,7 @@ namespace Twitticide
     {
         private DateTime _lastExceptionTimestamp;
         private IConfigProvider _config;
+        private IImageCache _imageCache;
 
         public TwitterClient(IConfigProvider config) : this(null, null, null, null, config) { }
         public TwitterClient(string apiKey, string apiKeySecret, string accessToken, string accessTokenSecret, IConfigProvider config)

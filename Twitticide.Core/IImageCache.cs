@@ -12,14 +12,24 @@ namespace Twitticide
 {
     public interface IImageCache
     {
+        /// <summary>
+        /// Retrieve a Twitter user's avatar if cached, otherwise return a placeholder image
+        /// </summary>
         Bitmap GetAvatar(long id);
+        
+        /// <summary>
+        /// Tells the cache to fetch and cache the image for a given profile
+        /// </summary>
+        void UpdateCache(TwitterProfile profile);
 
-        //TODO: mechanism for updating old ones
+        //TODO: mechanism for updating old/stale ones
     }
 
     // TODO: support saving and loading locally
     public class ImageCache : IImageCache
     {
+        // TODO: Save and load from disk
+
         private class TimestampedImage
         {
             public DateTime WhenUpdated { get; set; }
@@ -73,7 +83,7 @@ namespace Twitticide
         /// <summary>
         /// Tells the cache to fetch and cache the image for a given profile
         /// </summary>
-        private void UpdateCache(TwitterProfile profile)
+        public void UpdateCache(TwitterProfile profile)
         {
             if(!_queue.ContainsKey(profile.Id) || _icons.ContainsKey(profile.Id)) return;
             
@@ -93,14 +103,20 @@ namespace Twitticide
             {
                 if (!_icons.ContainsKey(id))
                 {
-                    return Properties.Resources.Avatar_Missing;
+                    return GetDefaultAvatar();
                 }
                 return _icons[id].Image;
             }
             catch(Exception ex)
             {
-                return Properties.Resources.Avatar_Missing;
+                return GetDefaultAvatar();
             }
+        }
+
+        private Bitmap GetDefaultAvatar()
+        {
+            return new Bitmap(3,3);
+            //return Properties.Resources.Avatar_Missing;
         }
     }
 }

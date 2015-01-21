@@ -57,6 +57,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Net" />
@@ -99,6 +100,7 @@
     <Compile Include="DataStore\IDataStore.cs" />
     <Compile Include="DataStore\MockDataStore.cs" />
     <Compile Include="IConfigProvider.cs" />
+    <Compile Include="IImageCache.cs" />
     <Compile Include="IOC.cs" />
     <Compile Include="RefreshProfilesResult.cs" />
     <Compile Include="RefreshAccountContactsResult.cs" />
