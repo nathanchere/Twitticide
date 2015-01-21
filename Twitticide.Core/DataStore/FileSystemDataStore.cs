@@ -108,7 +108,7 @@ namespace Twitticide
         {
             VerifyDataPathExists(DataPathImages);
 
-            var files = Directory.GetFiles(DataPathAccounts).Where(x => x.EndsWith(".profile.png"));
+            var files = Directory.GetFiles(DataPathImages).Where(x => x.EndsWith(".profile.png"));
             return files
                 .Select(f =>
                 {
