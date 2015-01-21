@@ -107,12 +107,12 @@ namespace Twitticide
         }
 
         private class DetailedRenderer : IRenderer
-        {
-            private readonly Dictionary<long, Bitmap> _icons;
+        {            
+            private IImageCache _imageCache;
 
-            public DetailedRenderer()
+            public DetailedRenderer(IImageCache imageCache)
             {
-                _icons = new Dictionary<long, Bitmap>();
+                _imageCache = imageCache;                
             }
 
             public int ItemHeight
@@ -123,11 +123,10 @@ namespace Twitticide
             public void Render(RenderItemEventArgs e)
             {
                 if (e.args.Index >= 0)
-                {
-                    if (!_icons.ContainsKey(e.item.Id)) RefreshIcon(e.item);                    
+                {                                        
                     e.args.DrawBackground();
                     
-                    e.args.Graphics.DrawImage(_icons[e.item.Id], e.args.Bounds.X + 2, e.args.Bounds.Y + 2, 64, 64);
+                    e.args.Graphics.DrawImage(_imageCache.GetAvatar(e.item.Id), e.args.Bounds.X + 2, e.args.Bounds.Y + 2, 64, 64);
 
                     var textRectUserName = e.args.Bounds;
                     textRectUserName.X += 66;
@@ -150,28 +149,6 @@ namespace Twitticide
                 }
             }
 
-            private void RefreshIcon(TwitterContact item)
-            {
-                if (item.Profile == null) {
-                    _icons.Add(item.Id, Properties.Resources.Avatar_Missing);
-                    return;
-                }
-                try
-                {
-
-                    var request = WebRequest.Create(item.Profile.ProfileImageUrl);
-                    using (var response = request.GetResponse())
-                    using (var stream = response.GetResponseStream())
-                    {
-                        _icons.Add(item.Id, new Bitmap(Bitmap.FromStream(stream), 64, 64));
-                    }
-                }
-                catch(Exception ex)
-                {
-                    _icons.Add(item.Id, Properties.Resources.Avatar_Missing);
-                }
-            }
-
             public event ProfileInteractionDelegate Follow;
             public event ProfileInteractionDelegate Unfollow;
             public event ProfileInteractionDelegate Mute;
@@ -181,6 +158,7 @@ namespace Twitticide
         #endregion
 
         private IRenderer _renderer;
+        private IImageCache _imageCache;
         private DisplayModes _displayMode;
 
         public DisplayModes DisplayMode
@@ -200,7 +178,7 @@ namespace Twitticide
                         break;
 
                     case DisplayModes.Detailed:
-                        _renderer = new DetailedRenderer();
+                        _renderer = new DetailedRenderer(_imageCache);
                         break;
                 }
                 ItemHeight = _renderer.ItemHeight;
@@ -219,7 +197,13 @@ namespace Twitticide
             InitializeComponent();
             DisplayMode = DisplayModes.Minimal;
             DrawMode = DrawMode.OwnerDrawFixed;
-        }        
+            _imageCache = new ImageCache();
+        }
+
+        protected override void OnBindingContextChanged(EventArgs e)
+        {
+            base.OnBindingContextChanged(e);            
+        }
 
         protected override void OnDrawItem(DrawItemEventArgs e)
         {
