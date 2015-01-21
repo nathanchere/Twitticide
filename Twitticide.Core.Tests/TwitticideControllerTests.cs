@@ -47,7 +47,7 @@ namespace Twitticide
             var target = IOC.Resolve<TwitticideController>();
             target.AddUser(expectedId);
 
-            var expected = target.Users.SingleOrDefault(x => x.Id == expectedId);
+            var expected = target.Accounts.SingleOrDefault(x => x.Id == expectedId);
             Assert.NotNull(expected);
         }
 
@@ -61,7 +61,7 @@ namespace Twitticide
             target.AddUser(12);
             target.AddUser(13);
 
-            var expected = target.Users.Length;
+            var expected = target.Accounts.Length;
             Assert.Equal(expectedTotal, expected);
         }
 
@@ -72,10 +72,10 @@ namespace Twitticide
             var target = IOC.Resolve<TwitticideController>();
             target.AddUser(expectedId);
 
-            var expected = target.Users.Single(x => x.Id == expectedId);
+            var expected = target.Accounts.Single(x => x.Id == expectedId);
 
             target.AddUser(expectedId);
-            var expectedMatch = target.Users.Single(x => x.Id == expectedId);
+            var expectedMatch = target.Accounts.Single(x => x.Id == expectedId);
             
             Assert.Equal(expected.UserName, expectedMatch.UserName);
         }
@@ -115,7 +115,7 @@ namespace Twitticide
             target.AddUser(13);
             target.RemoveUser(12);
 
-            var expected = target.Users.Length;
+            var expected = target.Accounts.Length;
             Assert.Equal(expectedTotal, expected);
         }
 
@@ -132,7 +132,7 @@ namespace Twitticide
 
             target.RemoveUser(expectedId);
 
-            var expected = target.Users.Any(x=>x.Id == expectedId);
+            var expected = target.Accounts.Any(x=>x.Id == expectedId);
             Assert.False(expected);
         }
 

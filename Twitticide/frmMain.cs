@@ -14,17 +14,19 @@ namespace Twitticide
     {
         private readonly TwitticideController Controller;
         private readonly IConfigProvider Config;
+        private readonly IImageCache ImageCache;
 
         public frmMain()
         {            
             InitializeComponent();
             Controller = IOC.Resolve<TwitticideController>();
             Config = IOC.Resolve<IConfigProvider>();
+            ImageCache = IOC.Resolve<IImageCache>();
         }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            if (!Controller.Users.Any())
+            if (!Controller.Accounts.Any())
             {
                 ShowManageUserDialog();                
             }
@@ -36,7 +38,7 @@ namespace Twitticide
         {
             accountTabs.TabPages.Clear();
 
-            foreach (var user in Controller.Users)
+            foreach (var user in Controller.Accounts)
             {
                 accountTabs.TabPages.Add(user.UserName, user.UserName);
 
@@ -120,6 +122,17 @@ namespace Twitticide
 
             Controller.RestoreBackup(dialog.FileName);
             ReloadUI();
+        }
+
+        private void updateImageCacheToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (var account in Controller.Accounts)
+            {
+                foreach (var profile in account.Contacts.Select(c => c.Value.Profile))
+                {
+                    ImageCache.UpdateCache(profile);
+                }                
+            }            
         }
     }
 }

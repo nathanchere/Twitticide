@@ -61,19 +61,18 @@ namespace Twitticide
 
                 try
                 {
-                    var request = WebRequest.Create(profile.ProfileImageUrl);
+                    var request = WebRequest.Create(profile.ProfileImageUrl.Replace("_normal","_bigger"));
                     using (var response = request.GetResponse())
                     using (var stream = response.GetResponseStream())
                     {   
-                        var image= new Bitmap(Image.FromStream(stream), 64, 64);
+                        var image= new Bitmap(Image.FromStream(stream), 64, 64); 
                         _icons[profile.Id] = new TimestampedImage(image);
                         _dataStore.SaveAvatar(profile.Id, image);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Debugger.Break();
-                    //_icons[profile.Id, Properties.Resources.Avatar_Missing);
+                    Debug.WriteLine("Fetch Twitter profile image failed: " + ex.Message);                  
                 }
             }
         }

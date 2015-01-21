@@ -39,6 +39,7 @@
             this.restoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.debugToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkRateLimitsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateImageCacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accountTabs.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -90,14 +91,14 @@
             // btnManageAccounts
             // 
             this.btnManageAccounts.Name = "btnManageAccounts";
-            this.btnManageAccounts.Size = new System.Drawing.Size(115, 20);
+            this.btnManageAccounts.Size = new System.Drawing.Size(106, 20);
             this.btnManageAccounts.Text = "Manage Accounts";
             this.btnManageAccounts.Click += new System.EventHandler(this.btnManageAccounts_Click);
             // 
             // setDataDirToolStripMenuItem
             // 
             this.setDataDirToolStripMenuItem.Name = "setDataDirToolStripMenuItem";
-            this.setDataDirToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.setDataDirToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
             this.setDataDirToolStripMenuItem.Text = "Set data dir";
             this.setDataDirToolStripMenuItem.Click += new System.EventHandler(this.setDataDirToolStripMenuItem_Click);
             // 
@@ -105,22 +106,23 @@
             // 
             this.manageDataToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.backUpToolStripMenuItem,
-            this.restoreToolStripMenuItem});
+            this.restoreToolStripMenuItem,
+            this.updateImageCacheToolStripMenuItem});
             this.manageDataToolStripMenuItem.Name = "manageDataToolStripMenuItem";
-            this.manageDataToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
+            this.manageDataToolStripMenuItem.Size = new System.Drawing.Size(82, 20);
             this.manageDataToolStripMenuItem.Text = "Manage data";
             // 
             // backUpToolStripMenuItem
             // 
             this.backUpToolStripMenuItem.Name = "backUpToolStripMenuItem";
-            this.backUpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.backUpToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.backUpToolStripMenuItem.Text = "Back up";
             this.backUpToolStripMenuItem.Click += new System.EventHandler(this.backUpToolStripMenuItem_Click);
             // 
             // restoreToolStripMenuItem
             // 
             this.restoreToolStripMenuItem.Name = "restoreToolStripMenuItem";
-            this.restoreToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.restoreToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.restoreToolStripMenuItem.Text = "Restore";
             this.restoreToolStripMenuItem.Click += new System.EventHandler(this.restoreToolStripMenuItem_Click);
             // 
@@ -129,15 +131,22 @@
             this.debugToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.checkRateLimitsToolStripMenuItem});
             this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
-            this.debugToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.debugToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             this.debugToolStripMenuItem.Text = "Debug";
             // 
             // checkRateLimitsToolStripMenuItem
             // 
             this.checkRateLimitsToolStripMenuItem.Name = "checkRateLimitsToolStripMenuItem";
-            this.checkRateLimitsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.checkRateLimitsToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.checkRateLimitsToolStripMenuItem.Text = "Check rate limits";
             this.checkRateLimitsToolStripMenuItem.Click += new System.EventHandler(this.checkRateLimitsToolStripMenuItem_Click);
+            // 
+            // updateImageCacheToolStripMenuItem
+            // 
+            this.updateImageCacheToolStripMenuItem.Name = "updateImageCacheToolStripMenuItem";
+            this.updateImageCacheToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.updateImageCacheToolStripMenuItem.Text = "Update image cache";
+            this.updateImageCacheToolStripMenuItem.Click += new System.EventHandler(this.updateImageCacheToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -171,6 +180,7 @@
         private System.Windows.Forms.ToolStripMenuItem restoreToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem debugToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem checkRateLimitsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem updateImageCacheToolStripMenuItem;
     }
 }
 

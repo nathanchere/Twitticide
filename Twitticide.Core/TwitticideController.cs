@@ -234,7 +234,7 @@ namespace Twitticide
         }        
 
         private readonly List<TwitticideAccount> _users;
-        public TwitticideAccount[] Users
+        public TwitticideAccount[] Accounts
         {
             get { return _users.ToArray(); }
         }
