@@ -31,12 +31,14 @@ namespace Twitticide
         private readonly ITwitterClient _client;
         private readonly IDataStore _dataStore;
         private readonly IConfigProvider _config;
+        private readonly IImageCache _imageCache;
 
-        public TwitticideController(ITwitterClient twitterClient, IDataStore dataStore, IConfigProvider config)
+        public TwitticideController(ITwitterClient twitterClient, IDataStore dataStore, IConfigProvider config, IImageCache imageCache)
         {
             _client = twitterClient;
             _dataStore = dataStore;
             _config = config;
+            _imageCache = imageCache;
 
             _users = new List<TwitticideAccount>();
 
@@ -180,19 +182,33 @@ namespace Twitticide
                 foreach (var contact in contactsToUpdate)
                 {
                     var profile = profiles.SingleOrDefault(p => p.Id == contact.Id);
-
                     if (profile == null)
                     {
                         profile = contact.Profile ?? new TwitterProfile
                         {
                             Id = contact.Id,
-                            DisplayName = "[deleted]",
-                            UserName = "[deleted]",
+                            DisplayName = "[notFound]",
+                            UserName = "[notFound]",
                         };
-                        profile.IsDeleted = true;
+                        //if (contact == null)
+                        //{
+                            
+                        //    profile.IsDeleted = true;
+                        //}
+                        //else
+                        //{
+                        //    profile = contact.Profile ?? new TwitterProfile
+                        //    {
+                        //        Id = contact.Id,
+                        //        DisplayName = "[deleted] " + contact.Profile.DisplayName,
+                        //        UserName = "[deleted] " + contact.Profile.UserName,
+                        //    };
+                        //    profile.IsDeleted = true;
+                        //}
                     }
                     else
                     {
+                        _imageCache.UpdateCache(profile);
                         profile.IsDeleted = false;
                     }
                     contact.Profile = profile;

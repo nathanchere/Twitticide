@@ -85,9 +85,7 @@ namespace Twitticide
         /// </summary>
         public void UpdateCache(TwitterProfile profile)
         {
-            if(!_queue.ContainsKey(profile.Id) || _icons.ContainsKey(profile.Id)) return;
-            
-            _queue[profile.Id] = profile;
+            if(!_queue.ContainsKey(profile.Id) && !_icons.ContainsKey(profile.Id)) _queue[profile.Id] = profile;
 
             // Start the worker thread if not already working
             if (_updateThread == null || _updateThread.IsCanceled || _updateThread.IsCompleted || _updateThread.IsFaulted)

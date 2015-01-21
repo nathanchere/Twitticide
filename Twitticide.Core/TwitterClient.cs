@@ -26,13 +26,12 @@ namespace Twitticide
     public class TwitterClient : ITwitterClient
     {
         private DateTime _lastExceptionTimestamp;
-        private IConfigProvider _config;
-        private IImageCache _imageCache;
+        private IConfigProvider _config;        
 
         public TwitterClient(IConfigProvider config) : this(null, null, null, null, config) { }
         public TwitterClient(string apiKey, string apiKeySecret, string accessToken, string accessTokenSecret, IConfigProvider config)
         {
-            _config = config;            
+            _config = config;
             TwitterCredentials.SetCredentials(
                 apiKey ?? _config.TwitterAccessToken,
                 apiKeySecret ?? _config.TwitterAccessTokenSecret,
@@ -49,7 +48,7 @@ namespace Twitticide
         {
             var profiles = User.GetUsersFromIds(ids);
             CheckForExceptions();
-            return profiles.Select(profile => new TwitterProfile(profile));
+            return profiles.Select(profile => new TwitterProfile(profile)).ToList(); 
         }
 
         public TwitterProfile GetUser(string userName)
